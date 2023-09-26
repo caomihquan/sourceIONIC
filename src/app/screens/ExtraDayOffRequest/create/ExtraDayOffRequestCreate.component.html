@@ -1,0 +1,181 @@
+<app-standard-header [title]="itemFunction?.title" [icon]="'arrow-back-outline'" [href]="'ExtraDayOffRequest'">
+</app-standard-header>
+<ion-content>
+    <div style="margin-bottom:4rem;">
+        <div class="leaveheader">
+            <span class="headerTitle">{{'LEAVE_REQUEST.Used' | translate}}: </span>
+            <span class="headerValue headerTitle" *ngIf="modelConfigTSEmp?.TSHoursPerWD != 1">
+                {{commonHandler.convertDays(RemainLeaveNumber?.LastLeave)}}
+            </span>
+            <span class="headerValue headerTitle" *ngIf="modelConfigTSEmp?.TSHoursPerWD == 1">
+                {{commonHandler.convertHour(RemainLeaveNumber?.LastLeave)}}
+            </span>
+            <span> - </span>
+            <span> {{'LEAVE_REQUEST.Available' | translate}}: </span>
+            <span class="headerValue" *ngIf="modelConfigTSEmp?.TSHoursPerWD != 1">
+                {{commonHandler.convertDays(RemainLeaveNumber?.CurrLeave)}}
+            </span>
+            <span class="headerValue" *ngIf="modelConfigTSEmp?.TSHoursPerWD == 1">
+                {{commonHandler.convertHour(RemainLeaveNumber?.CurrLeave)}}
+            </span>
+        </div>
+        <div class="ion-padding">
+            <ion-list>
+                <ion-item class="twoColumn">
+                    <ng-container>
+                        <ion-label class="list-left">{{'EXTRADAYOFF_REQUEST.RequestDate' | translate}}</ion-label>
+                        <ion-label slot="end" class="label-list-end">{{CurrentDate}}</ion-label>
+                    </ng-container>
+                </ion-item>
+            </ion-list>
+        </div>
+        <ion-item class="profile-title">
+            <ion-label>{{'EXTRADAYOFF_REQUEST.LeaveDetail' | translate}}</ion-label>
+        </ion-item>
+        <div class="ion-padding">
+            <ion-list>
+                <ion-item>
+                    <app-valuelist-modal class="DefaultFunction" [arraySearch]="['LeaveKows']" [template]="itemTemplate"
+                        [datas]="LeaveKows"
+                        [inputText]="LeaveKowsSelected['KowName']"
+                        [FieldKeyInput]="'KowName'"
+                         [textLeft]="'EXTRADAYOFF_REQUEST.Type' | translate"
+                        (selectedItem)="eventSelectedKow($event)">
+                    </app-valuelist-modal>
+                </ion-item>
+
+                <ion-item *ngIf="!DefaultFromDate">
+                    <app-datetime-modal class="DefaultFunction" [textLeft]="'COMMON.FromDate' | translate" (selectedItem)="eventSelectedatetime($event)" [inputText]="SelectedFromDate" iddatetime="datetime" iddatetimetrigger="datetime2">
+                    </app-datetime-modal>
+                </ion-item>
+
+                <ion-item class="twoColumn" *ngIf="DefaultFromDate">
+                    <ng-container>
+                        <ion-label class="list-left">{{'COMMON.FromDate' | translate}}</ion-label>
+                        <ion-label slot="end" class="label-list-end" style="width: 100%;margin-right:0.5rem; font-weight: bold;">
+                            <!-- {{FormatHandler.formatDate(SelectedToDate, LoginInfo)}} -->
+                            {{SelectedFromDate | date: FormatDateViewUI }}
+                        </ion-label>
+
+                    </ng-container>
+                </ion-item>
+
+                <ion-item>
+                    <app-valuelist-modal class="DefaultFunction" [arraySearch]="['LeaveTimes']"
+                    [template]="itemTemplate2" [datas]="LeaveTimes" [TextInput]="'Caption'"
+                    [inputText]="LeaveTimeSelected['Caption']" [textLeft]="'EXTRADAYOFF_REQUEST.Time' | translate"
+                    [FieldKeyInput]="'Caption'"
+                    (selectedItem)="eventSelectedLeave($event)">
+                    </app-valuelist-modal>
+                </ion-item>
+
+
+                <ion-item *ngIf="(UseDayNum && LeaveTimeSelected?.Value != 6)">
+                    <ion-label class="list-left">{{'LEAVE_REQUEST.DayNum' | translate}}</ion-label>
+                </ion-item>
+
+                <ion-item class="list-left" *ngIf="(!DefaultToDate && UseDayNum && LeaveTimeSelected?.Value != 6)">
+                    <ion-input class="DefaultFunction" style="--padding-start: 1rem;" type="number" [(ngModel)]='DayNum' (ionBlur)="eventOnEditDayNumChange(DayNum)" (ionChange)="eventOnChangeTimeSelected(DayNum)" placeholder="{{'LEAVE_REQUEST.DayNum' | translate}}"></ion-input>
+                </ion-item>
+
+                <ion-item class="twoColumn" *ngIf="UseDayNum && !DefaultToDate && LeaveTimeSelected?.Value != 6">
+                    <ng-container>
+                        <ion-label class="list-left">{{'COMMON.ToDate' | translate}}</ion-label>
+                        <ion-label slot="end" class="label-list-end" style="width: 100%;margin-right:0.5rem; font-weight: bold;">
+                            <!-- {{FormatHandler.formatDate(SelectedToDate, LoginInfo)}} -->
+                            {{SelectedToDate | date: FormatDateViewUI }}
+                        </ion-label>
+
+                    </ng-container>
+                </ion-item>
+
+                <ion-item *ngIf="!UseDayNum && !DefaultToDate && LeaveTimeSelected?.Value != 6" style="margin-top: 1rem;">
+                    <app-datetime-modal class="DefaultFunction" [textLeft]="'COMMON.ToDate' | translate" iddatetime="datetimea" iddatetimetrigger="datetimea1" (selectedItem)="eventSelectetodatetime($event)">
+                    </app-datetime-modal>
+                </ion-item>
+
+                <ion-item class="twoColumn" *ngIf="!UseDayNum && DefaultToDate && LeaveTimeSelected?.Value != 6">
+                    <ng-container>
+                        <ion-label class="list-left">{{'COMMON.ToDate' | translate}}</ion-label>
+                        <ion-label slot="end" class="label-list-end" style="width: 100%;margin-right:0.5rem; font-weight: bold;">
+                            <!-- {{FormatHandler.formatDate(SelectedToDate, LoginInfo)}} -->
+                            {{SelectedToDate | date: FormatDateViewUI }}
+                        </ion-label>
+
+                    </ng-container>
+                </ion-item>
+
+                <ion-item *ngIf="!DefaultToDate && LeaveTimeSelected?.Value == 6" style="margin-top: 1rem;">
+                    <app-datetime-modal class="DefaultFunction" [textLeft]="'COMMON.ToDate' | translate" iddatetime="datetimea" iddatetimetrigger="datetimea1" (selectedItem)="eventSelectetodatetime($event)">
+                    </app-datetime-modal>
+                </ion-item>
+
+                <ion-item class="twoColumn" *ngIf="DefaultToDate && LeaveTimeSelected?.Value == 6">
+                    <ng-container>
+                        <ion-label class="list-left">{{'COMMON.ToDate' | translate}}</ion-label>
+                        <ion-label slot="end" class="label-list-end" style="width: 100%;margin-right:0.5rem; font-weight: bold;">
+                            <!-- {{FormatHandler.formatDate(SelectedToDate, LoginInfo)}} -->
+                            {{SelectedToDate | date: FormatDateViewUI }}
+                        </ion-label>
+
+                    </ng-container>
+                </ion-item>
+
+                <ion-item *ngIf="LeaveTimeSelected?.Value == 6" style="margin-top: 1rem;">
+                    <app-time-modal class="DefaultFunction" [textLeft]="'COMMON.FromTime' | translate" idtime="SelectedFromTime" idTimeShow="SelectedFromTime1" [myTime]="FromTime" (selectedItem)="eventSelectefromtime($event)">
+                    </app-time-modal>
+                    <app-time-modal style="width: 100%;margin-right:0.28rem;" [textLeft]="'COMMON.ToTime' | translate" idtime="SelectedToTime" idTimeShow="SelectedToTime1" [myTime]="ToTime" (selectedItem)="eventSelectetotime($event)">
+                    </app-time-modal>
+                </ion-item>
+
+                <ion-item>
+                    <ion-label class="list-left">{{'EXTRADAYOFF_REQUEST.Reason' | translate}}</ion-label>
+                </ion-item>
+                <ion-item class="list-left" style="padding-right: 10px;">
+                    <ion-textarea class="list-left" style="padding: 1rem;
+                        margin-bottom: 1rem;
+                        border: 1px solid var(--ion-color-primary);
+                        border-radius: 4px;" [(ngModel)]="txtReason" rows="4" placeholder="{{'EXTRADAYOFF_REQUEST.WriteDownReasonLeave' | translate}}"></ion-textarea>
+                </ion-item>
+                <ion-item *ngIf="IsShow">
+                    <ion-label class="list-left">{{'COMMON.NguoiThayThe' | translate}}</ion-label>
+
+                </ion-item>
+                <ion-item class="modal-input" style="margin-left:0.5rem;" *ngIf="IsShow">
+                    <ion-input [(ngModel)]="NguoiThayThe.FullName" readonly class="custom" id="open-modal" placeholder="{{'COMMON.NguoiThayThe' | translate}}" style="margin-right: 1rem;margin-left: 0.4rem;">
+                    </ion-input>
+                    <ion-icon name="arrow-down-outline" style="position: absolute;
+                            right: 1rem;"></ion-icon>
+                    <app-modal-selected [lines]="true" [title]="'COMMON.NguoiThayThe'|translate" idOpen="open-modal" [arraySearch]="['FullName','EmployeeCode']" [template]="itemTemplate4" [datas]="lstNguoiThayThe" [TextInput]="'FullName'" [inputText]="NguoiThayThe['FullName']"
+                        [textLeft]="'COMMON.NguoiThayThe' | translate" (selectedItem)="eventOnSelectedNguoiThayThe($event)">
+                    </app-modal-selected>
+                </ion-item>
+            </ion-list>
+        </div>
+    </div>
+    <ion-item class="footer-checkinout">
+        <ion-button style="--background:#e0e0e0;--color:#666" (click)="doPop()">
+            {{"COMMON.Cancel" | translate}}
+        </ion-button>
+        <ion-button id='btnsubmit' (click)="doSubmit(false)">
+            {{"COMMON.Submit" | translate}}
+        </ion-button>
+    </ion-item>
+</ion-content>
+<ng-template #itemTemplate let-item>
+    {{item.KowName}}
+</ng-template>
+<ng-template #itemTemplate2 let-item>
+    {{item.Caption}}
+</ng-template>
+<ng-template #itemTemplate3 let-item>
+    {{item.Caption}}
+</ng-template>
+<ng-template #itemTemplate4 let-item>
+    <div style="flex: 1;
+    border-bottom: 1px solid #ddd;
+    padding: 1rem;">
+        <div style="margin-bottom: 0.6rem;">{{item.FullName}}</div>
+        <div> {{item.EmployeeCode}}</div>
+    </div>
+</ng-template>

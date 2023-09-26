@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>305339677577-lr39n6hai7kira5dn065sfr44ch5cocj.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.305339677577-lr39n6hai7kira5dn065sfr44ch5cocj</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>305339677577-l5naluu6bu6i8dsbc2p238i28v6u32j0.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDRXdFHqlp3j_u70jpNqbVx5wjKmuDdWsA</string>
+	<key>GCM_SENDER_ID</key>
+	<string>305339677577</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.surehcs.iaquamobile</string>
+	<key>PROJECT_ID</key>
+	<string>signinaqua</string>
+	<key>STORAGE_BUCKET</key>
+	<string>signinaqua.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:305339677577:ios:6825a29da14aeebe9c7f58</string>
+</dict>
+</plist>

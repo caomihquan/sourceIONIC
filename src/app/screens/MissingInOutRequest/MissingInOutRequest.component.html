@@ -1,0 +1,56 @@
+<app-standard-header [title]="FunctionInfo?.title" [icon]="'arrow-back-outline'" [href]="'home'">
+</app-standard-header>
+<ion-content>
+    <ion-icon id="dragable" name="add-circle-sharp" (click)="doAddNewRequest()"></ion-icon>
+
+    <ion-item style="--padding-start:10px; margin: 0 0.4rem;--inner-padding-end:0;margin-top:0.4rem;">
+        <app-valuelist-modal style="margin:0 0.5rem;width: 50%;" [template]="itemTemplate2" [datas]="lstDows" FieldKeyInput="DowCode" [textLeft]="'COMMON.Month' | translate" [inputText]="DowCodeSelection" (selectedItem)="eventOnSelectedDowCode($event)">
+        </app-valuelist-modal>
+        <app-valuelist-modal style="margin:0 0.5rem;width: 50%;" [template]="itemTemplate" [datas]="OrderByItems" FieldKeyInput="name" [textLeft]="'COMMON.OrderBy' | translate" [inputText]="OrderByItems[1].name" (selectedItem)="eventOnSelectedOrderBy($event)">
+        </app-valuelist-modal>
+    </ion-item>
+
+    <ng-container>
+        <listview [template]="itemTemplate3" [datas]="RequestData" [templateGroup]="groupTemplate" style="width: 100%" [isGroup]="true" (selectedItem)="onClickEmp($event)" fieldGroupChild="Data" [classDivContainer]="'border-radius-emp-leave'" [classListItem]="'item-emp-leave'"
+            classGroup="my-list-request-group">
+        </listview>
+        <!-- <ion-infinite-scroll threshold="100px" (ionInfinite)="loadMore($event)">
+            <ion-infinite-scroll-content loadingSpinner="bubbles" [loadingText]="'COMMON.Loading' | translate"></ion-infinite-scroll-content>
+        </ion-infinite-scroll> -->
+    </ng-container>
+
+</ion-content>
+<ng-template #itemTemplate let-item>
+    {{item.name}}
+
+</ng-template>
+<ng-template #itemTemplate2 let-item>
+    {{item.DowCode}}
+
+</ng-template>
+
+<ng-template #groupTemplate let-item>
+    <ion-label [ngClass]="{'group-label-emp':false ,'group-label-dv':true}" class="headerlistleave">
+        <span [ngClass]="{'group-text':false ,'group-text-office':true }">{{item}}</span></ion-label>
+</ng-template>
+<ng-template #itemTemplate3 let-item>
+    <div class="div-container-list" style="margin-top: 0rem;">
+        <div class="circle DayIndex" [class]="'dayContent '+'dayContent'+item.Status" style="font-size: 1.6rem;">
+            {{item.DayIndex}}</div>
+        <div style="width:100%;flex: 1;margin:0.6rem 0;line-height: 1.4rem;margin-left: 10px;">
+            <div style="color: var(--text-primary); font-size: 1rem;">
+                {{item.EmployeeName}}
+            </div>
+            <div style="  font-size: 0.85rem;  color: var(--text-primary);">
+                {{item.ShiftName}}
+            </div>
+            <div style="font-size: 0.85rem;">
+                <span [class]="'info' + item?.Status">{{item?.StatusName}}</span>
+                <span>{{item?.SoMocDaDangKy ? ' - ' + ('MISSINGINOUT.TotalRequestInMonth' | translate) + " " + item?.SoMocDaDangKy:''}}</span>
+            </div>
+            <div style="display: flex;" *ngIf="item.ArrayStatus && item.ArrayStatus.length > 0">
+                <div *ngFor="let item of item.ArrayStatus;" [class]="'dayStatus '+'dayStatus' + item"></div>
+            </div>
+        </div>
+    </div>
+</ng-template>

@@ -1,0 +1,270 @@
+ion-back-button {
+  --color: var(--text-primary-contrast);
+}
+
+.icon-search {
+  z-index: 99;
+  position: absolute;
+  right: 0;
+  padding: 1.2rem 1.1rem;
+  font-size: 1.2rem;
+  color: var(--text-primary);
+}
+
+ion-item {
+  --border-style: none;
+}
+
+ion-input {
+  border: 1px solid var(--ion-color-primary);
+  border-radius: 8px;
+}
+
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  background: #fff;
+  margin: 1rem
+}
+
+ion-card-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  font-size: 1rem;
+  -webkit-line-clamp: 2;
+  white-space: pre-line;
+  -webkit-box-orient: vertical;
+  font-weight: 500;
+}
+
+ion-thumbnail {
+  margin: 0;
+}
+
+.list-left {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  flex: 1;
+  text-align: left;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+.label-list-end {
+  overflow-wrap: anywhere;
+  flex: 1;
+  text-align: right;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  overflow: initial;
+  white-space: normal;
+  font-weight: 600;
+}
+
+.ion-padding {
+  padding: 0;
+}
+
+.twoColumn {
+  min-height: 50px;
+  --padding-start: 0.6rem;
+  border-bottom: 1px solid #ddd;
+  --inner-padding-end: 0;
+}
+
+.label-list-end.normal {
+  flex: 1;
+  font-weight: 500;
+  color: var(--text-primary);
+  overflow: initial;
+  white-space: normal;
+}
+
+ion-item.profile-title {
+  --background: #fafafa;
+  --color: var(--text-primary) !important;
+  --padding-start: 8px;
+}
+
+.value-list-paystub {
+  --padding-start: 0
+}
+
+.profile-title ion-label {
+  font-size: 0.95rem !important;
+  text-transform: uppercase;
+}
+
+ion-accordion {
+  margin-bottom: 0.6rem;
+  border: 1px solid #ddd;
+  border-radius: 0.4rem;
+  box-shadow: rgb(0 0 0 / 8%) 0px 4px 4px -2px, rgb(0 0 0 / 0%) 0px 0px 0px 1px
+}
+
+ion-list .twoColumn:last-child {
+  border: none;
+}
+
+.label-list-end.md {
+  padding-right: 0.4rem;
+}
+
+ion-list {
+  padding: 0 !important;
+}
+
+ion-accordion-group {
+  margin: 0.6rem;
+}
+
+.btnRejectText {
+  font-size: 16;
+  color: #FFFFFF
+}
+
+.dayContent {
+  font-size: 0.6rem;
+  width: 75%;
+  display: block;
+  text-align: center;
+  color: #fff;
+  padding: 0.4rem 0.6rem;
+  border-radius: 16px;
+}
+
+.dayContent0 {
+  background-color: #0088CF;
+}
+
+.dayContent1 {
+  background-color: #FF3939
+}
+
+.dayContent2 {
+  background-color: #7DBC42;
+}
+
+.container-item-left {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  margin: 0.4rem;
+}
+
+.ApproveDate {
+  font-size: 0.65rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+.container-item-right {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin-left: 0.6rem;
+  line-height: 1.4rem;
+}
+
+.JobWname {
+  font-size: 0.75rem;
+  color: var(--ion-color-primary);
+  font-weight: 600;
+  text-transform: capitalize;
+}
+.btnApproved {
+  color: #fff;
+  --background: #7DBC42;
+}
+
+.footer-checkinout {
+  width: 100%;
+  position: sticky;
+  bottom: 0rem;
+  z-index: 9999;
+  --padding-start: 0;
+  --inner-padding-end: 0;
+}
+
+.footer-checkinout ion-button {
+  flex: 1;
+  --border-radius: 4px;
+  --box-shadow: 0;
+  min-height: 2.6rem;
+  margin: 0.4rem 0.6rem 0rem 0.6rem; font-size: 1rem;
+}
+.FullName {
+  color: var(--ion-color-primary);
+  font-weight: 600;
+}
+.ApproveNote {
+  font-size: 0.7rem;
+  color: var(--text-primary);
+  opacity: 0.8;
+}
+
+.footer-checkinout {
+  width: 100%;
+  position: sticky;
+  bottom: 0rem;
+  z-index: 9999;
+  --padding-start: 0;
+  --inner-padding-end: 0;
+}
+
+.footer-checkinout ion-button {
+  flex: 1;
+  --border-radius: 4px;
+  --box-shadow: 0;
+  min-height: 2.6rem;
+  margin: 0.4rem 0.6rem 0rem 0.6rem; font-size: 1rem;
+}
+
+
+.btnReject {
+  color: #fff;
+  --background: #FF3939;
+}
+
+.btnApproved {
+  color: #fff;
+  --background: #7DBC42;
+}
+.card {
+  --background: #fafafa;
+  position: sticky;
+  width: 100%;
+  z-index: 111111;
+}
+
+ion-card-subtitle.ios {
+  font-weight: 500;
+  margin: 0.6rem 0;
+  text-transform: none;
+  font-size: 0.9rem;
+}
+
+ion-card-subtitle span.ios {
+  font-weight: 500;
+  margin: 0.6rem 0;
+  text-transform: none;
+  font-size: 0.9rem;
+}
+
+@media only screen and (min-device-width: 720px) {
+  .ApproveDate {
+      font-size: 1rem !important;
+      margin-left: 1rem;
+  }
+  .JobWname {
+      font-size: 1rem!important;
+  }
+  .FullName {
+      font-size: 1.2rem!important;
+  }
+  .ApproveNote {
+      font-size: 0.9rem!important;
+  }
+}

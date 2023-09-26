@@ -1,0 +1,217 @@
+<app-standard-header [title]="itemFunciton.title" [icon]="'arrow-back-outline'" [href]="'LeaveRequest'">
+</app-standard-header>
+<ion-content>
+    <div style="margin-bottom:5rem;">
+        <ion-item class="profile-title">
+            <ion-label class="Infomation">{{'LEAVE_REQUEST.Infomation' | translate}}</ion-label>
+            <span style="font-size: .8rem;
+            font-weight: 500;
+            text-transform: initial;
+            margin-right: 0.4rem;
+            opacity: 0.6;
+        ">{{'LEAVE_REQUEST.Available' | translate}}:</span>
+            <span class="headerValue">{{commonHandler.convertDays(RemainLeaveNumber?.CurDay)}}</span>
+        </ion-item>
+        <div class="ion-padding">
+            <ion-list>
+                <ion-item class="twoColumn">
+                    <ng-container>
+                        <ion-label class="list-left">{{'LEAVE_REQUEST.RequestDate' | translate}}</ion-label>
+                        <ion-label slot="end" class="label-list-end">{{CurrentDate}}</ion-label>
+                    </ng-container>
+                </ion-item>
+            </ion-list>
+        </div>
+        <!-- <ion-item class="profile-title" style="font-weight: 500;">
+            <ion-label>{{'LEAVE_REQUEST.LeaveDetail' | translate}}</ion-label>
+        </ion-item> -->
+        <div class="ion-padding">
+            <ion-item>
+                <app-valuelist-modal style="width: 100%;margin-right:0.4rem;" [arraySearch]="['LeaveKows']"
+                [template]="itemTemplate" [datas]="LeaveKows"
+                 [FieldKeyInput]="'KowName'" [inputText]="LeaveKowsSelected['KowName']"
+                 [textLeft]="'LEAVE_REQUEST.Kind' | translate"
+                    (selectedItem)="eventSelectedKow($event)">
+                </app-valuelist-modal>
+            </ion-item>
+            <ion-item>
+                <app-datetime-modal style="width: 100%;margin-right:0.4rem;" [textLeft]="'COMMON.FromDate' | translate" (selectedItem)="eventSelectedatetime($event)" [inputText]="SelectedFromDate" iddatetime="datetime" iddatetimetrigger="datetime2">
+                </app-datetime-modal>
+            </ion-item>
+            <ion-item style="margin-bottom:0.4rem">
+                <app-valuelist-modal style="width: 100%;margin-right:0.4rem;" [arraySearch]="['LeaveTimes']" [template]="itemTemplate2" [datas]="LeaveTimes" [FieldKeyInput]="'Caption'" [inputText]="LeaveTimeSelected?.Caption" [textLeft]="'LEAVE_REQUEST.Time' | translate"
+                    (selectedItem)="eventSelectedLeave($event)">
+                </app-valuelist-modal>
+            </ion-item>
+            <ion-item *ngIf="LeaveTimeSelected?.Value == 6">
+                <app-time-modal style="width: 100%;margin-right:0.4rem;" [textLeft]="'COMMON.FromTime' | translate" idtime="SelectedFromTime" idTimeShow="SelectedFromTime1" [myTime]="FromTime" (selectedItem)="eventSelectefromtime($event)">
+                </app-time-modal>
+                <app-time-modal style="width: 100%;margin-right:0.28rem;" [textLeft]="'COMMON.ToTime' | translate" idtime="SelectedToTime" idTimeShow="SelectedToTime1" [myTime]="ToTime" (selectedItem)="eventSelectetotime($event)">
+                </app-time-modal>
+            </ion-item>
+            <ion-item *ngIf="LeaveTimeSelected?.Value == 4">
+                <ion-label class="list-left">{{'LEAVE_REQUEST.HourNum' | translate}}</ion-label>
+            </ion-item>
+            <ion-item style="margin-bottom: 0.4rem;" class="list-left" *ngIf="LeaveTimeSelected?.Value == 4">
+                <ion-input style="width: 100%;
+    margin-right: 0.4rem;
+    --padding-start: 1rem;
+    --highlight-background: initial;
+    color: var(--text-primary);" type="number" [(ngModel)]='HourNum' (ionChange)="eventOnEditHourNumChange()" placeholder="{{'LEAVE_REQUEST.HourNum' | translate}}"></ion-input>
+            </ion-item>
+            <ion-label *ngIf="(LeaveTimeSelected?.Value !== 4 && LeaveTimeSelected?.Value !== 6)" class="list-left" style="margin-left: 0.8rem;
+            ">{{'LEAVE_REQUEST.DayNum' | translate}}:</ion-label>
+            <ion-item class="list-left" *ngIf="(LeaveTimeSelected?.Value !== 4 && LeaveTimeSelected?.Value !== 6)">
+                <ion-input style="width: 100%;
+    margin-right: 0.4rem;
+    --padding-start: 1rem;
+    --highlight-background: initial;
+    color: var(--text-primary);margin-top: 1rem;" type="number" [(ngModel)]='DayNum' (ionBlur)="eventOnEditDayNumChange(DayNum)" (ionChange)="eventOnChangeTimeSelected(DayNum)" placeholder="{{'LEAVE_REQUEST.DayNum' | translate}}"></ion-input>
+            </ion-item>
+
+            <ion-item style="border-bottom: 1px solid #ddd;" class="twoColumn" *ngIf="(LeaveTimeSelected?.Value !== 4 || LeaveTimeSelected?.Value == 24)">
+                <ion-label class="list-left">{{'COMMON.ToDate' | translate}}</ion-label>
+                <ion-label slot="end" class="label-list-end" style="width: 100%;margin-right:0.8rem;padding: 0;">
+                    <!-- {{FormatHandler.formatDate(SelectedToDate, LoginInfo)}} -->
+                    {{SelectedToDate | date: FormatDateViewUI }}
+                </ion-label>
+            </ion-item>
+            <ion-item *ngIf="(LeaveTimeSelected?.Value == 4 && LeaveTimeSelected?.Value !== 24)">
+                <app-datetime-modal style="width: 100%;margin-right:0.4rem;" [textLeft]="'COMMON.ToDate' | translate" iddatetime="datetimea" iddatetimetrigger="datetimea1" (selectedItem)="eventSelectetodatetime($event)">
+                </app-datetime-modal>
+            </ion-item>
+        </div>
+
+        <!-- thai sản = 9 -->
+        <ion-item class="profile-title" *ngIf="LeaveTimeSelected?.Value == 9">
+            <ion-label>{{'LEAVE_REQUEST.ThongTinThaiSan' | translate}}</ion-label>
+        </ion-item>
+        <div class="ion-padding" *ngIf="LeaveTimeSelected?.Value == 9">
+            <ion-item>
+                <ion-input [(ngModel)]="SILeaveNo" style="width: 100%;
+    margin-right: 0.4rem;
+    --padding-start: 1rem;
+    --highlight-background: initial;
+    color: var(--text-primary);" type="text" placeholder="{{'LEAVE_REQUEST.SILeaveNo' | translate}}"></ion-input>
+            </ion-item>
+            <ion-item style="margin-bottom:.8rem;">
+                <app-valuelist-modal style="width: 100%;margin-right:0.4rem;" [arraySearch]="['LoaiSinh']" [template]="itemTemplate3" [datas]="LoaiSinh" [FieldKeyInput]="'Caption'" [inputText]="LoaiSinhSelected['Caption']" [textLeft]="'LEAVE_REQUEST.LoaiSinh' | translate"
+                    (selectedItem)="eventSelectedLoaiSinh($event)">
+                </app-valuelist-modal>
+            </ion-item>
+            <ion-label class="list-left" style="margin-left: 1rem;">{{'LEAVE_REQUEST.SoCon' | translate}}</ion-label>
+            <ion-item class="list-left" style="margin-top: 0.4rem;">
+                <ion-input style="width: 100%;
+    margin-right: 0.4rem;
+    --padding-start: 1rem;
+    --highlight-background: initial;
+    color: var(--text-primary);" type="number" [(ngModel)]="SoCon" placeholder="{{'LEAVE_REQUEST.SoCon' | translate}}"></ion-input>
+            </ion-item>
+            <ion-item>
+                <app-datetime-modal style="width: 100%;margin-right:0.4rem;" [textLeft]="'LEAVE_REQUEST.ngaysinhcuacon' | translate" [inputText]="NgaySinhCon" (selectedItem)="eventSelecteNgaySinhCon($event)" iddatetime="NgaySinhCon" iddatetimetrigger="NgaySinhCon2">
+                </app-datetime-modal>
+            </ion-item>
+        </div>
+        <!-- thông tin vk xin nghỉ -->
+        <ion-item class="profile-title" *ngIf="LeaveTimeSelected?.Value == 36">
+            <ion-label>{{'LEAVE_REQUEST.ThongTinVoSinh' | translate}}</ion-label>
+        </ion-item>
+        <div class="ion-padding" *ngIf="LeaveTimeSelected?.Value == 36">
+            <ion-item>
+                <app-valuelist-modal style="width: 100%;margin-right:0.4rem;" [arraySearch]="['LoaiSinh']" [template]="itemTemplate3" [datas]="LoaiSinh" [FieldKeyInput]="'Caption'" [inputText]="LoaiSinhSelected['Caption']" [textLeft]="'LEAVE_REQUEST.LoaiSinh' | translate"
+                    (selectedItem)="eventSelectedLoaiSinh($event)">
+                </app-valuelist-modal>
+            </ion-item>
+
+            <ion-item class="twoColumn list-left">
+                <ng-container>
+                    <ion-label class="list-left">{{'LEAVE_REQUEST.IsNewChildUnder32W' | translate}}</ion-label>
+                    <ion-checkbox style="margin-right: 15px;" slot="end" checked="IsNewChildUnder32W"></ion-checkbox>
+                </ng-container>
+            </ion-item>
+            <ion-item>
+                <app-datetime-modal style="width: 100%;margin-right:0.4rem;" [textLeft]="'LEAVE_REQUEST.ngaysinhcuacon' | translate" [inputText]="NgaySinhCon" (selectedItem)="eventSelecteNgaySinhCon($event)" iddatetime="datetimeb" iddatetimetrigger="datetimeb2">
+                </app-datetime-modal>
+            </ion-item>
+            <div style="margin: 0.4rem 0.8rem;">
+                <ion-label class="list-left">{{'LEAVE_REQUEST.SoCon' | translate}}</ion-label>
+            </div>
+            <ion-item class="list-left">
+                <ion-input style="width: 100%;
+                margin-right: 0.4rem;
+                --padding-start: 1rem;
+                --highlight-background: initial;
+                color: var(--text-primary);--min-height:0" type="number" [(ngModel)]="SoCon" placeholder="{{'LEAVE_REQUEST.SoCon' | translate}}"></ion-input>
+            </ion-item>
+            <ion-item style="margin-bottom: 0;" class="twoColumn list-left">
+                <ion-label class="list-left">{{'LEAVE_REQUEST.SoNgayDuocHuongCheDo' | translate}}</ion-label>
+                <ion-label slot="end" class="label-list-end">{{SoNgayCheDo}}</ion-label>
+            </ion-item>
+
+            <ion-item class="twoColumn list-left">
+                <ion-label class="list-left">{{'LEAVE_REQUEST.SoNgayDaNghi' | translate}}</ion-label>
+                <ion-label slot="end" class="label-list-end">{{SoNgayDaNghi}}</ion-label>
+            </ion-item>
+        </div>
+        <ion-item class="twoColumn" id="open-modal4">
+            <ion-label class="list-left" style="font-weight: bold;">{{'BUSINESS_TRIP.Attachment' | translate}}</ion-label>
+            <ion-icon name="attach-outline" style="font-size: 35px;"></ion-icon>
+            <app-modal-attach-multi [lines]="true" [title]="'BUSINESS_TRIP.Attachment'|translate" [IsCreate]="true"
+             idOpen="open-modal4" [arraySearch]="['FileSize','FileName']" [template]="itemTemplateFile" [datas]="listfile" (onSubmitDialog)="submitDialogTypeTrip($event)"
+            [paramfile]="paramfile" [WaitingData] = "WaitingData" [textLeft]="'BUSINESS_TRIP.Attachment' | translate">
+            </app-modal-attach-multi>
+        </ion-item>
+
+
+        <ion-item>
+            <ion-label style="margin-left: 0.2rem;" class="list-left">{{'LEAVE_REQUEST.Reason' | translate}}:</ion-label>
+        </ion-item>
+        <ion-item class="list-left" style="padding-right: 10px;">
+          <ion-textarea class="list-left" style="padding: 0 10px;margin-right: 0px;
+          margin-bottom: 1rem;
+                        border: 1px solid var(--ion-color-primary);
+                        border-radius: 4px;" [(ngModel)]="txtReason" rows="4" placeholder="{{'LEAVE_REQUEST.WriteDownReasonLeave' | translate}}"></ion-textarea>
+        </ion-item>
+        <ion-item class="modal-input" id="open-modal" style="margin-left:0.5rem;" *ngIf="IsShow">
+            <ion-input readonly class="custom" style="margin-right: 1rem;
+                margin-left: 0.2rem;">
+                <span style="font-size: 0.9rem;
+                color: #c4c3c3;
+                padding: 0 1rem;
+                font-weight: 500;">{{'COMMON.NguoiThayThe'|translate}}:<span style="margin-left:1rem;color: var(--ion-color-primary);font-size: 1rem;font-weight: 600;">{{NguoiThayThe?.FullName}}</span></span>
+            </ion-input>
+            <ion-icon name="arrow-down-outline" style="position: absolute;
+                            right: 1rem;"></ion-icon>
+            <app-modal-selected [lines]="true" [title]="'COMMON.NguoiThayThe'|translate" idOpen="open-modal" [arraySearch]="['FullName','EmployeeCode']" [template]="itemTemplate4" [datas]="lstNguoiThayThe" (selectedItem)="eventOnSelectedNguoiThayThe($event)">
+            </app-modal-selected>
+        </ion-item>
+    </div>
+    <ion-item class="footer-checkinout">
+        <ion-button style="--background:#e0e0e0;--color:#666" (click)="doPop()">
+            {{"COMMON.Cancel" | translate}}
+        </ion-button>
+        <ion-button id='btnsubmit' (click)="doSubmit(false)">
+            {{"COMMON.Submit" | translate}}
+        </ion-button>
+    </ion-item>
+</ion-content>
+<ng-template #itemTemplate let-item>
+    {{item.KowName}}
+</ng-template>
+<ng-template #itemTemplate2 let-item>
+    {{item.Caption}}
+</ng-template>
+<ng-template #itemTemplate3 let-item>
+    {{item.Caption}}
+</ng-template>
+<ng-template #itemTemplateFile let-item>
+    {{item.FileName}}
+</ng-template>
+<ng-template #itemTemplate4 let-item>
+    <div style="flex: 1;
+    border-bottom: 1px solid #ddd;
+    padding: 1rem;">
+        <div style="margin-bottom: 0.6rem;">{{item.FullName}}</div>
+        <div> {{item.EmployeeCode}}</div>
+    </div>
+</ng-template>

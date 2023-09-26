@@ -1,0 +1,38 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="end">
+            <ion-button style="--color:#fff" (click)="cancel()">{{'COMMON.Cancel' | translate}}</ion-button>
+        </ion-buttons>
+        <ion-title>{{date}}</ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="confirm()">Confirm</ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+    <div *ngIf="eventCards.length > 0">
+        <ion-item *ngFor="let card of eventCards">
+            <ion-row style="width: 100%; ">
+                <ion-col size="3">
+                    <p style="font-weight: bold;vertical-align: top; margin: 0px!important;padding: 5px;">{{card.key}}:00</p>
+                </ion-col>
+                <ion-col size="auto">
+                    <ion-item lines="none" *ngFor="let event of card.list">
+                        <ion-col style="padding: 0px;">
+                            <div [ngStyle]="{'background-color': event.colorCode}" class="eventcolor" style="margin-bottom: 10px;width: 7px; height: 25px; border-radius: 5px;"></div>
+                        </ion-col>
+                        <ion-col>
+                            <ion-label>
+                                <h2 style="font-weight: bold">{{event.title}}</h2>
+                                <p>
+                                    {{event.startTime.getHours()}}:{{event.startTime.getMinutes()}}-{{event.endTime.getHours()}}:{{event.endTime.getMinutes()}}
+                                </p>
+                            </ion-label>
+                        </ion-col>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+        </ion-item>
+    </div>
+    <ion-item *ngIf="eventCards.length == 0">No Events</ion-item>
+</ion-content>

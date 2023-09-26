@@ -1,0 +1,24 @@
+<div class="modal">
+    <ion-item class="modal-input">
+        <ion-datetime-button [datetime]="iddatetime" style="display:none;position: absolute;"></ion-datetime-button>
+        <div [id]="iddatetimetrigger" style="display: flex;justify-content:space-between;flex:1">
+            <div style="display: flex;
+            align-items: center;">
+                <ion-label class="TextLeftLabel"style="margin-right:0.5rem;" *ngIf="textLeft">{{textLeft}}:</ion-label>
+                <strong class="inputdate">{{inputText | date: 'dd/MM/yyyy' }}</strong>
+            </div>
+            <ion-icon name="calendar"></ion-icon>
+        </div>
+    </ion-item>
+    <ion-modal [keepContentsMounted]="true" [trigger]="iddatetimetrigger">
+        <ng-template>
+            <ion-datetime [id]="iddatetime" presentation="date" #popoverDatetime [locale]="locale" (ionChange)="startDateChanged(popoverDatetime.value);">
+                <!-- (ionChange)="startDateChanged(popoverDatetime.value);" -->
+                <ion-buttons slot="buttons">
+                    <ion-button color="danger" (click)="reset(false)">{{'COMMON.Cancel' | translate}}</ion-button>
+                    <ion-button color="primary" (click)="confirm(true)">{{'COMMON.OK' | translate}}</ion-button>
+                </ion-buttons>
+            </ion-datetime>
+        </ng-template>
+    </ion-modal>
+</div>

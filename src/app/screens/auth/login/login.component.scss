@@ -1,0 +1,221 @@
+scroll-content {
+    overflow-y: auto !important;
+}
+
+.inputWrapper {
+    height: 70;
+    background-color: 'transparent'
+}
+
+.input {
+    height: 50;
+    //width: DEVICE_WIDTH - 50;
+    //margin-horizontal: 20,
+    padding-left: 45;
+    padding-right: 45;
+    border-radius: 10;
+    background-color: 'transparent';
+    color: "#555555";
+    border-width: 2;
+    border-color: 'primary';
+    background-color: "#FFFFFF";
+}
+
+.small-text {
+    text-decoration: none;
+    color: var(--text-primary);
+}
+
+.inlineImg {
+    position: 'absolute';
+    z-index: 99;
+    width: 22;
+    height: 25;
+    left: 35;
+    top: 12;
+}
+
+.inlineImgContainer {
+    position: 'absolute';
+    z-index: 99;
+    width: 50;
+    height: 50;
+    right: 20;
+}
+
+.inputform {
+    --padding-start: 0.6rem !important;
+}
+
+.inlineImgWithContainer {
+    position: 'absolute';
+    z-index: 99;
+    width: 25;
+    height: 25;
+    right: 15;
+    top: 12;
+}
+
+.inlineImg2 {
+    position: 'absolute';
+    z-index: 99;
+    width: 22;
+    height: 25;
+    right: 35;
+    top: 12;
+}
+
+.formlogin {
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    left: 50%;
+    top: 0;
+    position: absolute;
+    transform: translate(-50%, 0%);
+    margin-left: -5px;
+    background: no-repeat fixed center;
+}
+
+@media only screen and (min-device-width: 720px) {
+    .formlogin {
+        margin-top: 15rem;
+    }
+}
+
+.buttonform {
+    height: 50px;
+    border-radius: 10px;
+    margin-left: 15px;
+}
+
+.icon-eye {
+    color: var(--ion-color-primary); //đổi màu
+    opacity: 1;
+}
+
+.input-item {
+    margin: 12px 4% 12px 6%;
+    border: 2px solid var(--ion-color-primary); //đổi màu
+    border-radius: 6px;
+    --padding-start: 8px;
+}
+
+.button-item {
+    margin: 20px 5%;
+    border: var(--ion-color-primary);
+    --border-radius: 6px;
+    color: var(--ion-color-primary);
+    height: 2.8rem;
+}
+
+.footer {
+    background-color: var(--ion-color-primary); //đổi màu
+    color: #fff; //đổi màu
+    height: 100%;
+    width: 100%;
+    font-size: 14px;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+ion-button {
+    --color: #999999;
+    --background: white;
+    margin-left: 20px;
+    --box-shadow: 0
+}
+
+.language {
+    margin-left: 100px;
+}
+
+
+.google {
+    width: 50px;
+    height: 50px;
+    text-align: center;
+}
+.azure {
+  width: 50px;
+  height: 50px;
+  text-align: center;
+}
+.toolbarlanguage {
+    width: 200px;
+    margin: 0 auto;
+}
+
+.btnalert {
+    --background: white;
+}
+
+.language1,
+.language2 {
+    margin: 0;
+    color: var(--ion-color-primary)
+}
+
+.language1 {
+    //border-right: 2px solid #999999;
+    position: relative;
+}
+
+.ios.language1::after {
+    position: absolute;
+    content: "";
+    bottom: 1rem;
+    background: #555;
+    width: 2px;
+    right: 0rem;
+    height: 1rem;
+}
+
+.md.language1::after {
+    position: absolute;
+    content: "";
+    bottom: 0.6rem;
+    background: #555;
+    width: 2px;
+    right: 0rem;
+    height: 1rem;
+}
+
+.disable-language {
+    color: #555
+}
+
+ion-icon {
+    opacity: 0.2;
+}
+
+ion-toolbar {
+    --min-height: 36px;
+}
+
+.footerLanguage {
+    display: flex;
+    justify-content: center;
+    background-color: var(--ion-color-background-primary);
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+
+.url{
+  margin-top: 1rem;text-align: center;color:var(--text-primary);
+  flex: 1;
+}
+.changeIP{
+  opacity: 1;
+  font-size: 3rem;
+  color: var(--ion-color-primary);
+  width: 100%;
+}
+
+.LogoutAzure{
+  margin-top: 1rem;
+  text-decoration: underline;
+  color: var(--ion-color-primary);
+}

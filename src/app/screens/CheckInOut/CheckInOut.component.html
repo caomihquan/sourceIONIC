@@ -1,0 +1,73 @@
+<ng-container *ngIf="!IsViewMap">
+    <app-standard-header [title]="itemFunction?.title" [icon]="'arrow-back-outline'" [href]="'home'" [iconRight]="'list-outline'" [isIconRight]="true" (outClickIconRight)="pushCheckInOutHistory()">
+    </app-standard-header>
+    <ion-content>
+        <app-card-emp [backgroundColor]="'#fff'" style="height: 15%;"></app-card-emp>
+        <ion-item class="card-checkinout">
+            <ion-label class="card-checkinout-label">
+                <div class="card-checkinout-label-first">{{"CHECKINOUT.FirstTimeCheckIn" | translate}}</div>
+                <div class="card-checkinout-label-second">{{this.DataInOut?.FirstIn}} </div>
+            </ion-label>
+            <ion-label class="card-checkinout-label">
+                <div class="card-checkinout-label-first">{{"CHECKINOUT.LastTimeCheckOut" | translate}}</div>
+                <div class="card-checkinout-label-second">{{this.DataInOut?.LastOut}} </div>
+            </ion-label>
+        </ion-item>
+
+        <div style="--background: #fafafa;
+      height: 60%;
+      display: flex;">
+            <ion-label class="box-center">
+                <div>{{"CHECKINOUT.Hours"| translate}}</div>
+                <div style="font-size: 2rem;
+              font-weight: bold;
+              color: var(--ion-color-primary);"> {{Time?.Hours}}:{{Time?.Minutes}}</div>
+                <div>{{Time?.Day}}</div>
+                <div>{{Time?.dd}} {{Time?.Month}} {{Time?.Year}}</div>
+            </ion-label>
+        </div>
+        <ion-item class="footer-checkinout">
+            <ion-button (click)="eventOnCheckIn()">
+                {{"CHECKINOUT.CheckIn" | translate}}
+            </ion-button>
+            <ion-button (click)="eventOnCheckOut()" style="--background:#e0e0e0;--color:#666">
+                {{"CHECKINOUT.CheckOut" | translate}}
+            </ion-button>
+        </ion-item>
+    </ion-content>
+</ng-container>
+<ion-header mode="md" [hidden]="!IsViewMap">
+  <ion-toolbar>
+      <ion-title style="--color:#fff ">
+          <ion-icon style="font-size: 1.8rem;
+          transform: translate(-4px,6px);" (click)="onPressCloseMap()" name="close-outline"></ion-icon> {{'CHECKINOUT.Location' |translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content style="background: transparent !important;--background: transparent !important;" [hidden]="!IsViewMap">
+    <capacitor-google-map #map></capacitor-google-map>
+</ion-content>
+<div style="position: sticky;bottom:0;background: #fff;" [hidden]="!IsViewMap">
+  <div style="display: flex;padding:1rem 0;position: relative;">
+      <ion-icon style="position: absolute;
+      right: 8px;
+      top: 8px;
+      font-size: 1.6rem;
+      color: var(--ion-color-primary);" name="refresh" (click)="refreshLocation()">
+      </ion-icon>
+      <div>
+          <ion-icon style="padding: 1rem;
+                           font-size: 2.2rem;
+                           background: var(--ion-color-primary);
+                           border-radius: 50%;
+                           color: #fff;
+                           margin-left: 0.4rem;" name="location-outline">
+          </ion-icon>
+      </div>
+      <div style="margin-left:1rem;line-height: 1.8rem;margin-right: 2rem;">
+          <div *ngIf="distanceFromConfig" style="color: var(--ion-color-primary);font-size:1rem;">{{('CHECKINOUT.Distance' | translate)+' - '+distanceFromConfig}}</div>
+          <div>{{CurrentAddress}}</div>
+      </div>
+  </div>
+  <button (click)="CheckInInMap()" *ngIf="IsCheckIn" style="width: 100%;padding: 1rem;font-size: 1.2rem;color: #fff;background:var(--ion-color-primary) ;">{{'CHECKINOUT.SendPositionCheckIn' | translate}}</button>
+  <button (click)="CheckOutInMap()" *ngIf="IsCheckOut" style="width: 100%;padding: 1rem;font-size: 1.2rem;color: #fff;background:var(--ion-color-primary) ;">{{'CHECKINOUT.SendPositionCheckOut' | translate}}</button>
+</div>

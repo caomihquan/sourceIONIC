@@ -1,0 +1,55 @@
+<ion-header class="headerlogintienthu">
+    <ion-toolbar>
+        <ion-img src="../assets/images/tienthu/login/banner_01.png" class="bannertienthu"></ion-img>
+        <ion-title class="headerText">{{"LOGIN.HeaderTienThu" | translate}}</ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <ion-item style="margin-top:3rem;">
+        <ion-text class="mainText mainText1">{{"LOGIN.Title1" | translate}}</ion-text>
+    </ion-item>
+    <ion-item>
+        <ion-text class="mainText mainText2">{{"LOGIN.Title2" | translate}}</ion-text>
+    </ion-item>
+
+
+    <form [formGroup]="form" class="formlogin">
+        <ion-item lines="full" class="input-item">
+            <ion-icon name="person-circle"></ion-icon>
+            <ion-input class="inputform" formControlName="UserName" type="text" placeholder="{{'CHANGEPASSWORD.TaiKhoan' | translate}}" required></ion-input>
+            <ion-icon name="barcode-outline"></ion-icon>
+        </ion-item>
+        <ion-item lines="full" class="input-item">
+            <ion-icon name="lock-closed" item-left class="icon-lock"></ion-icon>
+
+            <ion-input class="inputform" placeholder="{{'CHANGEPASSWORD.Password' | translate}}" formControlName="Password" [type]="getTypeConfirm()" required></ion-input>
+
+            <ion-icon [name]="iconEyeConfirm" item-right (click)="toggleTextPasswordConfirm()" class="icon-eye"></ion-icon>
+        </ion-item>
+        <ion-row>
+            <ion-col>
+                <ion-button class="button-item" [disabled]="form.invalid" type="submit" expand="block" (click)="signIn()">
+                    {{"LOGIN.Login" | translate}}
+                </ion-button>
+
+            </ion-col>
+        </ion-row>
+    </form>
+    <ion-img src="../assets/images/tienthu/login/banner_02.png" style="width: 100%;height: 30%;"></ion-img>
+    <div style="display: flex;
+    justify-content: end;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    margin: 1rem 4rem;" class="ion-text-right">
+        <ion-img class="icon-language" style="margin-right: 1rem;" src="../assets/images/default/login/vi.png" [ngClass]="[lang?.toLowerCase() !== 'vn' ? 'disable-language' : '','language-child']" (click)="changeLanguage('vn')"></ion-img>
+        <ion-img class="icon-language" src="../assets/images/default/login/en.png" [ngClass]="[lang?.toLowerCase() !== 'en' ? 'disable-language' : '','language-child']" (click)="changeLanguage('en')"></ion-img>
+    </div>
+</ion-content>
+
+
+<ion-footer class="ion-no-border">
+    <ion-toolbar style="--background:#ddd;">
+        <ion-title class="footer ion-text-center">{{"LOGIN.FooterTienThu" | translate}}</ion-title>
+    </ion-toolbar>
+</ion-footer>

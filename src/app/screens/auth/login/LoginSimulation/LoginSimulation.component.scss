@@ -1,0 +1,64 @@
+ion-content {
+    --background: var(--ion-color-background-primary);
+}
+
+.input-item {
+    margin: 16px 0;
+    border: 2px solid var(--ion-color-primary); //đổi màu
+    border-radius: 6px;
+}
+
+.icon-lock {
+    margin-right: 10px;
+    opacity: 0.1;
+}
+
+.icon-eye {
+    color: var(--ion-color-primary); //đổi màu
+}
+
+ion-item {
+    --padding-start: 0.4rem
+}
+
+ion-button {
+    padding: 2px;
+    margin: 12px 4% 12px 4%;
+    font-size: 1.1rem;
+    --box-shadow: 0;
+}
+
+ion-button.ios {
+    --border-radius: 6px;
+}
+
+.footer {
+    background-color: var(--ion-color-primary); //đổi màu
+    color: #fff; //đổi màu
+    height: 100%;
+    width: 100%;
+    font-size: 14px;
+    text-align: center;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+ion-toolbar {
+    --background: var(--ion-color-primary);
+}
+
+
+.container-login{
+  position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 5%;
+    background: #fff;
+    top: 50%;
+    transform: translate(50%,-50%);
+    border-radius: 8px;
+    right: 50%;
+    min-width: 350px;
+}

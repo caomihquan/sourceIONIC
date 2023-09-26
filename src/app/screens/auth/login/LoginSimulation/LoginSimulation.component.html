@@ -1,0 +1,35 @@
+
+<ion-header class="ion-no-border">
+  <ion-back-button text="" icon="chevron-back" style="position: absolute;z-index: 99;top: 1rem;left:1rem;--color:#fff"></ion-back-button>
+</ion-header>
+<ion-content style="--background:var(--ion-color-primary)">
+  <div class="container-login">
+    <ion-img src="../assets/images/default/_shared/logo.png"></ion-img>
+    <div style="text-align: center;text-align: center;
+    padding: 1rem 0;
+    font-size: 1.5rem;
+    text-transform: capitalize;">{{'LOGIN.Simulation' | translate}}</div>
+    <form [formGroup]="form">
+      <ion-item lines="full" class="input-item">
+        <ion-icon name="person-circle" class="icon-lock"></ion-icon>
+        <ion-input class="inputform" formControlName="username" type="text" placeholder="{{'LOGIN.Username' | translate}}" required></ion-input>
+    </ion-item>
+        <ion-item class="input-item" lines="full">
+            <ion-icon name="lock-closed" item-left class="icon-lock"></ion-icon>
+            <ion-input [type]="getType()" placeholder="{{'LOGIN.Password' | translate}}" formControlName="password"></ion-input>
+            <ion-icon [name]="iconEyeNew" item-right (click)="toggleTextPassword()" class="icon-eye"></ion-icon>
+        </ion-item>
+        <ion-row>
+            <ion-col>
+                <ion-button [disabled]="form.invalid" color="primary" type="submit" size="large" expand="block" class="ion-button" (click)="submit()"><span style="font-size: 0.9rem;">{{'LOGIN.Login' | translate}}</span></ion-button>
+            </ion-col>
+        </ion-row>
+    </form>
+  </div>
+
+</ion-content>
+<ion-footer class="ion-no-border">
+    <ion-toolbar>
+        <ion-title text-left class="footer">{{"LOGIN.CopyRight" | translate}}</ion-title>
+    </ion-toolbar>
+</ion-footer>

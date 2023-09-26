@@ -1,0 +1,76 @@
+<ion-item class="modal" *ngIf="!IsFreeText">
+    <ion-item class="modal-input">
+        <ion-label style="opacity: 1;" class="TextLeftLabel" *ngIf="textLeft">{{textLeft}}:</ion-label>
+        <ion-input readonly style="margin-left: 0.2rem;opacity: 1 !important;" (click)="setOpenModal(true)" [(ngModel)]="inputText">
+        </ion-input>
+        <ion-icon name="arrow-down-outline" (click)="setOpenModal(true)"></ion-icon>
+    </ion-item>
+    <ion-modal [isOpen]="IsVisibleModal">
+        <ng-template>
+            <ion-header>
+                <ion-toolbar>
+                    <ion-buttons slot="end">
+                        <ion-button (click)="setOpenModal(false)" style="--color: var(--text-primary-contrast);">{{"COMMON.Close" | translate}}</ion-button>
+                    </ion-buttons>
+                </ion-toolbar>
+            </ion-header>
+            <ion-content class="ion-padding">
+                <ion-item-divider sticky style="border: 0;
+                padding: 0;
+                background: #fff;" *ngIf="arraySearch.length > 0">
+                    <ion-input [(ngModel)]="searchText" (ionChange)="search()" type="text" class="input-custom" [placeholder]="'COMMON.Search' | translate">
+                        <ion-icon name="search" style="position: absolute;
+                                                       right: 0rem;
+                                                       font-size: 1.6rem;
+                                                       color: #555;"></ion-icon>
+                    </ion-input>
+                </ion-item-divider>
+                <ion-list [inset]="true">
+                    <ion-item *ngFor="let item of datas" class="modal-list-item" (click)="selectItem(item)">
+                        <ng-container *ngTemplateOutlet="template;context: { $implicit: item }">
+                        </ng-container>
+                    </ion-item>
+                </ion-list>
+            </ion-content>
+        </ng-template>
+    </ion-modal>
+</ion-item>
+
+
+<ion-item class="modal" *ngIf="IsFreeText">
+  <ion-item class="modal-input">
+      <ion-label style="opacity: 1;" class="TextLeftLabel" *ngIf="textLeft">{{textLeft}}:</ion-label>
+      <ion-input  [placeholder]="placeholder" (ionInput)="changeFreeText($event)" style="font-weight: normal;margin-left: 0.2rem;opacity: 1 !important;color: #555;"  [(ngModel)]="inputText">
+      </ion-input>
+      <ion-icon name="arrow-down-outline" (click)="setOpenModal(true)"></ion-icon>
+  </ion-item>
+  <ion-modal [isOpen]="IsVisibleModal">
+      <ng-template>
+          <ion-header>
+              <ion-toolbar>
+                  <ion-buttons slot="end">
+                      <ion-button (click)="setOpenModal(false)" style="--color: var(--text-primary-contrast);">{{"COMMON.Close" | translate}}</ion-button>
+                  </ion-buttons>
+              </ion-toolbar>
+          </ion-header>
+          <ion-content class="ion-padding">
+              <ion-item-divider sticky style="border: 0;
+              padding: 0;
+              background: #fff;" *ngIf="arraySearch.length > 0">
+                  <ion-input [(ngModel)]="searchText" (ionChange)="search()" type="text" class="input-custom" [placeholder]="'COMMON.Search' | translate">
+                      <ion-icon name="search" style="position: absolute;
+                                                     right: 0rem;
+                                                     font-size: 1.6rem;
+                                                     color: #555;"></ion-icon>
+                  </ion-input>
+              </ion-item-divider>
+              <ion-list [inset]="true">
+                  <ion-item *ngFor="let item of datas" class="modal-list-item" (click)="selectItem(item)">
+                      <ng-container *ngTemplateOutlet="template;context: { $implicit: item }">
+                      </ng-container>
+                  </ion-item>
+              </ion-list>
+          </ion-content>
+      </ng-template>
+  </ion-modal>
+</ion-item>

@@ -1,0 +1,50 @@
+<app-standard-header [title]="'CHECKINOUT.MyCheckInOutHistory' | translate" [icon]="'arrow-back-outline'" [href]="'CheckInOut'">
+</app-standard-header>
+<ion-content>
+    <ion-item style="--padding-start:10px">
+        <app-valuelist-modal style="width: 100%;margin-top: 1rem;" [arraySearch]="['DowCode']" [template]="itemTemplate" [datas]="lstDows" [FieldKeyInput]="'DowCode'" [inputText]="DowCodeSelection['DowCode']" [textLeft]="'Month'" (selectedItem)="eventSelectedMonth($event)">
+        </app-valuelist-modal>
+    </ion-item>
+    <ion-item style="--padding-start:0">
+        <listview [template]="itemHistoryDay" [datas]="dataHistory" style="width: 100%;height: 100%;" [autoLoad]="false" classDivContainer="checkHistory" classListItem="item-list-checkHistory" (selectedItem)="onEventPress($event)"></listview>
+    </ion-item>
+    <ion-modal [isOpen]="visibleModal">
+        <ng-template>
+            <ion-header>
+                <ion-toolbar>
+                    <ion-buttons slot="end">
+                        <ion-button (click)="setOpenModal(false)" style="--color: var(--text-primary-contrast);">{{"COMMON.Close" | translate}}</ion-button>
+                    </ion-buttons>
+                </ion-toolbar>
+            </ion-header>
+            <ion-content class="ion-padding content-modal">
+                <listview [template]="itemHistoryDetail" [datas]="checkInOutHistory" style="width: 100%;height: 100%;" [autoLoad]="false" classDivContainer="checkHistory-modal" classListItem="item-list-checkHistory" (selectedItem)="onEventPress($event)"></listview>
+            </ion-content>
+        </ng-template>
+    </ion-modal>
+</ion-content>
+
+<ng-template #itemTemplate let-item>
+    {{item.DowCode}}
+</ng-template>
+<ng-template #itemHistoryDay let-item>
+    <div class="day">
+        <div style="font-size: 0.85rem;">{{item.DateName}}</div>
+        <div [style]="'background:'+item.backgroundColor" class="day-num">{{item.DateNumber}}</div>
+    </div>
+    <div class="detail-bar">
+        <span [style]="'background-color:'+item.backgroundColor+';width:'+item.percent + '%'" class="detail-bar-percentage"></span>
+        <span style="position: absolute;">{{item.description}}</span>
+    </div>
+</ng-template>
+<ng-template #itemHistoryDetail let-item>
+    <div class="day">
+        <div style="font-size: 0.85rem;"> </div>
+        <div [style]="'background:'+ (item.In1Out0 ? '#7DBC42' : 'red')" class="inout-num">{{item.In1Out0 ? 'IN' : 'OUT'}}
+        </div>
+    </div>
+    <div class="detail-bar">
+        <span [style]="'background-color:'+item.backgroundColor" class="detail-bar-percentage"></span>
+        <span style="position: absolute;color: #000;">{{item.WorkTime}}</span>
+    </div>
+</ng-template>

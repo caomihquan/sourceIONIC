@@ -1,0 +1,110 @@
+<ion-header mode="ios">
+    <ion-toolbar [ngClass]="{'min-toolbar': user | async}" mode="ios">
+      <ng-container *ngIf="user | async">
+        <ion-thumbnail   slot="start" [ngStyle]="{background: stringToColour((user | async).EmployeeFullName)}">
+          {{convertLastName((user | async).EmployeeFullName)[0]}}
+      </ion-thumbnail>
+      <div style="color:#FFF;padding-bottom: 0.2rem;">
+        {{(user | async).EmployeeFullName}}
+      </div>
+      <div style="color:#FFF">
+        {{(user | async).EmployeeCode}}
+      </div>
+      </ng-container>
+      <ion-title mode="md" *ngIf="(user | async) === null">
+        {{"MainApp.Welcome" | translate}}  {{appName}}
+      </ion-title>
+      <ion-icon name="settings-sharp" (click)="setOpen(true)"></ion-icon>
+    </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <div class="content-body">
+    <div *ngIf="listFunction.length > 0" style="
+    margin-top:0.2rem;
+    display: flex;
+    justify-content: space-between;
+    margin-left: 0.8rem;
+    margin-bottom: 0.8rem;
+    font-weight: 600;">
+      <div>{{"MainApp.Function" | translate}}</div>
+      <div (click)="NavigateToHomePage()" style="font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--ion-color-primary);
+      font-style: oblique;">{{"MainApp.More" | translate}}</div>
+    </div>
+    <ion-slides *ngIf="listFunction.length > 0" pager="false" [options]="slideOpts">
+      <ion-slide *ngFor="let item of listFunction">
+        <div (click)="onSelectFunction(item)">
+          <ion-icon slot="start" name="" class="sap-icon {{ item.icon }} cellicon"></ion-icon>
+          <div style="font-size: 0.8rem;">{{item.title}}</div>
+        </div>
+      </ion-slide>
+    </ion-slides>
+    <div style="margin-top:2rem;
+    margin-left: 0.8rem;
+    margin-bottom: 0.4rem;
+    font-weight: 600;">
+      {{"MainApp.NewandEvent" | translate}}
+    </div>
+    <div class="grid-content">
+      <div class="card" *ngFor="let item of this.listData" (click)="selectedNews(item)">
+        <div class="header-card">
+            <ion-img style="height: 10rem;padding-bottom: 0.8rem;" [src]="item.ImageUrl"></ion-img>
+        </div>
+        <span style="background: var(--ion-color-primary);
+        color: #fff;
+        font-size: 0.8rem;
+        padding: 2px 6px;">{{item.Type === "news44" ? ("MainApp.News" | translate) : ("MainApp.Events" | translate)}}</span>
+        <div class="content-card">
+          {{item.Title}}
+        </div>
+      </div>
+    </div>
+  </div>
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadMore($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" [loadingText]="'COMMON.Loading' | translate"></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+
+  <ion-modal [isOpen]="isModalOpen">
+    <ng-template>
+      <ion-header mode="ios">
+        <ion-toolbar  mode="ios">
+          <ion-title  mode="md">{{"MainApp.Setting" | translate}}</ion-title>
+          <ion-buttons slot="end">
+            <ion-button style="--color:#fff;font-size: 0.95rem;margin-right: 0.4rem;" (click)="setOpen(false)">{{"MainApp.Close" | translate}}</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <div class="modal-item" id="open-modal">{{"MainApp.Language" | translate}}
+          <ion-icon name="chevron-forward-outline"></ion-icon>
+        </div>
+        <div (click)="eventLogout()" *ngIf="user | async" class="modal-item">{{"MainApp.Logout" | translate}}
+          <ion-icon name="chevron-forward-outline"></ion-icon>
+        </div>
+        <div  (click)="eventLogin()" *ngIf="(user | async) === null" class="modal-item">{{"MainApp.Login" | translate}}
+          <ion-icon name="chevron-forward-outline"></ion-icon>
+        </div>
+        <ion-modal mode="ios" handleBehavior="cycle" trigger="open-modal" [initialBreakpoint]="0.2" [breakpoints]="[0, 0.2]">
+          <ng-template>
+            <ion-radio-group [allowEmptySelection]="false" [value]="lang">
+              <ion-item style="margin-top: 2rem;" (click)="changeLanguage('vn')">
+                <ion-label>{{"MainApp.VN" | translate}}</ion-label>
+                <ion-radio value="vn"  slot="end"></ion-radio><br />
+              </ion-item>
+              <ion-item (click)="changeLanguage('en')">
+                <ion-label>{{"MainApp.EN" | translate}}</ion-label>
+                <ion-radio value="en"  slot="end"></ion-radio><br />
+              </ion-item>
+            </ion-radio-group>
+          </ng-template>
+        </ion-modal>
+      </ion-content>
+    </ng-template>
+
+  </ion-modal>
+
+
+
+</ion-content>

@@ -1,0 +1,533 @@
+$fnBorderRadius: 5px;
+$fnPaddingTB:40px;
+$fnPaddingLR: 50px;
+$CELL_SIZE:0;
+$CELL_MARGIN_TOP: 60px;
+$CELL_MARGIN_RIGHT: 130px;
+$BUTTON_SIZE: 0;
+//$color-primary:#048cc8;
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--ion-color-primary);
+    height: 100%;
+    font-size: 36px;
+}
+
+ion-toolbar {
+    --background: var(--ion-color-primary);
+    --color: var(--ion-color-primary-contrast);
+    --border-width: 4px 0;
+    --min-height: 20px;
+    --padding-top: 10px;
+    --padding-bottom: 10px;
+}
+
+ion-slides {
+    height: 100%;
+    transform: translateY(0);
+}
+
+.header-icons {
+    display: flex;
+    font-size: 30px;
+    position: relative;
+}
+
+.header-icon:nth-child(1) {
+    margin: 8px 16px 8px 18px;
+}
+
+.header-icon:nth-child(2) {
+    padding: 8px 16px 8px 18px;
+}
+
+.swiper {
+    width: 600px;
+    height: 300px;
+}
+
+.dashboard-header-title {
+    font-size: 24px;
+    margin-left: 16px;
+}
+
+.background-Img {
+    background: url('/../assets/images/default/homepage/background.png') no-repeat center center;
+    background-size: cover;
+    height: 100%;
+    overflow: hidden;
+}
+
+ion-fab-button {
+    --background: var(--ion-color-primary);
+    --background-activated: var(--ion-color-primary);
+    --background-hover: var(--ion-color-primary);
+    --border-radius: 4px;
+    --box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, .3), 0px 1px 3px 1px rgba(0, 0, 0, .15);
+    --color: var(--ion-color-primary-contrast);
+    --transform: rotate(135deg);
+    width: 40px;
+    height: 40px;
+    margin: 0 10px 10px 0;
+}
+
+.item-native {
+    background-color: transparent !important;
+}
+
+ion-fab-button::part(close-icon) {
+    transform: rotate(-135deg);
+}
+
+ion-fab-button.route-ionFab {
+    --border-radius: 50%!important;
+}
+
+.route-icon-main {
+    transform: rotate(-135deg);
+}
+
+ion-slides {
+    --bullet-background: #000
+}
+
+.floating-action {
+    bottom: 1rem;
+    right: 0.4rem;
+    z-index: 11;
+    .option {
+        background-color: transparent;
+        text-align: center;
+        overflow: visible;
+        border-radius: 50%;
+        margin: 30px 8px 30px 0;
+        position: relative;
+        ion-icon {
+            width: 18px;
+            height: 18px;
+            position: absolute;
+            font-size: 0;
+            left: -20px;
+            bottom: 3px;
+            background-color: var(--ion-color-primary);
+            border-radius: 50%;
+            padding: 14px;
+            color: var(--ion-color-primary-contrast);
+        }
+        .btn-logout {
+            background-color: rgb(231, 123, 123);
+        }
+    }
+    .fab-label {
+        position: absolute;
+        height: 28px;
+        bottom: 14px;
+        right: 46px;
+        padding-left: 8px;
+        padding-right: 8px;
+        padding-top: 8px;
+        padding-bottom: 7px;
+        border-radius: 5px;
+        color: #000;
+    }
+    .fab-label-mov {
+        margin-left: -50rem;
+        /* Custom for each label */
+    }
+    .fab-label-work {
+        margin-left: -83px;
+        /* Custom for each label */
+    }
+    .fab-label:hover {
+        color: var(--ion-color-primary);
+    }
+    .button-inner {
+        overflow: visible;
+        /* This makes the labels shown, overrides default ionic properties */
+    }
+}
+
+.cell {
+    background-color: var(--ion-color-primary-contrast);
+    transform: rotate(45deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    box-shadow: 1px 1px 4px rgb(0 0 0 / 20%);
+    border: 1px solid rgba(100, 100, 100, .1);
+    width: 110px;
+    height: 110px;
+    margin: 68.9429px -10px;
+}
+
+.cell:hover {
+    transform: rotate(45deg) scale(1.1);
+}
+
+.cellBody:hover {
+    transition-duration: 0.2s;
+}
+
+.cellBody:after {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: all 0.5s;
+    box-shadow: 0 0 10px 40px rgba(100, 100, 100, .1);
+}
+
+.cellBody:active:after {
+    box-shadow: 0 0 0 0 rgba(100, 100, 100, .1);
+    position: absolute;
+    //border-radius: 4em;
+    left: 0;
+    top: 0;
+    opacity: 1;
+    transition: 0s;
+}
+
+.cellMarginLeft {
+    margin-left: 130px !important
+}
+
+.cellMarginRight {
+    margin-right: 130px !important;
+}
+
+.wrapper {
+    background-color: transparent;
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    transform: translateY(0);
+}
+
+.column {
+    flex: 1;
+    z-index: 10;
+    height: 100%;
+}
+
+.columnPaddingTop {
+    padding-top: 89.2237px;
+}
+
+.cellContainer {
+    display: flex;
+    flex: 1;
+    padding: 4px;
+}
+
+.cellBody {
+    display: flex;
+    flex: 1;
+    border-radius: 4px;
+    background-color: transparent;
+    text-align: center;
+    transform: rotate(-45deg);
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.cellHeader {
+    flex: 1;
+    align-items: flex-end;
+    justify-content: flex-end;
+    position: relative;
+    font-size: 0.6rem;
+}
+
+.cellicon {
+    text-align: center;
+    color: var(--ion-color-primary);
+    font-size: 32px;
+}
+
+@media only screen and (max-device-width: 375px) {
+    .cellicon {
+        font-size: 20px !important;
+    }
+    .columnPaddingTop {
+        padding-top: 86.0313px !important;
+    }
+    ion-card-title {
+        font-size: 1rem !important;
+        line-height: 0 !important;
+        font-weight: 600;
+    }
+    .cellHeader {
+        font-size: 1rem!important;
+    }
+    .cell {
+        width: 105px !important;
+        height: 105px !important;
+        margin: 66.2913px -10px !important;
+    }
+}
+
+@media only screen and (min-device-width: 720px) {
+    .cell {
+        width: 158.6px !important;
+        height: 158.6px !important;
+        margin: 96.5097px -14px !important;
+    }
+    .columnPaddingTop {
+        padding-top: 127.279px !important;
+    }
+    .floating-action {
+        bottom: 16px;
+        right: 28px;
+        z-index: 11;
+        .option {
+            background-color: transparent;
+            text-align: center;
+            overflow: visible;
+            border-radius: 50%;
+            margin: 58px -10px 30px 0;
+            position: relative;
+            ion-icon {
+                width: 40px;
+                height: 40px;
+                position: absolute;
+                font-size: 0;
+                left: -30px;
+                bottom: 3px;
+                background-color: var(--ion-color-primary);
+                border-radius: 50%;
+                padding: 14px;
+                color: var(--ion-color-primary-contrast);
+            }
+            .btn-logout {
+                background-color: rgb(231, 123, 123);
+            }
+        }
+        .fab-label {
+            position: absolute;
+            height: 28px;
+            bottom: 20px;
+            right: 50px;
+            padding-left: 16px;
+            padding-right: 16px;
+            padding-top: 16px;
+            padding-bottom: 28px;
+            font-size: 20px;
+            border-radius: 5px;
+            color: #000;
+        }
+        .fab-label-mov {
+            margin-left: -50rem;
+            /* Custom for each label */
+        }
+        .fab-label-work {
+            margin-left: -83px;
+            /* Custom for each label */
+        }
+        .fab-label:hover {
+            color: var(--ion-color-primary);
+        }
+        .button-inner {
+            overflow: visible;
+            /* This makes the labels shown, overrides default ionic properties */
+        }
+        ion-fab-button {
+            height: 60px !important;
+            width: 60px !important;
+        }
+    }
+    .cellFooter {
+        font-size: 1.25rem !important;
+    }
+    ion-card-title {
+        font-size: 2rem !important;
+        margin: 16px 0 !important;
+        font-weight: 600;
+    }
+    .imgStaff {
+        width: 120px !important;
+        height: 120px !important;
+        border-radius: 50% !important;
+    }
+    ion-card-content {
+        font-size: 1.8rem !important;
+        margin-bottom: 16px;
+    }
+    .hasNotification {
+        width: 46px;
+        bottom: 52px !important;
+        padding: 0 !important;
+        right: -33px !important;
+        font-size: 15px !important;
+    }
+}
+
+@media screen and (min-width: 100vh) {
+    /* The width is greater than the height */
+    .cell {
+        width: 121px !important;
+        height: 121px !important;
+        margin: 82.2815px -8px !important;
+    }
+    .columnPaddingTop {
+        padding-top: 104.4285px !important;
+    }
+    .wrapper {
+        padding-top: 0% !important;
+    }
+    .avt-footer {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        margin-bottom: 0 !important;
+        z-index: 0;
+    }
+    ion-card-title {
+        font-size: 1rem !important;
+        margin: 16px 0 !important;
+        font-weight: 600;
+    }
+    .imgStaff {
+        width: 80px !important;
+        height: 80px !important;
+        border-radius: 50% !important;
+    }
+    ion-card-content {
+        font-size: 0.8rem !important;
+    }
+    .cellFooter {
+        font-size: 0.8rem !important;
+    }
+}
+
+.cellFooter {
+    flex: 1;
+    font-size: 0.75rem;
+    color: var(--text-primary)
+}
+
+.imgStaff {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    margin: auto;
+    border-radius: 30px;
+    border: 2px solid var(--ion-color-primary);
+}
+
+.input-wrapper {
+    flex-direction: column !important;
+}
+
+ion-card-title {
+    display: flex;
+    justify-content: center;
+    font-size: 1.2rem;
+    line-height: 10px;
+    color: var(--text-primary)
+}
+
+ion-card {
+    margin: 0
+}
+
+ion-card {
+    --background: none;
+    --inner-border-width: 0;
+    box-shadow: none;
+}
+
+ion-card-content {
+    display: flex;
+    justify-content: center;
+    font-size: 1rem;
+    color: #696969;
+    text-align: center;
+}
+
+.modal {
+    display: block;
+    position: fixed;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(255, 255, 255, 0.9)
+}
+
+.hasNotification {
+    background-color: #ff0000;
+    border-radius: 14px;
+    width: 290%;
+    text-align: center;
+    bottom: 35px;
+    padding: 2px 0;
+    right: -22px;
+    font-size: 10px;
+    color: var(--ion-color-primary-contrast);
+    position: absolute;
+    border: 2px solid;
+}
+
+.avt-footer {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin-bottom: 10%;
+    z-index: 5;
+}
+
+.language {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 999;
+    display: flex;
+    justify-content: space-around;
+    width: 25%;
+    padding: 0 0;
+}
+
+.language-child {
+    padding: 0 10%;
+}
+
+.disable-language {
+    opacity: 0.4;
+}
+
+ion-card-title {
+    font-weight: 600;
+}
+
+.cellheader-sl {
+    position: absolute;
+    top: 1rem;
+    font-size: 0.8rem;
+    right: -0.7rem;
+    color: var(--ion-color-primary);
+    font-weight: 600;
+}
+
+.custombtnAlert {
+    --font-weight: 100 !important;
+}
+
+:host::ng-deep .swiper-wrapper {
+    transition: .3s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+}
+
+::ng-deep .custombtnAlert {
+    font-weight: normal !important;
+}

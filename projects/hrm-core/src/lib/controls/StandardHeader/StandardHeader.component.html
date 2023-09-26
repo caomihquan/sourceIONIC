@@ -1,0 +1,12 @@
+
+<ion-header>
+  <div [innerHTML]="tetst">
+  </div>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button [text]="title" [defaultHref]="href" [icon]="icon"></ion-back-button>
+        </ion-buttons>
+        <ng-content></ng-content>
+        <ion-icon class="icon-right" [name]="iconRight" *ngIf="isIconRight" (click)="onClickIconRight()"></ion-icon>
+    </ion-toolbar>
+</ion-header>

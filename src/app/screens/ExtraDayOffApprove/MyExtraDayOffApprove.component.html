@@ -1,0 +1,69 @@
+<app-standard-header [title]="itemFunction?.title" [icon]="'arrow-back-outline'" [href]="'home'">
+</app-standard-header>
+<ion-content>
+    <div style="display: flex;justify-content: space-between; margin:0.8rem 0rem 0.5rem 0;">
+        <app-valuelist-modal style="margin:0 0.5rem;width: 50%;" [template]="itemTemplate2" [datas]="YearItems" FieldKeyInput="key" [textLeft]="'COMMON.Year' | translate" [inputText]="YearItems[1].key" (selectedItem)="eventOnSelectedYear($event)">
+        </app-valuelist-modal>
+        <app-valuelist-modal style="margin:0 0.5rem;width: 50%;" [template]="itemTemplate" [datas]="OrderByItems" FieldKeyInput="name" [textLeft]="'COMMON.OrderBy' | translate" [inputText]="OrderByItems[1].name" (selectedItem)="eventOnSelectedOrderBy($event)">
+        </app-valuelist-modal>
+    </div>
+    <div style="margin:0rem 0.5rem 0.5rem 0.5rem">
+        <app-valuelist-modal [template]="itemTemplate3" [datas]="StatusItems" FieldKeyInput="Caption" [textLeft]="'COMMON.Status' | translate" [inputText]="StatusItems ? StatusItems[0].Caption : ''" (selectedItem)="eventOnSelectedStatus($event)">
+        </app-valuelist-modal>
+    </div>
+    <ng-container *ngIf="1===1 then templateEmpVisible"></ng-container>
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadMore($event)">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" [loadingText]="'COMMON.Loading' | translate"></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>
+
+<ng-template #itemTemplate2 let-item>
+    {{item.key}}
+</ng-template>
+<ng-template #itemTemplate let-item>
+    {{item.name}}
+</ng-template>
+<ng-template #itemTemplate3 let-item>
+    {{item.Caption}}
+</ng-template>
+
+<ng-template #templateEmpVisible>
+    <ion-accordion-group style="margin: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgb(0 0 0 / 20%);" *ngFor="let item of this.RequestData;let i = index" [value]="i">
+        <ion-accordion [value]="i">
+            <ion-item slot="header" class="group-title">
+                <div style="display: flex;justify-content: space-between;flex:10000;">
+                    <ion-label>{{item.GroupName}}</ion-label>
+                    <ion-label class="headerContentRight">{{CommonHandler.convertDays(item?.TotalDayNum)}}</ion-label>
+                </div>
+            </ion-item>
+            <div slot="content">
+                <listview classListItem="listItem" [template]="templatelistView" [datas]="item.Data" style="width: 100%" [isGroup]="false" (selectedItem)="eventOnDetailRequest($event)"></listview>
+            </div>
+        </ion-accordion>
+    </ion-accordion-group>
+</ng-template>
+
+<ng-template #templatelistView let-item>
+    <ion-thumbnail slot="start" [class]="'dayContent '+'dayContent'+item.Status">
+        <div *ngIf="item[CommonConst.KEY.FirstDateLeaveItem] && item[CommonConst.KEY.FirstDateLeaveItem]">
+            <div class="dayFirstLast">{{item[CommonConst.KEY.FirstDateLeaveItem]}}</div>
+            <div class="dayFirstLast">{{item[CommonConst.KEY.LastDateLeaveItem]}}</div>
+        </div>
+        <div *ngIf="!item[CommonConst.KEY.FirstDateLeaveItem] || !item[CommonConst.KEY.FirstDateLeaveItem]">
+            <div class="day">{{item?.dayOfMonth}}</div>
+        </div>
+    </ion-thumbnail>
+    <ion-card-header style="padding:0;;text-transform:capitalize;">
+        <ion-card-title class="name">{{item?.EmployeeName}}</ion-card-title>
+        <ion-card-subtitle class="jobwname">
+            <span *ngIf="item?.LeavePeriodName">{{item?.LeavePeriodName}}  - </span>
+            <span [class]="'info'+item.Status">{{item?.StatusName}}</span>
+        </ion-card-subtitle>
+    </ion-card-header>
+    <ion-item slot="end" style="margin: 0;--padding-start:0">
+        <span class="dayNum">{{CommonHandler.convertDays(item?.DayNum)}}</span>
+    </ion-item>
+</ng-template>

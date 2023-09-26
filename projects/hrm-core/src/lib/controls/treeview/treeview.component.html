@@ -1,0 +1,26 @@
+<ion-item-divider sticky style="border: 0" *ngIf="isSearch">
+    <ion-input type="text" class="custom" #searchFld (keyup)="0"></ion-input>
+    <ion-icon (click)="search(searchFld.value)" name="search-outline" class="icon-custom"></ion-icon>
+</ion-item-divider>
+<div>
+    <ul class="root-level">
+        <ng-template #levelList let-parent>
+            <li *ngFor="let item of getItemsAtParent(parent)" [ngClass]="{'found': found.includes(item)}">
+                <span class="badge">
+            <ion-item [ngClass]="{'checked':item?.checked}" >
+              <span class="expando" (click)="toggle(item[id])" [ngClass]="{'expanded': opened.has(item[id])}">
+                <ng-container *ngIf="hasChildren(item[id])" style="font-size: 1rem;"><ion-icon name="caret-forward-outline"></ion-icon></ng-container>
+              </span>
+                <ion-label (click)="onClickItem(item)" [ngClass]="{'text-color':textSearch && item[title].toLowerCase().includes(textSearch.toLowerCase())}">{{item[title]}}</ion-label>
+                </ion-item>
+                </span>
+                <ng-container *ngIf="opened.has(item[id])">
+                    <ul>
+                        <ng-container *ngTemplateOutlet="levelList; context: {$implicit: item[id]}"></ng-container>
+                    </ul>
+                </ng-container>
+            </li>
+        </ng-template>
+        <ng-container *ngTemplateOutlet="levelList; context: {$implicit: 0}"></ng-container>
+    </ul>
+</div>

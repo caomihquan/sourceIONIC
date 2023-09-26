@@ -1,0 +1,227 @@
+<app-standard-header [title]="FunctionInfo?.title" [icon]="'arrow-back-outline'" [href]="'BusinessTripRequest'">
+</app-standard-header>
+<ion-content>
+    <ion-segment [value]="BusinessTripConst.TAB.Infomation" mode="md" style="height: 2.6rem;" (ionChange)="eventSelectTab($event)">
+        <ion-segment-button [value]="BusinessTripConst.TAB.Infomation" mode="md" style="min-height: initial;" [ngStyle]="{'border-bottom': (this.tabName !== BusinessTripConst.TAB.Infomation ? '2px solid #ddd':'none')}">
+            <ion-label style="font-size:0.7rem;">{{'BUSINESS_TRIP.Infomation' | translate}}</ion-label>
+        </ion-segment-button>
+        <ion-segment-button [value]="BusinessTripConst.TAB.Employee" mode="md" style="min-height: initial;" [ngStyle]="{'border-bottom': (this.tabName !== BusinessTripConst.TAB.Employee ? '2px solid #ddd':'none')}">
+            <ion-label style="font-size:0.7rem;">{{'BUSINESS_TRIP.Employee' | translate}}{{'('+ LenEmployee +')'}}</ion-label>
+        </ion-segment-button>
+    </ion-segment>
+    <ng-container *ngIf="this.tabName === BusinessTripConst.TAB.Infomation">
+        <ion-item class="profile-title">
+            <ion-label>{{'BUSINESS_TRIP.Infomation' | translate}}</ion-label>
+        </ion-item>
+        <ion-item class="twoColumn">
+            <ion-label class="list-left">{{'BUSINESS_TRIP.RequestDate' | translate}}</ion-label>
+            <ion-label slot="end" class="label-list-end IonLabel">
+                {{RequestDate()}}
+            </ion-label>
+        </ion-item>
+        <ion-item class="profile-title">
+            <ion-label>{{'BUSINESS_TRIP.LeaveDetail' | translate}}</ion-label>
+        </ion-item>
+        <ion-item>
+            <app-datetime-modal class="appValueListModel" [textLeft]="'COMMON.FromDate' | translate" (selectedItem)="eventSelectedatetime($event)" iddatetime="datetime" iddatetimetrigger="datetime2">
+            </app-datetime-modal>
+        </ion-item>
+
+        <ion-item class="MaginBottom">
+            <app-valuelist-modal class="appValueListModel" [template]="itemTemplate" [datas]="ListTime" [FieldKeyInput]="BusinessTripConst.KEY.Caption" [inputText]="ListTimeSelected?.Caption" [textLeft]="'BUSINESS_TRIP.Time' | translate" (selectedItem)="eventOnSelectedBusinessTripTime($event)">
+            </app-valuelist-modal>
+        </ion-item>
+        <ion-item class="list-left">
+            <ion-input style="width: 100%; margin-right: 0.4rem;--padding-start: 1rem;
+                               --highlight-background: initial;color: var(--text-primary);" type="number" [(ngModel)]='DayNum' class="placeholder" (ionBlur)="updateEndDateFromDayNum()" (ionChange)="eventOnChangeTimeSelected(DayNum)" placeholder="{{'BUSINESS_TRIP.DayNum' | translate}}"></ion-input>
+        </ion-item>
+        <ion-item class="twoColumn">
+            <ion-label class="list-left">{{'COMMON.ToDate' | translate}}</ion-label>
+            <ion-label slot="end" class="label-list-end IonLabel">
+                {{SelectedToDate | date:FormatDate}}
+            </ion-label>
+        </ion-item>
+        <ion-item class="MaginBottom">
+            <app-valuelist-modal class="appValueListModel" [template]="itemTemplate" [datas]="ListKow" [FieldKeyInput]="BusinessTripConst.KEY.Caption" [inputText]="ListKowSelected?.Caption" [textLeft]="'BUSINESS_TRIP.Type' | translate" (selectedItem)="eventOnSelectedBusinessTripType($event)">
+            </app-valuelist-modal>
+        </ion-item>
+
+        <ion-item class="MaginBottom">
+            <app-valuelist-modal class="appValueListModel" [template]="itemTemplate" [datas]="ListKindTrip" [FieldKeyInput]="BusinessTripConst.KEY.Caption" [inputText]="ListKindTripSelected?.Caption" [textLeft]="'BUSINESS_TRIP.KindTrip' | translate" (selectedItem)="eventOnSelectedBusinessTripKindTrip($event)">
+            </app-valuelist-modal>
+        </ion-item>
+        <ion-item id="open-modal2">
+            <ion-input style="--padding-start: 0;
+                padding-right: 2rem !important;
+                text-overflow: ellipsis; font-weight: bold;
+                white-space: nowrap;" [(ngModel)]="ListOtherRequestCaption" readonly class="custom InputTag" id="open-modal2">
+                <ion-label style="color: #999; padding: 0px 0.5rem;font-weight: normal;">{{'BUSINESS_TRIP.OtherRequest' | translate}}: </ion-label>
+            </ion-input>
+            <ion-icon name="arrow-down-outline" class="IconDown"></ion-icon>
+            <app-modal-selected-multi [lines]="true" [title]="'BUSINESS_TRIP.OtherRequest'|translate"
+            idOpen="open-modal2" [arraySearch]="['Value','Caption']" [template]="itemTemplate" [datas]="ListOtherRequest" (onSubmitDialog)="submitDialogOtherRequest($event)"
+                [textLeft]="'BUSINESS_TRIP.OtherRequest' | translate">
+            </app-modal-selected-multi>
+        </ion-item>
+
+        <ion-item id="open-modal3">
+            <ion-input style="--padding-start: 0;
+    padding-right: 2rem !important;font-weight: bold;
+    text-overflow: ellipsis;
+    white-space: nowrap;" [(ngModel)]="ListTypeTripCaption" readonly class="custom InputTag" id="open-modal3">
+                <ion-label style="
+                    color: #999; font-weight: normal;
+                    padding: 0 0.5rem;">{{'BUSINESS_TRIP.TypeTrip' | translate}}: </ion-label>
+
+            </ion-input>
+            <ion-icon name="arrow-down-outline" class="IconDown"></ion-icon>
+            <app-modal-selected-multi [lines]="true" [title]="'BUSINESS_TRIP.TypeTrip'|translate" idOpen="open-modal3" [arraySearch]="['Value','Caption']" [template]="itemTemplate" [datas]="ListTypeTrip" (onSubmitDialog)="submitDialogTypeTrip($event)" [textLeft]="'BUSINESS_TRIP.TypeTrip' | translate">
+            </app-modal-selected-multi>
+        </ion-item>
+
+        <ion-item class="list-left ListLeftInput">
+          <app-valuelist-modal [arraySearch]="['DestinationName']" [placeholder]="'BUSINESS_TRIP.ComeTo' | translate" [IsFreeText]="true" class="appValueListModel" [template]="itemTemplateDes" [datas]="ListDestination" [FieldKeyInput]="'DestinationName'" [inputText]="ComeTo" [textLeft]="''" (selectedItem)="eventChangeCometo($event)">
+          </app-valuelist-modal>
+        </ion-item>
+
+        <ion-item class="list-left ListLeftInput">
+            <ion-input style="width: 100%; --padding-start: 1rem;
+            --highlight-background: initial;color: var(--text-primary);" class="placeholder" type="number" [(ngModel)]="Cost" placeholder="{{'BUSINESS_TRIP.Cost' | translate}}"></ion-input>
+        </ion-item>
+
+        <ion-item class="twoColumn" id="open-modal4">
+            <ion-label class="list-left" style="font-weight: bold;">{{'BUSINESS_TRIP.Attachment' | translate}}</ion-label>
+            <ion-icon name="attach-outline" style="font-size: 35px;"></ion-icon>
+            <app-modal-attach-multi [lines]="true" [title]="'BUSINESS_TRIP.Attachment'|translate" [IsCreate]="true" idOpen="open-modal4" [arraySearch]="['FileSize','FileName']" [template]="itemTemplateFile" [datas]="listfile" (onSubmitDialog)="submitDialogTypeTrip($event)"
+                [paramfile]="paramfile" [textLeft]="'BUSINESS_TRIP.Attachment' | translate">
+            </app-modal-attach-multi>
+        </ion-item>
+
+        <ion-item>
+            <ion-label style="margin-left: 0.2rem;" class="list-left">{{'BUSINESS_TRIP.PurposeOfTrip' | translate}}:</ion-label>
+        </ion-item>
+        <ion-item class="list-left" style="padding-right: 10px;">
+            <ion-textarea class="list-left" style="padding: 0 10px;
+                      margin-bottom: 1rem;
+                      border: 1px solid var(--ion-color-primary);
+                      border-radius: 4px;" [(ngModel)]="PurposeOfTrip" rows="4" placeholder="{{'BUSINESS_TRIP.PurposeOfTrip' | translate}}"></ion-textarea>
+        </ion-item>
+
+        <ion-item>
+            <ion-label style="margin-left: 0.2rem;" class="list-left">{{'BUSINESS_TRIP.Note' | translate}}:</ion-label>
+        </ion-item>
+        <ion-item class="list-left" style="padding-right: 10px;">
+          <ion-textarea class="list-left" style="padding: 0 10px;margin-right: 0px;
+          margin-bottom: 1rem;
+                    border: 1px solid var(--ion-color-primary);
+                    border-radius: 4px;" [(ngModel)]="Note" rows="4" placeholder="{{'BUSINESS_TRIP.Note' | translate}}"></ion-textarea>
+        </ion-item>
+
+
+        <ion-item *ngIf="ShowNoiLuuTru === true">
+            <ion-label style="margin-left: 0.2rem;" class="list-left">{{'BUSINESS_TRIP.NoiLuuTru' | translate}}:</ion-label>
+        </ion-item>
+        <ion-item class="list-left" style="padding-right: 10px;" *ngIf="ShowNoiLuuTru === true">
+          <ion-textarea class="list-left" style="padding: 0 10px;margin-right: 0px;
+          margin-bottom: 1rem;
+                    border: 1px solid var(--ion-color-primary);
+                    border-radius: 4px;" [(ngModel)]="NoiLuuTru" rows="4" placeholder="{{'BUSINESS_TRIP.NoiLuuTru' | translate}}"></ion-textarea>
+        </ion-item>
+
+
+        <ion-item class="modal-input" id="open-modal5" style="margin-left:0.5rem;" *ngIf="IsShow === true">
+            <ion-input readonly class="custom" style="margin-right: 1rem;
+          margin-left: 0.2rem;">
+                <span style="font-size: 0.9rem;
+          color: #c4c3c3;
+          padding: 0 1rem;
+          font-weight: 500;">{{'COMMON.NguoiThayThe'|translate}}:<span style="margin-left:1rem;color: var(--ion-color-primary);font-size: 1rem;font-weight: 600;">{{NguoiThayThe["FullName"]}}</span></span>
+            </ion-input>
+            <ion-icon name="arrow-down-outline" style="position: absolute;
+                      right: 1rem;"></ion-icon>
+            <app-modal-selected [lines]="true" [title]="'COMMON.NguoiThayThe'|translate" idOpen="open-modal5" [arraySearch]="['FullName','EmployeeCode']" [template]="itemTemplate4" [datas]="lstNguoiThayThe" (selectedItem)="eventOnSelectedNguoiThayThe($event)">
+            </app-modal-selected>
+        </ion-item>
+    </ng-container>
+
+
+    <ng-container *ngIf="this.tabName !== BusinessTripConst.TAB.Infomation">
+        <ion-item class="twoColumn">
+            <div class="list-left">
+                <ion-button id="open-modal2">{{"BUSINESS_TRIP.Filter" | translate}}</ion-button>
+                <ion-button style="--background: red;" (click)="eventDeleteFilterEmployee()">{{"BUSINESS_TRIP.Delete" | translate}}</ion-button>
+
+                <app-modal-filter-emp [datasOut]="ListEmployee" [title]="'COMMON.Employee'|translate" [dataKow]="FilterEmployeeForManager" [FunctionID]="'Mobi.019'" [iPage]='iPage' [ParamsEmployee]="ParamsEmployee" idOpen="open-modal2" [arraySearch]="['EmployeeCode','EmployeeName']"
+                    [template]="itemTemplate6" (onSubmitDataDialog)="submitDialogFilterEmp($event)">
+                </app-modal-filter-emp>
+            </div>
+            <ion-checkbox style="margin-right: 1rem;" slot="end" [checked]="IsCheckedAll" (ionChange)="CheckAllFilter()" class="IconDown">
+            </ion-checkbox>
+        </ion-item>
+        <ng-container>
+            <listview [template]="itemTemplateemp" [datas]="ListEmployee" style="width: 100%" [isGroup]="false" [classDivContainer]="'border-radius-emp'" [classListItem]="'item-emp'"></listview>
+            <ion-infinite-scroll threshold="100px" (ionInfinite)="loadMore($event)">
+                <ion-infinite-scroll-content loadingSpinner="bubbles" [loadingText]="'COMMON.Loading' | translate"></ion-infinite-scroll-content>
+            </ion-infinite-scroll>
+        </ng-container>
+    </ng-container>
+</ion-content>
+<ng-container>
+    <ion-item class="footer-checkinout">
+        <ion-button style="--background:#e0e0e0;--color:#666" (click)="doPop()">
+            {{"COMMON.Cancel" | translate}}
+        </ion-button>
+        <ion-button (click)="doSubmit()">
+            {{"COMMON.Submit" | translate}}
+        </ion-button>
+    </ion-item>
+</ng-container>
+
+<ng-template #itemTemplateemp let-item>
+    <div class="div-container-list">
+        <ion-thumbnail slot="start" style="--border-radius:50%">
+            <img [src]="CommonHandler.ConvertPhotoUrl(item.PhotoID)" />
+        </ion-thumbnail>
+        <div style="width:100%;flex: 1;margin:0.6rem 0;line-height: 1.4rem; margin-left: 10px;">
+            <div style="font-size: 1.125rem;  color: var(--text-primary) !important; font-weight: bold; margin-left: 10px;">
+                {{ item.EmployeeName }}
+            </div>
+            <div style="display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin: 0 0.7rem;
+        " (click)="eventAfterCheckBox(item.EmployeeCode)">
+                <ion-label class="list-left" style="font-size: 13px !important;">{{item.JobWName}}</ion-label>
+                <ion-checkbox style="margin: 0.6rem;" slot="end" [checked]="item.IsCheck"></ion-checkbox>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #itemTemplate let-item>
+    {{item.Caption}}
+</ng-template>
+<ng-template #itemTemplateDes let-item>
+  {{item.DestinationName}}
+</ng-template>
+<ng-template #itemTemplateFile let-item>
+    {{item.FileName}}
+</ng-template>
+<ng-template #itemTemplate4 let-item>
+    <div style="flex: 1;
+  border-bottom: 1px solid #ddd;
+  padding: 1rem;">
+        <div style="margin-bottom: 0.6rem;">{{item.FullName}}</div>
+        <div> {{item.EmployeeCode}}</div>
+    </div>
+</ng-template>
+
+
+<ng-template #itemTemplate6 let-item>
+    <div style="flex: 1;
+  border-bottom: 1px solid #ddd;
+  padding: 1rem;">
+        <div style="margin-bottom: 0.6rem;">{{item.FullName}}</div>
+        <div> {{item.EmployeeCode}}</div>
+    </div>
+</ng-template>

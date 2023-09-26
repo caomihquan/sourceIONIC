@@ -1,0 +1,157 @@
+<app-standard-header [title]="'QA.HoiDap' | translate" [icon]="'arrow-back-outline'" [href]="'home'">
+</app-standard-header>
+<ion-content>
+    <ion-icon [hidden]="TabActive !=='question'" id="dragable" name="add-circle-sharp" (click)="eventOpenPost()"></ion-icon>
+    <ion-icon [hidden]="TabActive !=='answer'" id="dragable2" name="checkmark-circle" (click)="updateStatusAll()"></ion-icon>
+    <!-- question -->
+    <ion-modal mode="ios" class="ModalCreate" *ngIf="TabActive ==='question'" #modaladdquestion trigger="dragable" [isOpen]="IsAddNewQuestion" (didDismiss)="AfterCloseModalAddQuestion()">
+        <ng-template>
+            <ion-toolbar style="--background:var(--ion-color-primary);position: sticky;">
+                <ion-title class="QuestionFor">{{ isPost ? ('QA.QuestionFor' | translate) : ('QA.AnswerFor' | translate)}}</ion-title>
+                <span 
+                    (click)="modaladdquestion.dismiss()"
+                    style="z-index: 999999;
+                    position: absolute;
+                    right: 1rem;
+                    color: #fff;
+                    top: 1rem;">X</span>
+            </ion-toolbar>
+            <div *ngIf="isReply" style="display: flex;margin-left: 1rem;align-items: center;">
+                <div>{{'QA.ReplyTo' | translate}}</div>
+                <span class="modal-replyTo">@{{user?.FullName}}:{{ReplyTo?.Content}}</span>
+            </div>
+            <div *ngIf="isPost" class="twoColumn" style="display: flex;gap: 4px;align-items: center;">
+                <div style="margin-left: 1rem;
+                min-width: 110px;
+                font-size: 0.9rem;">{{'QA.Ask' | translate}}:</div>
+                <app-valuelist-modal slot="end" style="width:100%;margin-right: 1rem;" class="label-list-end" [template]="itemTemplateTopic" [datas]="topic" [FieldKeyInput]="'TopicContent'" [inputText]="topicobj?.TopicContent" (selectedItem)="selectTopic($event)">
+                </app-valuelist-modal>
+            </div>
+            <ion-item class="MaginBottom">
+                <ion-textarea class="list-left" rows="8" [(ngModel)]="content"></ion-textarea>
+            </ion-item>
+            <ion-item class="footer-checkinout">
+                <ion-button slot="end" (click)="createQuestion()">
+                    <ion-icon style="transform: translate(-3px, -1px);" name="send-outline"></ion-icon>{{"QA.Send" | translate}}
+                </ion-button>
+            </ion-item>
+        </ng-template>
+    </ion-modal>
+    <!-- end question -->
+    <!-- answer -->
+    <ion-modal style="--height:320px !important" *ngIf="TabActive ==='answer'" #modalreplyanswer [isOpen]="showReplyAnswer === true" (didDismiss)="AfterCloseModalReplyAnswer()">
+        <ng-template>
+            <ion-toolbar style="--background:var(--ion-color-primary);position: sticky;">
+                <ion-title class="QuestionFor">{{'QA.AnswerFor' | translate}}</ion-title>
+                <span 
+                    (click)="modalreplyanswer.dismiss()"
+                    style="z-index: 999999;
+                    position: absolute;
+                    right: 1rem;
+                    color: #fff;
+                    top: 1rem;">X</span>
+            </ion-toolbar>
+            <div *ngIf="isReply" style="display: flex;margin-left: 1rem;align-items: center;">
+                <div>{{'QA.ReplyTo' | translate}}</div>
+                <span class="modal-replyTo">@{{user?.FullName}}:{{ReplyTo?.Content}}</span>
+            </div>
+            <ion-item class="MaginBottom">
+                <ion-textarea class="list-left" rows="8" [(ngModel)]="content"></ion-textarea>
+            </ion-item>
+            <ion-item class="footer-checkinout">
+                <ion-button slot="end" (click)="createReply()">
+                    <ion-icon style="transform: translate(-3px, -1px);" name="send-outline"></ion-icon>{{"QA.Send" | translate}}
+                </ion-button>
+            </ion-item>
+        </ng-template>
+    </ion-modal>
+    <!-- end  answer -->
+    <div class="modal-QA">
+        <button [ngClass]="{'buttontabActive': TabActive === 'question'}" class="buttontab" (click)="OnChangTab('question')">
+          {{'QA.Question' | translate}}
+        </button>
+        <button [ngClass]="{'buttontabActive': TabActive !== 'question'}" class="buttontab" (click)="OnChangTab('answer')">
+          {{'QA.Answer' | translate}}
+        </button>
+    </div>
+    <listview [template]="TabActive ==='question' ? itemTemplate3 : itemTemplate4" [datas]="data" style="width: 100%;" [isGroup]="false" [classListItem]="'item-emp-leave'" classDivContainer="margin-top" classGroup="my-list-request-group">
+    </listview>
+    <ion-infinite-scroll (ionInfinite)="loadMore($event)">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" [loadingText]="'COMMON.Loading' | translate"></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>
+
+<!--question template -->
+<ng-template #itemTemplate3 let-item>
+    <div class="div-container-list">
+        <ion-thumbnail [class]="'dayContent '+'dayContent'+item.Status">
+            <img [src]="commonHandler.ConvertPhotoUrl(item.PhotoID)">
+        </ion-thumbnail>
+        <div class="QAContent" longPress (mouseLongPress)="eventLongPressReplyComment(item)">
+            <div style="font-size: 16px;  color: var(--text-primary) !important;" class="infor">
+                <span>{{'QA.Me' | translate}}</span>
+                <span class="QADay">{{FormatHandler.formatFullDate(item.CreatedOn, this.user)}}</span>
+            </div>
+            <div>
+                <span class="info">{{item.Content}}</span>
+            </div>
+            <div style="font-size: 16px;  color: var(--text-primary) !important;" class="QAReply">
+                <span *ngIf="item.Status" class="QAStatus">{{'QA.Seen' | translate}}</span>
+                <span *ngIf="!item.Status" class="QAStatus">{{'QA.See' | translate}}</span>
+                <span class="QAStatus" style="float: right;justify-content: end;">{{item.TopicContent}}</span>
+            </div>
+            <div style="color: var(--text-primary) !important;" *ngIf="item.TotalReply > 0">
+                <button class="replyIcon ColorFix" style="background: none;text-align: left;" (click)="hanleShowReply(item)">
+                <ion-icon name='arrow-undo-outline' style="float:left; transform: rotate(180deg);"></ion-icon>
+                <span style="margin-right: 12rem;font-size:0.8rem;font-weight: bold;">
+                   {{item.TotalReply}} {{'QA.Reply' | translate}}
+                </span>
+              </button>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<ng-template #itemTemplateTopic let-item>
+    {{item.TopicContent}}
+</ng-template>
+
+
+<!--answer template -->
+<ng-template #itemTemplate4 let-item>
+    <div class="div-container-list">
+        <ion-thumbnail [class]="'dayContent '+'dayContent'+item.Status">
+            <img [src]="commonHandler.ConvertPhotoUrl(item.PhotoID)">
+        </ion-thumbnail>
+        <div class="QAContent" longPress (mouseLongPress)="eventLongPressReplyComment(item)">
+            <div style="font-size: 16px;  color: var(--text-primary) !important;" class="infor">
+                <span>{{item.FullName}}</span>
+                <span class="QADay">{{FormatHandler.formatFullDate(item.CreatedOn, this.user)}}</span>
+            </div>
+            <div>
+                <span class="info">{{item.DepartmentName}}</span>
+            </div>
+            <div>
+                <span class="info">{{item.Content}}</span>
+            </div>
+            <div style="font-size: 16px;color: var(--text-primary) !important;" class="QAReply">
+                <span *ngIf="item.Status" class="QAStatus">{{'QA.Seen' | translate}}</span>
+                <span *ngIf="!item.Status" class="QAStatus">{{'QA.See' | translate}}</span>
+                <span class="QAStatus" style="float: right;justify-content: end;">{{item.TopicContent}}</span>
+            </div>
+            <div style="color: var(--text-primary) !important;display: flex;justify-content: end">
+                <button *ngIf="item.TotalReply > 0" class="replyIcon ColorFix" style="background: none; width: 50%;text-align: left;" (click)="hanleShowReply(item)">
+              <ion-icon name='arrow-undo-outline' style="float:left; transform: rotate(180deg);"></ion-icon>
+              <span style="font-size:0.85rem;font-weight: bold;">
+                 {{item.TotalReply}} {{'QA.Reply' | translate}}
+              </span>
+            </button>
+                <button class="replyIcon ColorFix" style="background:none;width: 50%;text-align: right;font-size: 1rem;" (click)="showFormCreate(item)">
+              <ion-icon name="chatbox-ellipses-outline" tyle="float:right"></ion-icon>
+              <span style="font-size:0.85rem;font-weight: bold;">
+                 {{'QA.Reply' | translate}}
+              </span>
+            </button>
+            </div>
+        </div>
+    </div>
+</ng-template>

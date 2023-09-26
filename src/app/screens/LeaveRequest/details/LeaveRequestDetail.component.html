@@ -1,0 +1,317 @@
+<app-standard-header [title]="itemFunciton.title" [icon]="'arrow-back-outline'" [href]="'LeaveRequest'">
+    <span id="HistoryAppoveLevel" slot="end" style="margin-right: 1rem;font-size: 1.6rem;color: #fff;" class="sap-icon sap-customer-history"></span>
+</app-standard-header>
+<ion-content>
+    <timeline idOpen="HistoryAppoveLevel" [title]="'COMMON.HistoryApproveLevel' | translate" [templateLeft]="templateLeft" [templateRight]="templateRight" [RecordID]="RequestData.RecordID" [ProcessID]="0"></timeline>
+    <ion-item class="profile-title">
+        <ion-label>{{'LEAVE_REQUEST.Infomation' | translate}}</ion-label>
+    </ion-item>
+    <div class="ion-padding">
+        <ion-list>
+            <ion-item class="twoColumn">
+                <ng-container>
+                    <ion-label class="list-left">{{'LEAVE_REQUEST.Status' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end" *ngIf="RequestData.Status === 1">
+                        <div style="width: 1rem;
+                            height: 1rem;
+                            border-radius: 50%;
+                            display: inline-block;
+                            background: #000;
+                            background-color: #0088CF;
+                            transform: translate(-8px, 2px)"></div>
+                        <div style="display: inline-block; color: #0088CF;">{{RequestData.StatusName}}</div>
+                    </ion-label>
+
+                    <ion-label slot="end" class="label-list-end" *ngIf="RequestData.Status===2">
+                        <div style="width: 1rem;
+                            height: 1rem;
+                            border-radius: 50%;
+                            display: inline-block;
+                            background: #000;
+                            background-color: #7DBC42;
+                            transform: translate(-8px, 2px)"></div>
+                        <div style="display: inline-block; color: #7DBC42;">{{RequestData.StatusName}}</div>
+                    </ion-label>
+
+                    <ion-label slot="end" class="label-list-end" *ngIf="RequestData.Status === 3">
+                        <div style="width: 1rem;
+                            height: 1rem;
+                            border-radius: 50%;
+                            display: inline-block;
+                            background: #000;
+                            background-color: #FF3939;
+                            transform: translate(-8px, 2px)"></div>
+                        <div style="display: inline-block; color: #FF3939;">{{RequestData.StatusName}}</div>
+                    </ion-label>
+
+                    <ion-label slot="end" class="label-list-end" *ngIf="RequestData.Status===5">
+                        <div style="width: 1rem;
+                            height: 1rem;
+                            border-radius: 50%;
+                            display: inline-block;
+                            background: #000;
+                            background-color: #FEA747;
+                            transform: translate(-8px, 2px)"></div>
+                        <div style="display: inline-block; color: #FEA747;">{{RequestData.StatusName}}</div>
+                    </ion-label>
+
+
+                    <ion-label slot="end" class="label-list-end" *ngIf="RequestData.Status===6">
+                        <div style="width: 1rem;
+                            height: 1rem;
+                            border-radius: 50%;
+                            display: inline-block;
+                            background: #000;
+                            background-color: #F3721C;
+                            transform: translate(-8px, 2px)"></div>
+                        <div style="display: inline-block; color: #F3721C;">{{RequestData.StatusName}}</div>
+                    </ion-label>
+
+                    <ion-label slot="end" class="label-list-end" *ngIf="RequestData.Status!==6 && RequestData.Status!==5 && RequestData.Status!==3 && RequestData.Status!==2  && RequestData.Status!==1">
+                        <div style="width: 1rem;
+                            height: 1rem;
+                            border-radius: 50%;
+                            display: inline-block;
+                            background: #000;
+                            background-color: #DFDFDF;
+                            transform: translate(-8px, 2px)"></div>
+                        <div style="display: inline-block; color: #DFDFDF;">{{RequestData.StatusName}}</div>
+                    </ion-label>
+                </ng-container>
+            </ion-item>
+            <ion-item class="twoColumn">
+                <ng-container>
+                    <ion-label class="list-left">{{'LEAVE_REQUEST.RequestDate' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">
+                        {{RequestData.CreateDateView}}
+                    </ion-label>
+                </ng-container>
+            </ion-item>
+            <ion-item class="twoColumn">
+                <ng-container>
+                    <ion-label class="list-left">{{'LEAVE_REQUEST.Reason' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">
+                        {{RequestData.Reason}}
+                    </ion-label>
+                </ng-container>
+            </ion-item>
+            <ion-item class="twoColumn" *ngIf="RequestData?.Status === 5 && true === RequestData?.IsRequireWhenCancel">
+                <ng-container>
+                    <ion-label class="list-left">{{'LEAVE_REQUEST.ReasonDestroy' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">
+                        {{RequestData.ReasonDestroy}}
+                    </ion-label>
+                </ng-container>
+            </ion-item>
+        </ion-list>
+    </div>
+    <!-- <ion-item class="profile-title">
+        <ion-label>{{'LEAVE_REQUEST.LeaveDetail' | translate}}</ion-label>
+    </ion-item> -->
+    <div class="ion-padding">
+        <ion-list>
+            <ion-item class="twoColumn">
+                <ng-container>
+                    <ion-label class="list-left">{{'LEAVE_REQUEST.KowCode' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">
+                        {{RequestData?.KowName}}
+                    </ion-label>
+                </ng-container>
+            </ion-item>
+            <ion-item class="twoColumn">
+                <ng-container>
+                    <ion-label class="list-left">{{'LEAVE_REQUEST.Type' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">
+                        {{RequestData?.LeavePeriodName}}
+                    </ion-label>
+                </ng-container>
+            </ion-item>
+            <ion-item class="twoColumn">
+                <ng-container>
+                    <ion-label class="list-left">{{'COMMON.FromDate' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">
+                        {{RequestData?.BegDateView}}
+                    </ion-label>
+                </ng-container>
+            </ion-item>
+            <ion-item class="twoColumn">
+                <ng-container>
+                    <ion-label class="list-left">{{'COMMON.ToDate' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">
+                        {{RequestData?.EndDateView}}
+                    </ion-label>
+                </ng-container>
+            </ion-item>
+            <ion-item class="twoColumn" *ngIf="RequestData.LeavePeriod === 6 || RequestData.LeavePeriod === 7">
+                <ng-container>
+                    <ion-label class="list-left">{{'COMMON.FromTime' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">
+                        {{RequestData?.FromTime}}
+                    </ion-label>
+                </ng-container>
+            </ion-item>
+            <ion-item class="twoColumn" *ngIf="RequestData.LeavePeriod === 6 || RequestData.LeavePeriod === 7">
+                <ng-container>
+                    <ion-label class="list-left">{{'COMMON.ToTime' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">
+                        {{RequestData?.ToTime}}
+                    </ion-label>
+                </ng-container>
+            </ion-item>
+            <ion-item class="twoColumn">
+                <ng-container>
+                    <ion-label class="list-left">{{'LEAVE_REQUEST.DayNum' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end" style="color: #FF3939">
+                        {{commonHandler.convertDays(RequestData?.DayNum)}}
+                    </ion-label>
+                </ng-container>
+            </ion-item>
+            <ion-item class="twoColumn" *ngIf="RequestData.LeavePeriod === 4">
+                <ng-container>
+                    <ion-label class="list-left">{{'LEAVE_REQUEST.HourNum' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end" style="color: #FF3939">
+                        {{commonHandler.convertHour(RequestData?.DailyNumHour)}}
+                    </ion-label>
+                </ng-container>
+            </ion-item>
+            <ion-item class="twoColumn" *ngIf="RequestData.KowType === 9">
+                <ng-container>
+                    <ion-label class="list-left">{{'LEAVE_REQUEST.ThongTinThaiSan' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end"></ion-label>
+                </ng-container>
+            </ion-item>
+            <ion-item class="twoColumn" *ngIf="RequestData.KowType === 9">
+                <ng-container>
+                    <ion-label class="list-left">{{'LEAVE_REQUEST.SILeaveNo' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">
+                        {{RequestData?.SILeaveNo}}
+                    </ion-label>
+                </ng-container>
+            </ion-item>
+            <ion-item class="twoColumn" *ngIf="RequestData.KowType === 9">
+                <ng-container>
+                    <ion-label class="list-left">{{'LEAVE_REQUEST.LoaiSinh' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">
+                        {{RequestData?.NewChildBirthTypeName}}
+                    </ion-label>
+                </ng-container>
+            </ion-item>
+            <ion-item class="twoColumn" *ngIf="RequestData.KowType === 9">
+                <ng-container>
+                    <ion-label class="list-left">{{'LEAVE_REQUEST.SoCon' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">
+                        {{RequestData?.NewChildNum}}
+                    </ion-label>
+                </ng-container>
+            </ion-item>
+            <ion-item class="twoColumn" *ngIf="RequestData.KowType === 9">
+                <ng-container>
+                    <ion-label class="list-left">{{'LEAVE_REQUEST.ngaysinhcuacon' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">
+                        {{RequestData?.NgaySinhCon}}
+                    </ion-label>
+                </ng-container>
+            </ion-item>
+            <ion-item class="twoColumn" *ngIf="RequestData.KowType === 36">
+                <ng-container>
+                    <ion-label class="list-left">{{'LEAVE_REQUEST.ThongTinVoSinh' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end"> </ion-label>
+                </ng-container>
+            </ion-item>
+            <ion-item class="twoColumn" *ngIf="RequestData.KowType === 36">
+                <ng-container>
+                    <ion-label class="list-left">{{'LEAVE_REQUEST.LoaiSinh' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">
+                        {{RequestData?.NewChildBirthTypeName}}
+                    </ion-label>
+                </ng-container>
+            </ion-item>
+            <ion-item class="twoColumn" *ngIf="RequestData.KowType === 36">
+                <ng-container>
+                    <ion-label class="list-left">{{'LEAVE_REQUEST.IsNewChildUnder32W' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">
+                        <ion-checkbox slot="start" checked="RequestData?.IsNewChildUnder32W"></ion-checkbox>
+                    </ion-label>
+                </ng-container>
+            </ion-item>
+            <ion-item class="twoColumn" *ngIf="RequestData.KowType === 36">
+                <ng-container>
+                    <ion-label class="list-left">{{'LEAVE_REQUEST.ngaysinhcuacon' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">
+                        {{RequestData?.NgaySinhCon}}
+                    </ion-label>
+                </ng-container>
+            </ion-item>
+            <ion-item class="twoColumn" *ngIf="RequestData.KowType === 36">
+                <ng-container>
+                    <ion-label class="list-left">{{'LEAVE_REQUEST.SoCon' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">
+                        {{RequestData?.NewChildNum}}
+                    </ion-label>
+                </ng-container>
+            </ion-item>
+
+            <ion-item class="twoColumn" *ngIf="RequestData">
+                <ng-container>
+                    <ion-label class="list-left">{{'LEAVE_APPROVE.ApproveNote' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">
+                        {{RequestData?.ApproveNote}}
+                    </ion-label>
+                </ng-container>
+            </ion-item>
+            <ion-item class="twoColumn" *ngIf="RequestData?.FileID" id="open-modal4">
+                <ion-label class="list-left">{{'BUSINESS_TRIP.Attachment' | translate}}
+                    <ion-icon name="attach-outline" style="font-size: 1.6rem;
+                      position: absolute;
+                      bottom: 0.6rem;"></ion-icon>
+                       <app-modal-attach-multi [lines]="true" [title]="'BUSINESS_TRIP.Attachment'|translate"
+                       [IsCreate]="false"
+                       idOpen="open-modal4" [arraySearch]="['FileSize','FileName']" [template]="itemTemplateFile"
+                       [datas]="[]"
+                       [paramfile] = "paramfile"
+                       [textLeft]="'BUSINESS_TRIP.Attachment' | translate">
+               </app-modal-attach-multi>
+                </ion-label>
+
+            </ion-item>
+            <ion-item class="twoColumn" *ngIf="RequestData && IsShow">
+                <ng-container>
+                    <ion-label class="list-left">{{'COMMON.NguoiThayThe' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">
+                        {{RequestData?.ContactEmployeeName}}
+                    </ion-label>
+                </ng-container>
+            </ion-item>
+        </ion-list>
+    </div>
+    <ion-item class="footer-checkinout">
+        <ion-button *ngIf="IsActivePleaseCancel" id="btnReject" class="btnReject btnRejectText" type="submit" expand="block" (click)="handleOnPleaseReject()">
+            {{"LEAVE_REQUEST.PleaseCancel" | translate}}
+        </ion-button>
+    </ion-item>
+
+
+</ion-content>
+
+<ng-template #templateLeft let-item>
+    <div class="container-item-left">
+        <div class="ApproveDate">{{item.ApprovalDate}}</div>
+        <div><span [class]="'dayContent '+ 'dayContent'+item.ApprovalStatus">{{item.ApprovalStatusName}}</span></div>
+    </div>
+</ng-template>
+<ng-template #templateRight let-item>
+    <div style="display:flex;;width: 70%;">
+        <ion-thumbnail slot="start" style="--border-radius: 50%;">
+            <img [src]="commonHandler.ConvertPhotoUrl(item.PhotoID)" />
+        </ion-thumbnail>
+        <div class="container-item-right">
+            <div class="FullName">{{item.EmployeeName}}</div>
+            <div class="JobWname">{{item.JobWName}}</div>
+            <div class="ApproveNote">
+                {{item.ApprovalNote}}</div>
+        </div>
+    </div>
+</ng-template>
+<ng-template #itemTemplateFile let-item>
+    {{item.FileName}}
+  </ng-template>

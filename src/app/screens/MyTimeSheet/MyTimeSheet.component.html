@@ -1,0 +1,145 @@
+<app-standard-header [title]="itemFunction.title" [icon]="'arrow-back-outline'" [href]="'home'">
+</app-standard-header>
+<ion-content>
+    <app-card-emp [showTeam]="true" (clickTeam)="onChangeEmployee($event)"></app-card-emp>
+    <div class="inout-work">
+        <div class="inout" [ngClass]="{'active':tabName === 'working'}" (click)="eventSelectedTab('working')">
+            {{'MYTIMESHEET.Working' | translate}}
+        </div>
+        <div class="inout" [ngClass]="{'active':tabName === 'inout'} " (click)="eventSelectedTab('inout')">
+            {{'MYTIMESHEET.InOut' | translate}}
+        </div>
+    </div>
+    <hrm-calendar [templateCalendar]="template" (DowCode)="ChangeDowCode($event)" [noteTemplate]="noteTemplate"></hrm-calendar>
+    <h4 *ngIf="listLeaveToday?.length > 0">{{'MYTIMESHEET.WhosLeaveToday' | translate}}</h4>
+    <listview [template]="templateLeaveToday" [datas]="listLeaveToday" *ngIf="listLeaveToday?.length > 0" [autoLoad]="false" classListItem="top3-timesheet"></listview>
+    <h4 *ngIf="top3ListLeave?.length > 0">{{'MYTIMESHEET.ListLeaveTop3' | translate}}</h4>
+    <listview [template]="templatetop3ListLeave" [datas]="top3ListLeave" *ngIf="top3ListLeave?.length > 0" [autoLoad]="false" classListItem="top3-timesheet"></listview>
+    <h4 *ngIf="top3ListOT?.length > 0">{{'MYTIMESHEET.ListOvertimeTop3' | translate}}</h4>
+    <listview [template]="templatetop3ListOT" [datas]="top3ListOT" *ngIf="top3ListOT?.length > 0" [autoLoad]="false" classListItem="top3-timesheet"></listview>
+    <h4 *ngIf="top3ListBusinessTrip?.length > 0">{{'MYTIMESHEET.ListBussinessTop3' | translate}}</h4>
+    <listview [template]="templatetop3ListBusinessTrip" [datas]="top3ListBusinessTrip" *ngIf="top3ListBusinessTrip?.length > 0" [autoLoad]="false" classListItem="top3-timesheet"></listview>
+</ion-content>
+
+
+
+<ng-template #template let-view>
+    <div *ngIf="tabName === 'inout'" (click)="onDayPress(view.date)" [ngClass]="{ 'triangle':getIsViewScan(view.date)}">
+        <p class="calendar-day " [ngStyle]="getDateStyle(view.date) ">
+            {{view.label}}
+        </p>
+        <div (click)="onScanTimeMore(view.date)" style="font-size: 0.6rem;
+    color: var(--text-primary);
+    padding-bottom: 0.2rem;">
+            <div [innerHTML]="InitStateInOut(view.date)"></div>
+        </div>
+    </div>
+    <p class="calendar-day-working " *ngIf="tabName==='working'">{{view.label}}
+        <span style="font-size: 0.55rem; " [innerHTML]="InitStateInOut(view.date)"></span>
+    </p>
+</ng-template>
+<ng-template #noteTemplate>
+    <ion-item lines="none " class="calendar-note " [ngClass]="{ 'show-note':isDetailNote} " *ngIf="tabName==='inout' && !IsTemplateDefault ">
+        <div *ngIf="isDetailNote" style="width: 100%; ">
+            <ion-item>
+                <span class="circle Holiday "> </span>
+                <ion-label class="ion-label-note ">{{'MYTIMESHEET.Holiday' | translate}}</ion-label>
+                <span class="circle Leave "> </span>
+                <ion-label class="ion-label-note ">{{'MYTIMESHEET.Leave' | translate}}</ion-label>
+            </ion-item>
+            <ion-item>
+                <span class="circle Travel "> </span>
+                <ion-label class="ion-label-note ">{{'MYTIMESHEET.Travel' | translate}}</ion-label>
+                <span class="circle Missing "> </span>
+                <ion-label class="ion-label-note ">{{'MYTIMESHEET.Missing' | translate}}</ion-label>
+            </ion-item>
+            <ion-item>
+                <span class="circle LateEarly "> </span>
+                <ion-label class="ion-label-note ">{{'MYTIMESHEET.LateEarly' | translate}}</ion-label>
+                <span class="circle Current "> </span>
+                <ion-label class="ion-label-note ">{{'MYTIMESHEET.Current' | translate}}</ion-label>
+            </ion-item>
+            <ion-item>
+                <span class="circle LateEarlyAndMissing "> </span>
+                <ion-label class="ion-label-note ">{{'MYTIMESHEET.LateEarlyAndMissing' | translate}}</ion-label>
+            </ion-item>
+        </div>
+        <ion-icon style="color:var(--ion-color-primary) " name="information-circle-outline" slot="end" (click)="showNote() "></ion-icon>
+    </ion-item>
+
+    <ion-item style="--padding-start:0 " lines="none " class="show-note " *ngIf="tabName==='inout' && IsTemplateDefault ">
+        <div style="width:100%; ">
+            <ion-item>
+                <span class="circle Missing "> </span>
+                <ion-label class="ion-label-note ">{{'MYTIMESHEET.Missing' | translate}}</ion-label>
+                <span class="circle LateEarlyAndMissing "> </span>
+                <ion-label class="ion-label-note ">{{'MYTIMESHEET.ThieuCong' | translate}}</ion-label>
+            </ion-item>
+            <ion-item>
+                <span class="circle Current "> </span>
+                <ion-label class="ion-label-note ">{{'MYTIMESHEET.Current' | translate}}</ion-label>
+                <span class="circle Holiday "> </span>
+                <ion-label class="ion-label-note ">{{'MYTIMESHEET.Holiday' | translate}}</ion-label>
+            </ion-item>
+        </div>
+    </ion-item>
+
+
+    <ion-item style="--padding-start:0 " lines="none " class="show-note " *ngIf="tabName==='working' ">
+        <div style="width: 100%; ">
+            <ion-item *ngFor="let item of listKow " class="ion-label-note ">
+                <span>{{item.KowCode}}: </span>
+                <ion-label> {{item.KowName}}</ion-label>
+            </ion-item>
+        </div>
+    </ion-item>
+</ng-template>
+
+<ng-template #templateLeaveToday let-item>
+    <ion-thumbnail slot="start">
+        <img style="border-radius:50% " [src]="CommonHandler.ConvertPhotoUrl(item?.PhotoID) " />
+    </ion-thumbnail>
+    <ion-card-header>
+        <ion-card-title class="name ">{{item?.EmployeeName}}</ion-card-title>
+        <ion-card-subtitle class="jobwname ">{{('EMPLOYEEINFO.JobWName' | translate) +': '}}<span>{{item?.JobWName}}</span></ion-card-subtitle>
+    </ion-card-header>
+    <ion-item class="time-top3" slot="end">
+        <span>{{item?.DayNum}} {{'COMMON.Day' | translate}}</span>
+    </ion-item>
+</ng-template>
+<ng-template #templatetop3ListLeave let-item>
+    <ion-thumbnail slot="start">
+        <img style="border-radius:50% " [src]="CommonHandler.ConvertPhotoUrl(item?.PhotoID)" />
+    </ion-thumbnail>
+    <ion-card-header>
+        <ion-card-title class="name">{{item?.EmployeeName}}</ion-card-title>
+        <ion-card-subtitle class="jobwname">{{('EMPLOYEEINFO.JobWName' | translate) +': '}}<span>{{item?.JobWName}}</span></ion-card-subtitle>
+    </ion-card-header>
+    <ion-item class="time-top3" slot="end">
+        <span>{{item?.DayNum}} {{'COMMON.Day' | translate}}</span>
+    </ion-item>
+</ng-template>
+<ng-template #templatetop3ListOT let-item>
+    <ion-thumbnail slot="start">
+        <img style="border-radius:50% " [src]="CommonHandler.ConvertPhotoUrl(item?.PhotoID) " />
+    </ion-thumbnail>
+    <ion-card-header style="flex:1;text-transform: capitalize;">
+        <ion-card-title class="name">{{item?.EmployeeName}}</ion-card-title>
+        <ion-card-subtitle class="jobwname">{{('EMPLOYEEINFO.JobWName' | translate) +':'}}<span>{{item?.JobWName}}</span></ion-card-subtitle>
+    </ion-card-header>
+    <ion-item class="time-top3" slot="end">
+        <span>{{item?.DayNum}} {{'COMMON.Hour' | translate}}</span>
+    </ion-item>
+</ng-template>
+<ng-template #templatetop3ListBusinessTrip let-item>
+    <ion-thumbnail slot="start">
+        <img style="border-radius:50% " [src]="CommonHandler.ConvertPhotoUrl(item?.PhotoID) " />
+    </ion-thumbnail>
+    <ion-card-header>
+        <ion-card-title class="name">{{item?.EmployeeName}}</ion-card-title>
+        <ion-card-subtitle class="jobwname ">{{('EMPLOYEEINFO.JobWName' | translate) +': '}}<span>{{item?.JobWName}}</span></ion-card-subtitle>
+    </ion-card-header>
+    <ion-item class="time-top3" slot="end">
+        <span>{{item?.DayNum}} {{'COMMON.Day' | translate}}</span>
+    </ion-item>
+</ng-template>

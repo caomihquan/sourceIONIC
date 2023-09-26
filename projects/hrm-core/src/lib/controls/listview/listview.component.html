@@ -1,0 +1,73 @@
+<div>
+    <ng-container *ngIf="isGroup; else noGroup">
+        <ion-item-divider sticky style="border: 0" *ngIf="arraySearch.length > 0">
+            <ion-input [(ngModel)]="searchText" (ionChange)="search()" type="text" class="input-custom" [placeholder]="'COMMON.Search' | translate">
+                <ion-icon name="search" style="    position: absolute;
+                right: 0.6rem;
+                font-size: 1.6rem;
+                color: #555;"></ion-icon>
+            </ion-input>
+        </ion-item-divider>
+        <!-- <input type="text" [(ngModel)]="searchText" (keyup)="search(searchText)"> -->
+        <ion-item-group *ngFor="let item of datas" style="width:100%" [class]="classGroup">
+            <!--Start: has group -->
+            <!-- draw group  -->
+            <ng-container *ngTemplateOutlet="
+        templateGroup || defaultGroup;
+        context: { $implicit: item[fieldGroup] }
+      ">
+            </ng-container>
+            <!-- draw items  -->
+            <div [class]="classDivContainer ">
+                <ion-item *ngFor="let child of item[fieldGroupChild]" (click)="onClickItem(child)" [class]="classListItem">
+                    <ng-container *ngTemplateOutlet="
+                    template || defaultGroup;
+                    context: { $implicit: child }">
+                    </ng-container>
+                </ion-item>
+            </div>
+
+            <!--End: has group -->
+        </ion-item-group>
+    </ng-container>
+    <ng-template #noGroup>
+        <ion-item-divider sticky style="border:0" *ngIf="arraySearch.length > 0">
+            <ion-input [(ngModel)]="searchText" (ionChange)="search()" type="text" class="input-custom" [placeholder]="'COMMON.Search' | translate">
+                <ion-icon name="search" style="    position: absolute;
+                right: 0.6rem;
+                font-size: 1.6rem;
+                color: #555;"></ion-icon>
+            </ion-input>
+        </ion-item-divider>
+        <ion-list *ngIf="datas?.length; else emptyData">
+            <!--Start: No group -->
+            <div [class]="classDivContainer">
+                <ion-item *ngFor="let item of datas" [ngStyle]="{'height':height}" (click)="onClickItem(item)" [lines]="lines ? 'inset' : 'none'" [class]="classListItem">
+                    <ng-container *ngTemplateOutlet="
+          template || defaultGroup;
+          context: { $implicit: item }
+        ">
+                    </ng-container>
+                </ion-item>
+            </div>
+        </ion-list>
+        <!--End: No group -->
+    </ng-template>
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadMore($event)" *ngIf="lazyload">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data..."></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+    <ng-template #emptyData>
+        <div style="width: 100%;
+        text-align: center;
+        margin-top: 1rem;">{{"COMMON.NoDataFound" | translate}}</div>
+    </ng-template>
+
+    <ng-template #defaultGroup let-data>
+        <ion-item-divider>
+            <ion-label>{{ data}}</ion-label>
+        </ion-item-divider>
+    </ng-template>
+
+    <ng-template #defaultItems></ng-template>
+</div>

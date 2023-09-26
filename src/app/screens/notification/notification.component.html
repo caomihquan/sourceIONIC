@@ -1,0 +1,36 @@
+<app-standard-header [title]="'HomePage.Notification'| translate" [icon]="'arrow-back-outline'" [href]="'home'">
+</app-standard-header>
+<ion-content #pageTop>
+    <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+    <ion-icon id="dragable" name="checkmark-circle-sharp" (click)="eventUpdateSeenAllNotification()"></ion-icon>
+    <listview [template]="itemTemplate" [datas]="listNotfictions" style="width: 100%" (selectedItem)="onClickItem($event)" [autoLoad]="false" [classListItem]="'item-notification'">
+    </listview>
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadMore($event)" id="load">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" [loadingText]="'COMMON.Loading' | translate"></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>
+
+<ng-template #itemTemplate let-item>
+    <div class="notification-container">
+        <div class="notification-line-1">
+            {{ item.CreatedBy }}
+            <span class="notification-line-1-right" [ngClass]="{'seen':item.Status}">{{item.Status ? ("QA.Seen" | translate) : ("QA.See" | translate)}}</span>
+        </div>
+        <div class="notification-line-2">
+            <span style="flex: 2;
+            font-size: 0.8125rem;
+            color: var(--text-primary);
+            text-align: left;
+        " [ngClass]="{'seen-bold':!item.Status}">
+              {{ item.Subject }}
+            </span>
+            <span style="flex: 1;
+            font-size: 0.75rem;
+            text-align: right;
+            font-style: italic;">{{item.CreatedOn | date: 'dd/MM/yyyy hh:mm:ss'}}</span>
+        </div>
+        <div class="notification-line-3">{{item.Body_notHTML}}</div>
+    </div>
+</ng-template>

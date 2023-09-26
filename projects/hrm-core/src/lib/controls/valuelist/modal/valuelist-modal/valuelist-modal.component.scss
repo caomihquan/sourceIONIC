@@ -1,0 +1,73 @@
+ion-content {
+    --padding-start: 0;
+    --padding-end: 0;
+    --padding-top: 0;
+    --padding-bottom: 0;
+}
+
+.modal {
+    border: 1px solid var(--ion-color-primary);
+    width: 100%;
+    border-radius: 4px;
+    --inner-padding-end: 0;
+    --min-height: 0;
+    --padding-start: 8px;
+}
+
+::ng-deep {
+    input {
+        opacity: 1 !important;
+    }
+}
+
+ion-input {
+    width: 100%;
+    font-size: 0.9rem;
+    color: var(--ion-color-primary);
+    font-weight: 600;
+}
+
+ion-icon {
+    margin-right: 1rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.modal-input {
+    --padding-start: 0;
+    --padding-end: 0;
+    --inner-padding-end: 0;
+    --min-height: 0;
+    width: 100%;
+}
+
+.modal-list-item {
+    border-bottom: 1px solid #ddd;
+}
+
+.modal-list-item:hover {
+    background-color: #ddd;
+}
+
+ion-icon {
+    color: var(--ion-color-primary);
+}
+
+.TextLeftLabel {
+    font-size: 0.9rem;
+    color: #999;
+}
+
+.input-custom {
+    width: 100%;
+    font-size: 0.9rem;
+    color: var(--ion-color-primary);
+    font-weight: 600;
+    border: 1px solid;
+    margin: 1rem 1rem 0 1rem;
+    border-radius: 4px;
+}
+
+.input-custom.ios {
+    --padding-start: 1rem;
+}

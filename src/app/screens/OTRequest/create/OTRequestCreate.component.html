@@ -1,0 +1,156 @@
+<app-standard-header [title]="itemFunction?.title" [icon]="'arrow-back-outline'" [href]="'OTRequest'">
+</app-standard-header>
+<ion-content>
+    <ion-item class="profile-title">
+        <ion-label>{{'OT_REQUEST.Infomation' | translate}}</ion-label>
+    </ion-item>
+    <ion-item class="twoColumn" style="border-bottom: 1px solid #A9A9A9; border-bottom-width: thin;">
+        <ion-label class="list-left">{{'OT_REQUEST.Status' | translate}}</ion-label>
+        <ion-label slot="end" class="label-list-end">
+            <div style="width: 1rem;
+              height: 1rem;
+              border-radius: 50%;
+              display: inline-block;
+              background: #000;
+              background-color: #0088CF;
+              transform: translate(-8px, 2px)"></div>
+            <div style="display: inline-block; color: #0088CF;">{{'OT_REQUEST.Pending' | translate}}</div>
+        </ion-label>
+
+    </ion-item>
+    <ion-item class="twoColumn">
+        <ng-container>
+            <ion-label class="list-left">{{'OT_REQUEST.RequestDate' | translate}}</ion-label>
+            <ion-label slot="end" class="label-list-end">{{RequestDate()}}</ion-label>
+        </ng-container>
+    </ion-item>
+    <ion-item class="profile-title" style="font-weight: 500;">
+        <ion-label>{{'OT_REQUEST.OTDetail' | translate}}</ion-label>
+    </ion-item>
+    <ion-item *ngIf="ObjConfig.IsSelectOTType">
+        <app-valuelist-modal style="width: 100%;margin-right:0.4rem;" [template]="itemTemplate" [datas]="ListKow" [FieldKeyInput]="'KowName'" [inputText]="KowSelected?.KowName" [textLeft]="'OT_REQUEST.KowCode' | translate" (selectedItem)="eventOnSelectedKowCode($event)">
+        </app-valuelist-modal>
+    </ion-item>
+    <!-- -->
+    <ion-item>
+        <app-datetime-modal style="width: 100%;margin-right:0.4rem;" [textLeft]="'COMMON.FromDate' | translate" (selectedItem)="eventOnSelectedFromDate($event)" [inputText]="SelectedFromDate" iddatetime="datetime" iddatetimetrigger="datetime2">
+        </app-datetime-modal>
+    </ion-item>
+    <ion-item *ngIf="ObjConfig.IsFieldVisibleToDate">
+        <app-datetime-modal style="width: 100%;margin-right:0.4rem;" [textLeft]="'COMMON.ToDate' | translate" (selectedItem)="eventOnSelectedToDate($event)" [inputText]="SelectedToDate" iddatetime="datetime3" iddatetimetrigger="datetime4">
+        </app-datetime-modal>
+    </ion-item>
+
+
+    <ng-container *ngIf="ObjConfig.IsRegOTByFromTo">
+        <ion-item>
+            <app-time-modal style="width: 100%;margin-right:0.4rem;" [textLeft]="'COMMON.FromTime' | translate" idtime="SelectedFromTime" idTimeShow="SelectedFromTime1" [myTime]="SelectedFromTime" (selectedItem)="eventSelectefromtime($event)">
+            </app-time-modal>
+        </ion-item>
+        <ion-item>
+            <app-time-modal style="width: 100%;margin-right:0.4rem;" [textLeft]="'COMMON.ToTime' | translate" idtime="SelectedToTime" idTimeShow="SelectedToTime1" [myTime]="SelectedToTime" (selectedItem)="eventSelectetotime($event)">
+            </app-time-modal>
+        </ion-item>
+
+    </ng-container>
+    <ng-container *ngIf="!ObjConfig.IsRegOTByFromTo">
+        <ion-label class="list-left" style="margin-left: 0.8rem;
+            ">{{'OT_REQUEST.HourNum' | translate}}:</ion-label>
+        <ion-item class="list-left">
+            <ion-input style="width: 100%;
+                margin-right: 0.4rem;
+                --padding-start: 1rem;
+                --highlight-background: initial;
+                color: var(--text-primary);margin-top: 1rem;" type="number" [(ngModel)]='txtHourNum'
+                 (ionChange)="eventOnChangeTextTime($event)"
+                placeholder="{{'OT_REQUEST.HourNum' | translate}}"></ion-input>
+        </ion-item>
+    </ng-container>
+    <ion-item class="twoColumn" *ngIf="IsPayDisible" style="display: flex;">
+        <span class="list-left" style="opacity: 1;">{{'OT_REQUEST.IsPay' | translate}} </span>
+        <span style="margin-right: 0.6rem;"> <ion-checkbox mode="md" style="opacity:0.6;" [checked]="CheckedIsPay" disabled="true"></ion-checkbox></span>
+    </ion-item>
+
+    <ion-item class="twoColumn" *ngIf="!IsPayDisible" style="display: flex;">
+        <span class="list-left" style="opacity: 1;">{{'OT_REQUEST.IsPay' | translate}} </span>
+        <span style="margin-right: 0.6rem;"> <ion-checkbox (ionChange)="eventOnCheckedIsPay()" mode="md" style="opacity:1;" [checked]="CheckedIsPay"></ion-checkbox></span>
+    </ion-item>
+
+    <ion-item class="twoColumn" *ngIf="IsPayDisible" style="border-bottom: 1px solid #A9A9A9; border-bottom-width: thin;">
+        <ion-label class="list-left">{{'OT_REQUEST.PayValue' | translate}}</ion-label>
+        <ion-label slot="end" class="label-list-end IonLabel">
+            {{PayValueName}}
+        </ion-label>
+    </ion-item>
+
+    <ion-item *ngIf="!IsPayDisible && !IsHideComboPayValue">
+        <app-valuelist-modal style="width: 100%;margin-right:0.4rem;" [template]="itemTemplate2" [datas]="ListPayValue" [FieldKeyInput]="'PayValueName'" [inputText]="PayValueSelected?.PayValueName" [textLeft]="'OT_REQUEST.PayValue' | translate" (selectedItem)="eventOnSelectedPayValue($event)">
+        </app-valuelist-modal>
+    </ion-item>
+
+    <ion-item *ngIf="TSTypeCalOTAlloRegis ==2">
+        <app-valuelist-modal style="width: 100%;margin-right:0.4rem;" [template]="itemTemplate3" [datas]="ListHinhThucDKOT" [FieldKeyInput]="'Caption'" [inputText]="HinhThucDKOT?.Caption" [textLeft]="LabelHinhThuc" (selectedItem)="eventOnSelectedHinhThucDKOT($event)">
+        </app-valuelist-modal>
+    </ion-item>
+
+    <ion-item  *ngIf="OutOfPlan_enable">
+        <app-valuelist-modal style="width: 100%;margin-right:0.4rem;" [template]="itemTemplate4" [datas]="ListLoaiKeHoach"
+            [FieldKeyInput]="'Caption'" [inputText]="LoaiKeHoach?.Caption" [textLeft]="LabelLoaiKeHoach" (selectedItem)="eventOnSelectedLoaiKeHoach($event)">
+        </app-valuelist-modal>
+    </ion-item>
+
+    <ion-item class="twoColumn" *ngIf="!OutOfPlan_enable" style="border-bottom: 1px solid #A9A9A9; border-bottom-width: thin;">
+        <ion-label class="list-left">{{LabelLoaiKeHoach}}</ion-label>
+        <ion-label slot="end" class="label-list-end IonLabel">
+            {{LoaiKeHoach?.Caption}}
+        </ion-label>
+    </ion-item>
+
+    <ion-item class="twoColumn" id="open-modal4">
+        <ion-label class="list-left" style="font-weight: bold;">{{'BUSINESS_TRIP.Attachment' | translate}}</ion-label>
+        <ion-icon name="attach-outline" style="font-size: 35px;"></ion-icon>
+        <app-modal-attach-multi [lines]="true" [title]="'BUSINESS_TRIP.Attachment'|translate" [IsCreate]="true"
+         idOpen="open-modal4" [arraySearch]="['FileSize','FileName']" [template]="itemTemplateFile" [datas]="listfile" (onSubmitDialog)="submitDialogTypeTrip($event)"
+        [paramfile]="paramfile" [WaitingData] = "WaitingData" [textLeft]="'BUSINESS_TRIP.Attachment' | translate">
+        </app-modal-attach-multi>
+    </ion-item>
+
+    <ion-item>
+        <ion-label style="margin-left: 0.2rem;" class="list-left">{{'OT_REQUEST.ReasonOfExtraWorking' | translate}}:</ion-label>
+    </ion-item>
+    <ion-item class="list-left" style="padding-right: 10px;">
+        <ion-textarea class="list-left" style="padding: 0 10px; margin-right: 0px;
+                      margin-bottom: 1rem;
+                      border: 1px solid var(--ion-color-primary);
+                      border-radius: 4px;" [(ngModel)]="txtReason" rows="4" placeholder="{{'OT_REQUEST.WriteDownReasonLeave' | translate}}"></ion-textarea>
+    </ion-item>
+
+
+
+</ion-content>
+<ion-item class="footer-checkinout">
+    <ion-button style="--background:#e0e0e0;--color:#666" (click)="doPop()">
+        {{"COMMON.Cancel" | translate}}
+    </ion-button>
+    <ion-button id='btnsubmit' (click)="eventOnSubmitOTRequest(false)">
+        {{"COMMON.Submit" | translate}}
+    </ion-button>
+</ion-item>
+<ng-template #itemTemplate let-item>
+    {{item.KowName}}
+</ng-template>
+<ng-template #itemTemplate2 let-item>
+    {{item.PayValueName}}
+</ng-template>
+
+<ng-template #itemTemplate3 let-item>
+    {{item.Caption}}
+</ng-template>
+
+<ng-template #itemTemplate4 let-item>
+    {{item.Caption}}
+</ng-template>
+
+<ng-template #itemTemplateFile let-item>
+    {{item.FileName}}
+</ng-template>

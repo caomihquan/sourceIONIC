@@ -1,0 +1,108 @@
+<!-- <ion-toolbar>
+        <ion-segment value="month" [(ngModel)]="mode">
+            <ion-segment-button (click)="changeMode('month')" value="month">
+                <ion-label>Tháng</ion-label>
+            </ion-segment-button>
+            <ion-segment-button (click)="changeMode('week')" value="week">
+                <ion-label>Tuần</ion-label>
+            </ion-segment-button>
+        </ion-segment>
+        <button ion-button icon-only style="font-size: 25px; background: none; padding: 5px; margin: 5px 10px" (click)="getEvent()">
+      <ion-icon name="add-outline"></ion-icon>
+    </button>
+    </ion-toolbar> -->
+<div style="display: flex;
+    justify-content: space-between;
+    width: 56%;
+    border: 1px solid var(--ion-color-primary);
+    padding: 0.7rem 0.4rem 0.4rem 0.4rem;
+    color: var(--ion-color-primary);
+    border-radius: 6px;
+    margin: 1rem 0.6rem;">
+    <span>
+        <ion-icon name="arrow-back" slot="icon-only" (click)="back()"> </ion-icon>
+      </span>
+    <span style="font-size: 0.8rem;" class="open-input-date" fill="clear" (click)="openInputDateModal()">
+         {{viewTitle}}
+      </span>
+    <span class="ion-text-end">
+              <ion-icon name="arrow-forward" slot="icon-only" (click)="next()"> </ion-icon>
+      </span>
+</div>
+
+
+
+<div (pan)="handlePan($event)" style="
+    user-select: none;
+    -webkit-user-drag: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    margin: 0.6rem;
+    padding: 0.4rem 0.8rem;
+    box-shadow: rgb(0 0 0 / 8%) 0px 4px 4px -2px, rgb(0 0 0 / 4%) 0px 0px 5px 1px;" class="calendar">
+    <calendar [locale]="calendar.locale" [calendarMode]="'month'" [currentDate]="calendar.currentDate" [step]="calendar.step" [monthviewDisplayEventTemplate]="template" formatWeekViewDayHeader="d" [startingDayMonth]="1" (onTitleChanged)="changeTitle($event)"
+        (onTimeSelected)="onTimeSelected($event)">
+    </calendar>
+    <ng-container *ngTemplateOutlet="noteTemplate;">
+    </ng-container>
+</div>
+
+<br />
+<!-- <ion-item *ngFor="let card of eventCards">
+    <ion-row style="width: 100%">
+        <ion-col size="3">
+            <p style="font-weight: bold;vertical-align: top;margin: 0px !important;">
+                {{ card.key }}:00
+            </p>
+        </ion-col>
+        <ion-col size="auto">
+            <ion-item lines="none" *ngFor="let event of card.list">
+                <ng-container *ngTemplateOutlet="
+              eventTemplate || eventDefaultTemplate;
+              context: { $implicit: event }">
+                </ng-container>
+            </ion-item>
+        </ion-col>
+    </ion-row>
+</ion-item> -->
+
+<ng-template #eventDefaultTemplate let-data>
+    <ion-col style="padding: 0px">
+        <div [ngStyle]="{ 'background-color': data.colorCode }" class="eventcolor"></div>
+    </ion-col>
+    <ion-col>
+        <ion-label>
+            <h2 style="font-weight: bold">{{ data.title }}</h2>
+        </ion-label>
+    </ion-col>
+</ng-template>
+
+<ng-template #template let-view="view" let-row="row" let-col="col">
+    <div [class.with-event]="view.dates[row * 7 + col].events.length">
+        <!-- <p *ngIf="view.dates[row * 7 + col].date.getDay() != 0 && view.dates[row * 7 + col].date.getDay() != 6">
+            {{ view.dates[row * 7 + col].label}}
+        </p>
+        <p class="monthWeekend" *ngIf="view.dates[row * 7 + col].date.getDay() == 0 || view.dates[row * 7 + col].date.getDay() == 6">
+            {{ view.dates[row * 7 + col].label }}
+        </p> -->
+        <ng-container *ngTemplateOutlet="templateCalendar;
+          context: { $implicit: view.dates[row * 7 + col]}">
+        </ng-container>
+    </div>
+
+</ng-template>
+
+<!-- <ng-template #weekHeader let-viewDate="viewDate">
+    <div [ngClass]="getHightlightClass(viewDate.date)" [class.with-event]="viewDate.events.length" tappable (click)="onTimeSelectWeekmode(viewDate.date)">
+        <div>
+            {{viewDate.date.toLocaleString("vi-vi", { weekday: "short" }) }} {{viewDate.date}}
+        </div>
+        <div *ngIf="viewDate.date.getDay() != 6 && viewDate.date.getDay() != 0" class="custom-day-header">
+            {{ viewDate.dayHeader }}
+        </div>
+        <div *ngIf="viewDate.date.getDay() == 6 || viewDate.date.getDay() == 0" class="custom-day-header" style="color: red">
+            {{viewDate.dayHeader}}
+        </div>
+    </div>
+</ng-template> -->

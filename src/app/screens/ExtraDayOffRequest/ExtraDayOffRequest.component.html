@@ -1,0 +1,89 @@
+<app-standard-header [title]="itemFunction?.title" [icon]="'arrow-back-outline'" [href]="'home'">
+</app-standard-header>
+<ion-content>
+    <div class="leaveheader">
+        <span class="headerTitle">{{'LEAVE_REQUEST.Used' | translate}}: </span>
+        <span class="headerValue headerTitle" *ngIf="modelConfigTSEmp?.TSHoursPerWD != 1">
+            {{commonHandler.convertDays(RemainLeaveNumber?.LastLeave)}}
+        </span>
+        <span class="headerValue headerTitle" *ngIf="modelConfigTSEmp?.TSHoursPerWD == 1">
+            {{commonHandler.convertHour(RemainLeaveNumber?.LastLeave)}}
+        </span>
+        <span> - </span>
+        <span> {{'LEAVE_REQUEST.Available' | translate}}: </span>
+        <span class="headerValue" *ngIf="modelConfigTSEmp?.TSHoursPerWD != 1">
+            {{commonHandler.convertDays(RemainLeaveNumber?.CurrLeave)}}
+        </span>
+        <span class="headerValue" *ngIf="modelConfigTSEmp?.TSHoursPerWD == 1">
+            {{commonHandler.convertHour(RemainLeaveNumber?.CurrLeave)}}
+        </span>
+    </div>
+    <ion-icon id="dragable" name="add-circle-sharp" (click)="doAddNewRequest()"></ion-icon>
+
+    <ion-item style="--padding-start:10px; margin: 0 0.6rem;--inner-padding-end:0">
+        <app-valuelist-modal style="width: 50%;margin-top: 1rem;margin-right:0.4rem;" [arraySearch]="['DowCode']"
+        [template]="itemTemplate" [datas]="lstDows" [inputText]="DowCodeSelection['DowCode']"
+         [textLeft]="'COMMON.Year' | translate" [FieldKeyInput]="'DowCode'"
+            (selectedItem)="eventSelectedMonth($event)">
+        </app-valuelist-modal>
+        <app-valuelist-modal style="width: 50%;margin-top: 1rem;margin-left:0.4rem;" [arraySearch]="['name']" [template]="itemTemplate2" [datas]="lstStatus" [inputText]="StatusSelection['name']" [FieldKeyInput]="'name'" [textLeft]="'COMMON.OrderBy'  | translate"
+            (selectedItem)="eventSelectedStatus($event)">
+        </app-valuelist-modal>
+    </ion-item>
+    <ion-item style="--padding-start:10px; margin: 0 0.6rem;--inner-padding-end:0; width: 50%;"
+    *ngIf="SetupProcess == true">
+        <ion-checkbox (ionChange)="CheckRegisInstead()" mode="md"
+        style="opacity:1;" [(ngModel)]="IsRegisInstead"></ion-checkbox>
+        <span  style="opacity: 1; padding-left: 10px;">{{'LEAVE_REQUEST.RegisInstead' | translate}} </span>
+        </ion-item>
+
+
+    <ng-container>
+        <listview [template]="itemTemplate3" [datas]="RequestData" [templateGroup]="groupTemplate"
+        style="width: 100%" [isGroup]="true" (selectedItem)="onClickEmp($event)" fieldGroupChild="Data"
+        [classDivContainer]="'border-radius-emp-leave'" [classListItem]="'item-emp-leave'"
+            classGroup="my-list-request-group">
+        </listview>
+        <ion-infinite-scroll threshold="100px" (ionInfinite)="loadMore($event)">
+            <ion-infinite-scroll-content loadingSpinner="bubbles" [loadingText]="'COMMON.Loading' | translate"></ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+    </ng-container>
+
+</ion-content>
+<ng-template #itemTemplate let-item>
+    {{item.DowCode}}
+</ng-template>
+<ng-template #itemTemplate2 let-item>
+    {{item.name}}
+</ng-template>
+
+<ng-template #groupTemplate let-item>
+    <ion-label [ngClass]="{'group-label-emp':false ,'group-label-dv':true}" class="headerlistleave">
+        <span [ngClass]="{'group-text':false ,'group-text-office':true }">{{item}}</span></ion-label>
+</ng-template>
+<ng-template #itemTemplate3 let-item>
+    <div class="div-container-list" style="margin-top: 0rem;">
+        <div class="circle DayIndex" [style]="'background-color:'+ item.BackGroundColor" style="font-size: 1rem;">
+            {{item.DayIndex}}</div>
+        <div style="width:100%;flex: 1;margin:0.6rem 0;line-height: 1.4rem;margin-left: 10px;">
+            <div style="font-size: 16px;  color: var(--text-primary) !important;">
+                {{item.EmployeeName}}
+            </div>
+            <div>
+                <span class="info"> {{item.LeavePeriodName}} </span>
+                <span> - </span>
+                <span class="info" [style]="'color:'+ item.BackGroundColor"> {{item.StatusName}} </span>
+            </div>
+            <div style="display: flex;" [innerHTML]="item.drawStatus"></div>
+        </div>
+        <div class="DayNumContent">
+            <span class="dayNum" style="font-size: 15px;
+                                    padding-right: 10px;
+                                    color: #02a0f2;
+                                    float: right;
+                                    padding-top: 10px;">
+                {{commonHandler.convertDays(item?.DayNum)}}
+            </span>
+        </div>
+    </div>
+</ng-template>

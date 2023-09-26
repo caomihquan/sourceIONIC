@@ -1,0 +1,161 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+
+/* Core CSS required for Ionic components to work properly */
+
+@import "~@ionic/angular/css/core.css";
+@import url('https://fonts.googleapis.com/css2?family=Roboto');
+
+/* Basic CSS for apps built with Ionic */
+
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import "~@ionic/angular/css/display.css";
+
+/* Optional CSS utils that can be commented out */
+
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+@import'assets/scssCommon/sapIcon.scss';
+.my-custom-modal-css {
+    top: 40%;
+}
+
+ion-loading.custom-loading {
+    --backdrop-opacity: 0.2;
+    --spinner-color: var(--ion-color-primary);
+    --background: transparent;
+}
+
+ion-alert.txtInput {
+    padding: 0;
+}
+
+ion-spinner.sc-ion-loading-ios {
+    width: 3rem;
+    height: 3rem;
+    margin-left: 2rem;
+}
+
+ion-toolbar {
+    --border-style: none;
+    --background: var(--ion-color-primary);
+    ion-back-button.ios {
+        --padding-start: 1rem;
+        --icon-margin-end: 0.4rem;
+        --min-height: 3rem;
+    }
+}
+
+ion-toolbar ion-accordion-group {
+    ion-accordion {
+        .ion-accordion-toggle-icon {
+            font-size: 1.2rem;
+            color: var(--ion-color-primary) !important;
+        }
+    }
+}
+
+ion-accordion-group {
+    ion-accordion {
+        .ion-accordion-toggle-icon {
+            color: var(--ion-color-primary) !important;
+        }
+    }
+}
+
+:root {
+    --ion-font-family: 'Cabin', sans-serif;
+    font-family: 'Cabin', sans-serif;
+}
+
+ion-item {
+    --border-style: none
+}
+
+/// alert
+// .alert-head.sc-ion-alert-md {
+//     text-align: center !important;
+//     font-weight: 600 !important;
+// }
+// .md .alert-message {
+//     text-align: center !important;
+// }
+// .md .alert-button-group {
+//     border-top: 1px solid #ddd;
+//     justify-content: space-around;
+// }
+// .md .alert-button-inner {
+//     justify-content: center;
+// }
+// .md .alert-button {
+//     flex: 1;
+// }
+///----------------------------------------------------------------
+// alert-input
+ion-alert.custom-alert-input {
+    --backdrop-opacity: 0.7;
+    .alert-input-group {
+        padding: 0 0.4rem;
+        textarea {
+            border: 1px solid var(--ion-color-primary);
+        }
+    }
+    .alert-wrapper.sc-ion-alert-ios {
+        min-width: 80%;
+    }
+    .alert-message {
+        padding-bottom: 0!important;
+    }
+    .alert-title.sc-ion-alert-ios {
+        font-weight: 500;
+        color: var(--ion-color-primary);
+    }
+    .alert-button.sc-ion-alert-ios:last-child {
+        border-right: 0;
+        font-weight: normal;
+    }
+}
+
+.custom-alert-input button.alert-button {
+    border: none;
+}
+
+//----------------------------------------------------------------
+.datetime-presentation-time {
+    position: relative;
+}
+
+.datetime-presentation-time::before {
+    position: absolute;
+    content: ":";
+    top: 41%;
+    font-size: 1.6rem;
+    left: 48%;
+    color: black;
+    z-index: 1111;
+}
+
+#HistoryAppoveLevel{
+    padding-right: 1rem;
+    margin-right:0 !important;
+    font-size: 1.6rem;
+    color: #fff;
+    position: fixed;
+    right: 0;
+    z-index: 99;
+    background: var(--ion-color-primary);
+}

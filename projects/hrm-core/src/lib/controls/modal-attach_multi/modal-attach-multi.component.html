@@ -1,0 +1,41 @@
+<ion-modal #modal [trigger]="idOpen">
+  <ng-template>
+      <ion-toolbar style="--background:none;position: sticky;">
+          <ion-title style="text-align: center;font-weight: 500;">{{title}}</ion-title>
+      </ion-toolbar>
+      <ion-content>
+          <ion-item-divider sticky style="background: #fff; border-radius: 1rem;top: -1px; margin-bottom: 0.4rem; --padding-start:0; --inner-padding-end: 0;">
+              <ion-checkbox style="right: -1.4rem;" slot="start" [checked]="CheckAll"
+                                        (ionChange)="selectMember($event)"></ion-checkbox>
+              <ion-input [(ngModel)]="searchText" style="border: 1px solid var(--ion-color-primary);
+                    border-radius: 1rem; margin: 0 1rem;--padding-start: 1rem;"
+                    (ionChange)="search()" type="text" [placeholder]="'COMMON.Search' | translate">
+                  <ion-icon name="search" style="position: absolute;right: 0.6rem;font-size: 1.6rem;color: #555;"></ion-icon>
+              </ion-input>
+          </ion-item-divider>
+          <ion-list>
+              <ion-item *ngFor="let item of datas" [ngStyle]="{'height':height}"
+              (click)="onClickItem(item)" [lines]="lines ? 'inset' : 'none'" [class]="classListItem">
+                <ion-checkbox slot="start"
+                          [(ngModel)]="item.checked">
+                  </ion-checkbox>
+                <ng-container *ngTemplateOutlet="template;context: { $implicit: item }">
+                </ng-container>
+              </ion-item>
+          </ion-list>
+
+      </ion-content>
+      <ion-item class="footer-checkinout">
+        <label class="custom-file-upload" *ngIf="IsCreate == true">
+          <input type="file" class="inputfile" (change)="onFileChange($event,modal.dismiss())"/>
+            <i class="fa fa-cloud-upload"></i>{{"BUSINESS_TRIP.Attach" | translate}}
+        </label>
+        <ion-button *ngIf="IsCreate == false" class="custom-file-upload-button" (click)="DownloadFiles()">
+          {{"COMMON.Download" | translate}}
+        </ion-button>
+        <ion-button class="custom-file-upload-button" (click)="modal.dismiss()">
+            {{"COMMON.Cancel" | translate}}
+        </ion-button>
+    </ion-item>
+  </ng-template>
+</ion-modal>

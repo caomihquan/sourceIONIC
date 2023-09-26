@@ -1,0 +1,123 @@
+<ion-header class="ion-no-border">
+  <ion-back-button text="" icon="chevron-back" style="
+    position: absolute;
+    z-index: 99;
+    top:var(--ion-safe-area-top);
+    --color:var(--ion-color-primary);
+    left:1rem"></ion-back-button>
+</ion-header>
+<ion-content>
+    <div>
+        <form [formGroup]="form" class="formlogin">
+            <ion-img src="../assets/images/default/login/banner_02.png" style="height: 35%;"></ion-img>
+            <div style="display: flex;flex-direction: column;" *ngIf="!IsLoginFinger">
+              <ng-container *ngIf="!IsLoginAzure">
+                <ion-item lines="full" class="input-item">
+                    <ion-icon name="person-circle"></ion-icon>
+                    <ion-input class="inputform" formControlName="UserName" type="text" placeholder="{{'LOGIN.Username' | translate}}" required></ion-input>
+                </ion-item>
+                <ion-item lines="full" class="input-item">
+                    <ion-icon name="lock-closed" item-left class="icon-lock"></ion-icon>
+                    <ion-input class="inputform" placeholder="{{'LOGIN.Password' | translate}}" formControlName="Password" [type]="getTypeConfirm()" required></ion-input>
+                    <ion-icon [name]="iconEyeConfirm" item-right (click)="toggleTextPasswordConfirm()" class="icon-eye"></ion-icon>
+                </ion-item>
+                <span class="small-text" >{{"LOGIN.ForgetPasswords" | translate}}</span>
+              </ng-container>
+                <ion-row>
+                    <ion-col>
+                        <ion-button *ngIf="!IsLoginAzure" class="button-item" [disabled]="form.invalid" type="submit" color="primary" expand="block" (click)="eventLoginDefault()">
+                            {{"LOGIN.Login" | translate}}
+                        </ion-button>
+                        <ion-button *ngIf="!IsLoginAzure && !IsLoginGoogle" (click)="SimulationLogin()" class="button-item" style="--background:#ddebef;--color:#fff" expand="block">
+                          {{"LOGIN.Simulation" | translate}}
+                      </ion-button>
+                        <div style="display: flex;justify-content: center;gap: 1rem;">
+                          <ion-img *ngIf="IsLoginGoogle" class="google" src="../assets/images/default/login/google.png"></ion-img>
+                          <ion-img *ngIf="IsLoginAzure" (click)="LoginAzure()" class="azure" src="../assets/images/default/login/azure.png"></ion-img>
+                        </div>
+                        <div (click)="LogOutAzure()" *ngIf="IsLoginAzure && (isShowLogOutAzure | async) " class="LogoutAzure">{{'LOGIN.LogOutAzure' | translate}}</div>
+                    </ion-col>
+                </ion-row>
+            </div>
+            <div style="height: 65%;" *ngIf="IsLoginFinger && !IsLoginAzure">
+                <div style="display: flex;justify-content: center;">
+                    <div style="font-size: 18px;margin-bottom:5px;">{{'BIOMETRICS.Hello' | translate}}</div>
+                    <div style="font-size: 18px;
+                    margin-bottom: 13px;
+                    margin-left: 8px;">{{BasicProfile?.FullName || BasicProfile?.EmployeeCode}}</div>
+                </div>
+                <ion-item lines="full" class="input-item">
+                    <ion-icon name="lock-closed" item-left class="icon-lock"></ion-icon>
+                    <ion-input class="inputform" placeholder="{{'LOGIN.Password' | translate}}" formControlName="Password" [type]="getTypeConfirm()" required></ion-input>
+                    <ion-icon [name]="iconEyeConfirm" item-right (click)="toggleTextPasswordConfirm()" class="icon-eye"></ion-icon>
+                </ion-item>
+                <ion-row>
+                    <ion-col>
+                        <ion-button class="button-item" type="submit" color="primary" expand="block" (click)="eventLoginDefault()">
+                            {{"LOGIN.Login" | translate}}
+                        </ion-button>
+                        <ion-button *ngIf="!IsLoginAzure && !IsLoginGoogle" (click)="SimulationLogin()" class="button-item" style="--background:#ddebef;--color:#fff" expand="block" (click)="eventLoginDefault()">
+                          {{"LOGIN.Simulation" | translate}}
+                        </ion-button>
+                        <div style="display: flex;
+                        align-items: center;
+                        opacity: 1;
+                        text-align: center;" class="button-item" type="submit" color="primary" expand="block" (click)="eventOpenFormBiometrics()">
+                            <span>
+                            <ion-icon style="font-size: 3rem;opacity: 1;" name="finger-print-outline"></ion-icon>
+                          </span> {{"BIOMETRICS.UnlockWithBiometrics" | translate}}
+                        </div>
+                        <div class="button-item" type="submit" color="primary" expand="block" (click)="eventDisableBiometrics()">
+                            {{"BIOMETRICS.LogOutAccount" | translate}}
+                        </div>
+                    </ion-col>
+                </ion-row>
+            </div>
+            <div [hidden]="IsHideSettings" (click)="setOpen(true)" class="footerLanguage" style="font-size: 1.6rem;
+            left: unset;
+            z-index: 1;display: unset;">
+              <ion-icon style="opacity: 1;color:var(--ion-color-primary);" name="settings-sharp"></ion-icon>
+            </div>
+            <div class="footerLanguage">
+                <ion-button id="LangVN" class="language1" [ngClass]="[lang?.toLowerCase() !== 'vn' ? 'disable-language' : '','language-child']" (click)="changeLanguage('vn')">
+                    <ion-text [class]="activeVN">VN</ion-text>
+                </ion-button>
+                <ion-button id="LangEN" class="language2" [ngClass]="[lang?.toLowerCase() !== 'en' ? 'disable-language' : '','language-child']" (click)="changeLanguage('en')">
+                    <ion-text [class]="activeEN">EN</ion-text>
+                </ion-button>
+            </div>
+        </form>
+    </div>
+
+</ion-content>
+
+
+<ion-footer class="ion-no-border">
+  <ion-toolbar>
+      <ion-title text-left class="footer ion-text-center">{{"LOGIN.CopyRight" | translate}}</ion-title>
+  </ion-toolbar>
+</ion-footer>
+<!-- <router-outlet></router-outlet> -->
+<ion-modal [isOpen]="isModalOpen" mode="ios">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-button style="--background: none;--color: #fff;margin-left: 0.8rem;" (click)="getConfigApp()">{{'LOGIN.ClearCache' | translate}}</ion-button>
+        </ion-buttons>
+        <ion-buttons slot="end">
+          <ion-button style="--background: none;--color: #fff;" (click)="setOpen(false)">{{'COMMON.Close' | translate}}</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <ion-list>
+        <ion-item [ngStyle]="{color:(serviceSelected?.ID === i + 1) ? 'var(--ion-color-primary)' : ''}" (click)="ChangeService(item)" *ngFor="let item of DataServices;let i = index" style="border-bottom: 1px solid #ddd">
+          <ion-label *ngIf="lang === 'vn'">{{item.IPName}}</ion-label>
+          <ion-label *ngIf="lang !== 'vn'">{{item.IPName2}}</ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+<router-outlet></router-outlet>

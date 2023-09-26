@@ -1,0 +1,70 @@
+<app-standard-header [title]="itemFunction.title" [icon]="'arrow-back-outline'" [href]="'home'">
+</app-standard-header>
+<ion-content>
+    <app-card-emp></app-card-emp>
+    <ion-item class="value-list-paystub">
+        <app-valuelist-modal style="flex: 1.7;margin: 0.6rem 1rem 0 1rem;" [arraySearch]="['TemplateName']" [template]="itemTemplate" [datas]="listTemplates" [FieldKeyInput]="'TemplateName'" [inputText]="TemplateName" (selectedItem)="onSelectTemp($event)">
+        </app-valuelist-modal>
+        <app-valuelist-modal style="flex: 1;margin-top: 0.6rem;" [arraySearch]="['DowCode']" [template]="itemDow" [datas]="lstDows" [FieldKeyInput]="'DowCode'" [inputText]="DowCode" (selectedItem)="onSelectMonth($event)">
+        </app-valuelist-modal>
+    </ion-item>
+    <ion-accordion-group [multiple]="true" [value]="arrOpen">
+        <ng-container *ngIf="true then template"></ng-container>
+    </ion-accordion-group>
+
+</ion-content>
+
+<ng-template #itemTemplate let-item>
+    {{item.TemplateName}}
+</ng-template>
+
+<ng-template #itemDow let-item>
+    {{item.DowCode}}
+</ng-template>
+
+<ng-template #template>
+    <ion-accordion toggleIcon="" [value]="i+1" *ngFor="let item of lstGroupTemplateDynamic,let i = index">
+        <ng-container *ngIf="!item.IsDynamic">
+            <ion-item slot="header" class="profile-title">
+                <ion-label>{{authStore.getLanguage() === 'en'? item.GroupName2 : item.GroupName}}</ion-label>
+            </ion-item>
+            <div class="ion-padding" slot="content">
+                <ng-container *ngFor="let item2 of lstdatatemplate">
+                    <ng-container *ngIf="item2.templatename === item.GroupCode">
+                        <ion-list>
+                            <ng-container *ngFor="let item1 of item.TemplateFields">
+                                <ion-item class="twoColumn" *ngIf="item2.templatename === item1.GroupCode">
+                                    <ion-label class="list-left" [style]="'color:'+item1.Color">{{authStore.getLanguage() === 'vn' ? item1.FieldName : item1.FieldName2}}</ion-label>
+                                    <ion-label *ngIf="item2.templatename === item.GroupCode" slot="end" class="label-list-end" [style]="'color:'+item1.Color">
+                                        {{IsArray(item2.data)? (item1.Format === '0' ? FormatNum(item2.data[0][item1.FieldCode],'p') : item2.data[0][item1.FieldCode]): (item1.Format === '0' ? FormatNum(item2.data[item1.FieldCode],'p') : item2.data[item1.FieldCode])}}
+                                    </ion-label>
+                                </ion-item>
+                            </ng-container>
+                        </ion-list>
+                    </ng-container>
+                </ng-container>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="item.IsDynamic">
+            <ion-item slot="header" class="profile-title">
+                <ion-label>{{authStore.getLanguage() === 'vn'? item.GroupName : item.GroupName2}}</ion-label>
+            </ion-item>
+            <div class="ion-padding" slot="content">
+                <ng-container *ngFor="let item1 of lstdatatemplate">
+                    <ng-container *ngIf="item1.templatename === item.GroupCode">
+                        <ion-list>
+                            <ion-item class="twoColumn" *ngFor="let item2 of item1.data">
+                                <ng-container *ngFor="let item3 of item.TemplateFields,let index = index">
+                                    <ion-label [style]="'color:'+item3.Color" *ngIf="index === 0" class="list-left">{{item2[item3.FieldCode]}}</ion-label>
+                                    <ion-label [style]="'color:'+item3.Color" *ngIf="index !== 0" slot="end" class="label-list-end">
+                                        {{item3.Format ? FormatNum(item2[item3.FieldCode]) : item2[item3.FieldCode]}}
+                                    </ion-label>
+                                </ng-container>
+                            </ion-item>
+                        </ion-list>
+                    </ng-container>
+                </ng-container>
+            </div>
+        </ng-container>
+    </ion-accordion>
+</ng-template>

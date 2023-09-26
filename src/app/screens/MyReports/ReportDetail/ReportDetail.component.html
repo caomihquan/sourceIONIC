@@ -1,0 +1,79 @@
+<app-standard-header [title]="Title" [icon]="'arrow-back-outline'" [href]="'NowAvailable'">
+</app-standard-header>
+
+
+<ion-content style="overflow-y: scroll;">
+    <ion-item style="--padding-start:10px;--inner-padding-end:0">
+        <app-valuelist-modal style="width: 50%;margin-top: 1rem;margin-right:0.4rem;" [template]="itemTemplate" [datas]="ListDepartment" [FieldKeyInput]="'Caption'" [inputText]="DepartmentLevelName" (selectedItem)="eventOnSelectedDepartment($event)">
+        </app-valuelist-modal>
+        <ng-container *ngIf="this.FromDate">
+            <app-datetime-modal style="width: 50%;margin-top: 1rem;margin-right:0.4rem;" iddatetime="datetimeDetailReport" iddatetimetrigger="datetimeDetailReport1" (selectedItem)="eventOnSelectedFromDate($event)">
+            </app-datetime-modal>
+        </ng-container>
+        <ng-container *ngIf="this.DowCode">
+            <app-valuelist-modal style="width: 50%;margin-top: 1rem;margin-right:0.4rem;" [template]="itemTemplate2" [datas]="ListDow" FieldKeyInput="DowCode" [inputText]="DowCode" (selectedItem)="eventOnSelectedDowCode($event)">
+            </app-valuelist-modal>
+        </ng-container>
+    </ion-item>
+
+
+    <div style="display: flex;
+    justify-content: space-between;
+    margin:0.5rem;">
+        <ion-input mode="md" [(ngModel)]="txtSearch" type="text" class="input-custom" [placeholder]="'COMMON.Search' | translate">
+            <ion-icon name="search" style="position: absolute;
+        right: 0.6rem;
+        font-size: 1.6rem;
+        color: #555;"></ion-icon>
+        </ion-input>
+        <button [disabled]="Loading" (click)="eventOnRead()" style="width:35%;background-color:var(--ion-color-primary);color: #fff;border-radius:6px;">{{'COMMON.Read'|translate}}</button>
+    </div>
+  
+    <ng-container>
+        <listview [lines]="true" [template]="!KeyGroupChild ? itemTemplateList : itemTemplateGroupList" [datas]="Data" [templateGroup]="groupTemplate" style="width: 100%" [autoLoad]="false" [isGroup]="true" [classListItem]="!KeyGroupChild ? 'list-item-report' : 'margin0'"></listview>
+        <ion-infinite-scroll threshold="100px" (ionInfinite)="loadMore($event)">
+            <ion-infinite-scroll-content loadingSpinner="bubbles" [loadingText]="'COMMON.Loading' | translate"></ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+    </ng-container>
+</ion-content>
+<ng-template #itemTemplate let-item>
+    {{item.Caption}}
+</ng-template>
+<ng-template #itemTemplate2 let-item>
+    {{item.DowCode}}
+</ng-template>
+
+<ng-template #groupTemplate let-item>
+    <ion-label class="group-name">{{item}}</ion-label>
+</ng-template>
+
+<ng-template #itemTemplateList let-item>
+    <div style="display: flex;flex: 1;">
+        <ion-thumbnail style="margin: auto;
+        --border-radius: 50%;
+        margin-right: 1rem;">
+            <img [src]="CommonHandler.ConvertPhotoUrl(item.PhotoID)" />
+        </ion-thumbnail>
+        <div style="display: flex;flex-direction: column;flex: 1;width: 100%;">
+            <div style="display: flex;justify-content: space-between;">
+                <div style="font-size: 1rem;" *ngIf="Fields && Fields.infoLeft1 && item[Fields.infoLeft1]">{{ Fields && Fields.infoLeft1 ? item[Fields.infoLeft1] : '' }}</div>
+                <div style="font-size: 0.8rem;color:#FB9D36;" *ngIf="Fields && Fields.infoRight1 && item[Fields.infoRight1]">{{Fields && Fields.infoRight1 ? format(item[Fields.infoRight1],Fields.styleRight1) : ''}}</div>
+            </div>
+            <div style="line-height: 1.2rem;">
+                <div *ngIf="Fields && Fields.infoLeft2 && item[Fields.infoLeft2]">
+                    <ion-icon class="icon-list" name="person"></ion-icon> <span class="span-list"> {{Fields && Fields.infoLeft2 ? item[Fields.infoLeft2] : ''}}</span></div>
+                <div *ngIf="Fields && Fields.infoLeft3 && item[Fields.infoLeft3]">
+                    <ion-icon class="icon-list" name="location"></ion-icon> <span class="span-list"> {{Fields && Fields.infoLeft3 ? item[Fields.infoLeft3] : ''}}</span></div>
+                <div *ngIf="Fields && Fields.infoLeft4 && item[Fields.infoLeft4]">
+                    <ion-icon class="icon-list" [name]="Fields && Fields.infoLeft4 && Fields.infoLeft4 ==='SeniorityName' ? 'hourglass' : 'create' "></ion-icon> <span class="span-list"> {{Fields && Fields.infoLeft4 ? item[Fields.infoLeft4] : ''}}</span></div>
+                <div *ngIf="Fields && Fields.infoLeft5 && item[Fields.infoLeft5]">
+                    <ion-icon class="icon-list" name="school"></ion-icon> <span class="span-list"> {{Fields && Fields.infoLeft5 ? item[Fields.infoLeft5] : ''}}</span></div>
+                <div *ngIf="Fields && Fields.infoLeft6 && item[Fields.infoLeft6]">
+                    <ion-icon class="icon-list" name="calendar"></ion-icon> <span class="span-list"> {{Fields && Fields.infoLeft6 ? item[Fields.infoLeft6] : ''}}</span></div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<ng-template #itemTemplateGroupList let-item>
+    <listview [fieldGroup]="'GroupChildName'" [template]="itemTemplateList" [datas]="[item]" [templateGroup]="groupTemplate" style="width: 100%" [autoLoad]="false" [isGroup]="true" classListItem="list-item-report-child"></listview>
+</ng-template>

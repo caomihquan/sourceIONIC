@@ -1,0 +1,147 @@
+:host::ng-deep .ion-accordion-toggle-icon {
+    display: none;
+}
+
+:host::ng-deep .listItem {
+    border-bottom: 1px solid #ddd;
+}
+
+:host::ng-deep .listItem.ios {
+    padding: 0.8rem 0;
+}
+
+:host::ng-deep .name {
+    font-size: 1rem;
+    //font-weight: 500;
+    margin-bottom: 0.4rem;
+}
+
+:host::ng-deep .jobwname {
+    font-weight: 500;
+    text-transform: initial;
+}
+
+:host::ng-deep .listItem:last-of-type {
+    border-bottom: none;
+}
+
+ion-item.group-title {
+    --background: var(--ion-color-background-primary-title);
+    --color: var(--ion-color-primary) !important;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.group-title ion-label {
+    font-size: 0.95rem !important;
+    text-transform: uppercase;
+}
+
+.day {
+    color: #FFFFFF;
+    font-size: 22px;
+}
+
+.dayFirstLast {
+    color: #FFFFFF;
+    font-size: 15px
+}
+
+.dayContent {
+    border-radius: 50%;
+    background-color: #DFDFDF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 0.6rem;
+}
+
+.dayContent1 {
+    background-color: #0088CF;
+}
+
+.dayContent2 {
+    background-color: #7DBC42;
+}
+
+.dayContent3 {
+    background-color: #FF3939;
+}
+
+.dayContent5 {
+    background-color: #FEA747;
+}
+
+.dayContent6 {
+    background-color: #F3721C;
+}
+
+.info1 {
+    color: #0088CF;
+}
+
+.info2 {
+    color: #7DBC42;
+}
+
+.info3 {
+    color: #FF3939;
+}
+
+.info5 {
+    color: #FEA747;
+}
+
+.info6 {
+    color: #F3721C;
+}
+
+.name {
+    font-size: 1rem;    font-weight: unset;
+    color: var(--text-primary);
+}
+
+.jobwname {
+    color: #999999;
+    font-size: 0.8rem;
+    line-height: 1.4rem;
+}
+
+.dayNum {
+    color: var(--ion-color-primary);
+    font-size: 15px;
+}
+
+.headerContentRight {
+    font-size: 1rem;
+    color: var(--text-primary);
+    text-transform: lowercase !important;
+}
+
+.dayStatus {
+    height: 1rem;
+    width: 1rem;
+    border-radius: 50%;
+    background-color: #DFDFDF;
+    margin-right: 0.4rem;
+}
+
+.dayStatus1 {
+    background-color: #0088CF;
+}
+
+.dayStatus2 {
+    background-color: #7DBC42;
+}
+
+.dayStatus3 {
+    background-color: #FF3939;
+}
+
+.dayStatus5 {
+    background-color: #FEA747;
+}
+
+.dayStatus6 {
+    background-color: #F3721C;
+}

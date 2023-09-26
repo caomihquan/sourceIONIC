@@ -1,0 +1,218 @@
+  <ion-header class="ion-no-border">
+    <ion-back-button text="" icon="chevron-back" style="
+    position: absolute;
+    z-index: 99;
+    top:var(--ion-safe-area-top);
+    --color:var(--ion-color-primary);
+    left:1rem;"></ion-back-button>
+  </ion-header>
+        <!-- <ion-header *ngIf="false">
+            <ion-toolbar>
+                <div class="dashboard-header">
+                    <div>
+                        <span class="dashboard-header-title">{{
+              "HomePage.Dashboard" | translate
+            }}</span>
+                    </div> -->
+                    <!-- <div class="header-icons">
+                        <ion-icon (click)="show = !show" name="search-outline" class="header-icon"></ion-icon>
+                        <div class="header-icon">
+                            <ion-icon name="notifications-outline">
+                            </ion-icon>
+                        </div>
+
+                    </div> -->
+                <!-- </div>
+            </ion-toolbar>
+        </ion-header> -->
+        <!-- <ion-slide>
+
+            </ion-slide>
+            <ion-slide>
+                <valuelist [value]="1"></valuelist>
+
+            </ion-slide> -->
+        <ion-searchbar *ngIf="show"></ion-searchbar>
+        <ion-content [scrollEvents]="false" (click)="show = false">
+            <div class="background-Img">
+                <ng-container *ngTemplateOutlet="All"> </ng-container>
+
+                <div [ngClass]="'avt-footer'" >
+                    <img class="imgStaff" (click)="oneventPushMyProfile(state.basicProfile)" [src]="CommonHandler.ConvertPhotoUrl(state.basicProfile?.PhotoID)" />
+                    <ion-card-header  >
+                        <ion-card-title>{{ state.basicProfile?.FullName }}</ion-card-title>
+                    </ion-card-header>
+                    <ion-card-content  >
+                        {{ state.basicProfile?.JobWName }}
+                    </ion-card-content>
+                </div>
+                <div class="language">
+                    <ion-img src="../assets/images/default/login/vi.png" [ngClass]="[
+              authStore.getLanguage().toLowerCase() !== 'vn'
+                ? 'disable-language'
+                : '',
+              'language-child'
+            ]" (click)="changeLanguage('vn')"></ion-img>
+                    <ion-img src="../assets/images/default/login/en.png" [ngClass]="[
+              authStore.getLanguage().toLowerCase() !== 'en'
+                ? 'disable-language'
+                : '',
+              'language-child'
+            ]" (click)="changeLanguage('en')"></ion-img>
+                </div>
+            </div>
+        </ion-content>
+
+    <ng-container *ngIf="fab">
+        <div class="modal" (click)="onCloseFab()"></div>
+    </ng-container>
+    <ion-fab slot="fixed" vertical="bottom" horizontal="end" class="floating-action">
+        <ion-fab-button (click)="onOpenFab()">
+            <ion-icon name="reorder-four-outline" class="route-icon-main"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-list side="top">
+            <button ion-fab class="option" (click)="eventLogOut()">
+        <ion-icon name="log-out-outline" class="btn-logout"></ion-icon>
+        <div class="fab-label fab-label-mov">
+          {{ "HomePage.SignOut" | translate }}
+        </div>
+      </button>
+            <button ion-fab class="option" (click)="onChangePassword()" *ngIf="state.IsHideChangePass === 0 || true">
+        <ion-icon name="finger-print-outline"></ion-icon>
+        <div class="fab-label fab-label-mov">
+          {{ "HomePage.ChangePassword" | translate }}
+        </div>
+      </button>
+            <button ion-fab class="option" (click)="eventClearToken()">
+        <ion-icon name="close-circle-outline"></ion-icon>
+        <div class="fab-label fab-label-mov">
+          {{ "HomePage.clearToken" | translate }}
+        </div>
+      </button>
+            <button ion-fab class="option" (click)="eventClearAllToken()">
+        <ion-icon name="trash-outline"></ion-icon>
+        <div class="fab-label fab-label-mov">
+          {{ "HomePage.clearAllToken" | translate }}
+        </div>
+      </button>
+            <button ion-fab class="option" (click)="onClickNotification()">
+        <ion-icon name="notifications-outline"></ion-icon>
+        <ion-badge
+          style="
+            top: -3rem;
+            position: absolute;
+            background: red;
+            border-radius: 50%;
+            padding: 0.1rem 0.2rem;
+          "
+          >{{
+            state.CountNofication > 99 ? "+99" : state.CountNofication
+          }}</ion-badge
+        >
+        <div class="fab-label fab-label-mov">
+          {{ "HomePage.Notification" | translate }}
+        </div>
+      </button>
+            <button ion-fab class="option" (click)="onOpenSearchFunctionList()">
+        <ion-icon name="search-outline"></ion-icon>
+        <div class="fab-label fab-label-mov">
+          {{ "HomePage.SearchFunction" | translate }}
+        </div>
+      </button>
+            <button ion-fab class="option" (click)="eventShowVersion()">
+        <ion-icon
+          name="albums-outline"
+          style="transform: rotate(-90deg)"
+        ></ion-icon>
+        <div class="fab-label fab-label-mov">
+          {{ "HomePage.Version" | translate }}
+        </div>
+      </button>
+            <!-- <button ion-fab class="option" (click)="eventFaceConfig()">
+              <ion-icon name="man-outline" ></ion-icon>
+<div class="fab-label fab-label-mov">{{'HomePage.FaceConfig'| translate}}</div>
+</button> -->
+        </ion-fab-list>
+    </ion-fab>
+
+<ng-template #groupTemplate let-item>
+    <h2>{{ item }}</h2>
+</ng-template>
+
+<ng-template #itemTemplate let-item>
+    <div>{{ item.FullName }}</div>
+</ng-template>
+
+<ng-template #All let-data>
+    <ion-slides pager="true">
+        <ion-slide *ngFor="let stateitem of state.Items" class="forhome">
+            <div class="wrapper">
+                <ng-container *ngTemplateOutlet="left; context: { $implicit: stateitem }">
+                </ng-container>
+                <ng-container *ngTemplateOutlet="mid; context: { $implicit: stateitem }">
+                </ng-container>
+                <ng-container *ngTemplateOutlet="right; context: { $implicit: stateitem }">
+                </ng-container>
+            </div>
+        </ion-slide>
+    </ion-slides>
+</ng-template>
+<ng-template #left let-data>
+    <div class="column columnPaddingTop">
+        <div class="cell cellMarginLeft" *ngFor="let itemleft of data.left">
+            <div class="cellContainer">
+                <div class="cellBody" (click)="onSelectFunction(itemleft)">
+                    <div class="cellHeader">
+                        <span class="cellheader-sl">{{
+              itemleft.SL && itemleft.SL > 999
+                ? "+999"
+                : itemleft.SL !== 0
+                ? itemleft.SL
+                : ""
+            }}</span>
+                        <ion-icon slot="start" name="" class="sap-icon {{ itemleft.icon }} cellicon"></ion-icon>
+                    </div>
+                    <div class="cellFooter">{{ itemleft.title }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<ng-template #mid let-data>
+    <div class="column">
+        <div class="cell" *ngFor="let itemmid of data.mid">
+            <div class="cellBody" (click)="onSelectFunction(itemmid)">
+                <div class="cellHeader">
+                    <span class="cellheader-sl">{{
+            itemmid.SL && itemmid.SL > 999
+              ? "+999"
+              : itemmid.SL !== 0
+              ? itemmid.SL
+              : ""
+          }}</span>
+                    <ion-icon slot="start" name="" class="sap-icon {{ itemmid.icon }} cellicon"></ion-icon>
+                </div>
+                <div class="cellFooter">{{ itemmid.title }}</div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<ng-template #right let-data>
+    <div class="column columnPaddingTop">
+        <div class="cell cellMarginRight" *ngFor="let itemright of data.right">
+            <div class="cellBody" (click)="onSelectFunction(itemright)">
+                <div class="cellHeader">
+                    <span class="cellheader-sl">{{
+            itemright.SL && itemright.SL > 999
+              ? "+999"
+              : itemright.SL !== 0
+              ? itemright.SL
+              : ""
+          }}</span>
+                    <ion-icon slot="start" name="" class="sap-icon {{ itemright.icon }} cellicon"></ion-icon>
+                </div>
+                <div class="cellFooter">{{ itemright.title }}</div>
+            </div>
+        </div>
+    </div>
+</ng-template>

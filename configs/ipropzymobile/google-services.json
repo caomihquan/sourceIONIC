@@ -1,0 +1,62 @@
+{
+  "project_info": {
+    "project_number": "201294913582",
+    "project_id": "signinpropzy",
+    "storage_bucket": "signinpropzy.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:201294913582:android:de1ac3eec8cbcd02ae3fbf",
+        "android_client_info": {
+          "package_name": "com.surehcs.ipropzymobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "201294913582-amp0296d123hvja6detg7blo92celnbi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.surehcs.ipropzymobile",
+            "certificate_hash": "a244f8230fcd1eafeaaa03a0311ed061596c16b7"
+          }
+        },
+        {
+          "client_id": "201294913582-qj7clu4urgqa1drso6bb2kmerr729ovi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.surehcs.ipropzymobile",
+            "certificate_hash": "55abf7043ae5bdb2e4f308afbf45ec16027e4bc3"
+          }
+        },
+        {
+          "client_id": "201294913582-miqbveo1so3qomna4allv6uu703s7gup.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCarv0uMAUFbbG6gYZOD2pc6EudH7O-qPY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "201294913582-miqbveo1so3qomna4allv6uu703s7gup.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "201294913582-iigc6qpgk0n7256b3ndrd015p7359rpt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.surehcs.ipropzymobile"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

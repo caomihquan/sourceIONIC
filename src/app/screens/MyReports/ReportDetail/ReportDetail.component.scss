@@ -1,0 +1,55 @@
+.wrapper {
+    height: 500px !important;
+}
+
+.input-custom {
+    border: 1px solid var(--ion-color-primary);
+    margin-left: 0.1rem;
+    margin-right: 0.6rem;
+    border-radius: 4px;
+    position: relative;
+    padding-right: 2.6rem !important;
+}
+
+.icon-list {
+    color: #eb1d31;
+    font-size: 0.8rem;
+}
+
+.group-name {
+    margin-left: 0.6rem;
+    margin-top: 2rem;
+    color: var(--ion-color-primary);
+    font-weight: 500;
+    white-space: pre-wrap;
+    margin-right: 0.6rem;
+    letter-spacing: 1px;
+}
+
+.span-list {
+    font-size: 0.8rem;
+}
+
+:host::ng-deep {
+    .list-item-report {
+        margin: 1rem;
+        border-bottom: 1px solid #ddd;
+        padding: 11px 1rem 1rem 0;
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        box-shadow: rgba(0, 0, 0, 0.15) -0.05px 2px 4px;
+        border-radius: 10px;
+    }
+    .list-item-report-child {
+        margin: 1rem;
+        border-bottom: 1px solid #ddd;
+        padding: 11px 1rem 1rem 0;
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        box-shadow: rgba(0, 0, 0, 0.15) -0.05px 2px 4px;
+        border-radius: 10px;
+    }
+    .margin0 {
+        --padding-start: 0;
+    }
+}

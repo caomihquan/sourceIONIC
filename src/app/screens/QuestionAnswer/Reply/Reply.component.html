@@ -1,0 +1,84 @@
+<!-- <app-standard-header [title]="'QA.HoiDap' | translate" [icon]="'arrow-back-outline'" [href]="'QuestionAnswer'">
+</app-standard-header> -->
+
+<ion-item class="profile-title headerReply">
+    <ion-label style="text-align: end;color:#999" (click)="doBackAnswer()">{{'COMMON.Close' | translate}}</ion-label>
+</ion-item>
+
+<ion-content>
+    <ion-modal mode="ios" style="--height:350px !important;" #modaladdreply [isOpen]="show" (didDismiss)="AfterClosemodalreply()">
+        <ng-template>
+            <ion-toolbar style="--background:var(--ion-color-primary);position: sticky;">
+                <ion-title style="text-align: center;font-weight: bold; color: white;">{{'QA.AnswerFor' | translate}}</ion-title>
+                <span 
+                (click)="modaladdreply.dismiss()"
+                style="z-index: 999999;
+                position: absolute;
+                right: 1rem;
+                color: #fff;
+                top: 1rem;">X</span>
+            </ion-toolbar>
+            <div *ngIf="isReply" style="display: flex;margin-left: 1rem;align-items: center;">
+                <div>{{'QA.ReplyTo' | translate}}</div>
+                <span style="background: #1da1f230;padding: 4px 2px;font-size: 0.8rem;">@{{user?.FullName}}:{{ReplyTo?.Content}}</span>
+            </div>
+            <ion-item class="MaginBottom">
+                <ion-textarea class="list-left" style="padding: 0 10px;margin-right: 0px;margin-left: 1rem;
+              --inner-padding-end:0;
+              border: 1px solid var(--ion-color-primary);
+              border-radius: 4px;" rows="8" [(ngModel)]="content"></ion-textarea>
+            </ion-item>
+            <ion-item class="footer-checkinout">
+                <ion-button slot="end" (click)="SendRequest()">
+                    <ion-icon style="transform: translate(-3px, -1px);" name="send-outline"></ion-icon>{{"QA.Send" | translate}}
+                </ion-button>
+            </ion-item>
+        </ng-template>
+    </ion-modal>
+    <div *ngIf="!isFull && ShowMore" (click)="ShowMore()" style="font-size: 0.9rem;margin-left:1rem;margin-top: 1rem;">{{'QA.ShowMore' | translate}}</div>
+    <ng-container>
+        <listview [template]="itemTemplate3" [datas]="data" style="width: 100%" [isGroup]="false" classGroup="my-list-request-group">
+        </listview>
+        <div style="color: var(--text-primary) !important;margin-bottom: 1rem;">
+            <button class="ColorFix" style="background: none; margin-left: 0.5rem;" (click)="eventOpenCreatePost()">
+          <b style="font-size: 1rem;">
+            {{'QA.PostComment' | translate}}
+          </b>
+      </button>
+        </div>
+    </ng-container>
+</ion-content>
+<ng-template #itemTemplate3 let-item>
+    <div class="div-container-list">
+        <ion-thumbnail [class]="'dayContent '+'dayContent'+item.Status" style=" margin-top: -2rem;">
+            <img [src]="commonHandler.ConvertPhotoUrl(item.PhotoID)">
+        </ion-thumbnail>
+        <div longPress class="QAContent" (mouseLongPress)="replyComment(item)">
+            <div style="font-size: 16px;  color: var(--text-primary) !important;" class="infor">
+                <span>{{user.EmployeeCode === item.CreatedBy ? ('QA.Me'|translate) : item.FullName}}</span>
+                <span class="QADay">{{FormatHandler.formatFullDate(item.CreatedOn, this.user)}}</span>
+            </div>
+            <div *ngIf="item.QuoteContent" style="margin: 4px 0;;">
+                <span style="background: #1da1f230;
+                padding: 4px 2px;
+                font-size: 0.8rem;">{{this.handleString(item.QuoteContent)}}</span>
+            </div>
+            <div>
+                <span class="info">{{item.Content}}</span>
+            </div>
+            <div style="font-size: 16px;  color: var(--text-primary) !important;    height: 1.25rem;" class="QAReply">
+                <span class="icondislike" style="float: right; padding-left: 1rem;" (click)="reviewAnswer(item, 0)">
+                <ion-icon style="font-size: 1rem;" name="thumbs-down"> </ion-icon>
+                <span  style="font-size:0.9rem;">{{item.TotalDisLike ? item.TotalDisLike : 0}}</span>
+                </span>
+                <span class="iconlike" style="float: right; padding-left: 1rem;" (click)="reviewAnswer(item, 1)">
+                <ion-icon style="font-size: 1rem;" name="thumbs-up"></ion-icon>
+                <span style="font-size:0.9rem;"> {{item.TotalLike ? item.TotalLike : 0}}</span>
+                </span>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<ng-template #itemTemplateTopic let-item>
+    {{item.TopicContent}}
+</ng-template>

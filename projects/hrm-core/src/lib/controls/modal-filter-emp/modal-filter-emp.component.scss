@@ -1,0 +1,24 @@
+ion-modal {
+    --height: 50%;
+    --border-radius: 16px;
+    --backgroud: none;
+    --box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --width: 80%
+}
+
+.footer-checkinout {
+  width: 100%;
+  position: sticky;
+  bottom: 0;
+  --padding-start: 0;
+  --inner-padding-end: 0;
+}
+
+.footer-checkinout ion-button {
+  flex: 1;
+  --border-radius: 0;
+  --box-shadow: 0;
+  min-height: 3rem;
+  margin: 0.4rem 0.6rem 0.4rem 0.6rem;
+  font-size: 1rem;
+}

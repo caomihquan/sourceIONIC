@@ -1,0 +1,73 @@
+<app-standard-header [title]="functionItem?.title" [icon]="'arrow-back-outline'" [href]="'home'">
+</app-standard-header>
+<ion-content>
+    <ion-icon id="dragable" name="add-circle-sharp" (click)="onClickAddNew()"></ion-icon>
+    <ion-item style="--padding-start:10px; margin: 0 0.6rem;--inner-padding-end:0">
+
+        <app-valuelist-modal style="width: 50%;margin-top: 1rem;margin-right:0.4rem;" [template]="itemTemplate" [datas]="YearItems" FieldKeyInput="key" [inputText]="YearItems[1].key" [textLeft]="'COMMON.Year' | translate" (selectedItem)="eventSelectedMonth($event)">
+        </app-valuelist-modal>
+        <app-valuelist-modal style="width: 50%;margin-top: 1rem;margin-left:0.4rem;" [template]="itemTemplate2" [datas]="OrderByItems" FieldKeyInput="name" [inputText]="OrderByItems[1].name" [textLeft]="'COMMON.OrderBy' | translate
+    " (selectedItem)="eventSelectedStatus($event) ">
+        </app-valuelist-modal>
+    </ion-item>
+
+    <ng-container>
+        <listview [template]="itemTemplate3" [datas]="RequestData" [templateGroup]="groupTemplate" style="width: 100%" [isGroup]="true" (selectedItem)="onClickEmp($event)" fieldGroupChild="Data" [classDivContainer]="'border-radius-emp-leave'" [classListItem]="'item-emp-leave'"
+            classGroup="my-list-request-group">
+        </listview>
+        <ion-infinite-scroll (ionInfinite)="loadMore($event)">
+            <ion-infinite-scroll-content loadingSpinner="bubbles" [loadingText]="'COMMON.Loading' | translate"></ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+    </ng-container>
+
+</ion-content>
+<ng-template #itemTemplate let-item>
+    {{item.key}}
+</ng-template>
+<ng-template #itemTemplate2 let-item>
+    {{item.name}}
+</ng-template>
+
+<ng-template #groupTemplate let-item>
+    <ion-label [ngClass]="{'group-label-emp':false ,'group-label-dv':true}" class="headerlistleave">
+        <span [ngClass]="{'group-text':false ,'group-text-office':true }">{{item}}</span></ion-label>
+</ng-template>
+<ng-template #itemTemplate3 let-item>
+    <div class="div-container-list">
+
+        <ion-thumbnail [class]="'dayContent '+'dayContent'+item.Status">
+            <div class="day">{{item.dayOfMonth}}</div>
+        </ion-thumbnail>
+        <div style="width:100%;flex: 1;margin:0.6rem 0;line-height: 1.4rem;margin-left: 10px;">
+            <div style="font-size: 16px;  color: var(--text-primary) !important;">
+                {{item.RegisterName}}
+            </div>
+            <div>
+                <span class="info" [class]="'info'+ item.Status">{{item.StatusName}}</span>
+            </div>
+            <div style="display: flex;" *ngIf="item.ArrayStatus && item.ArrayStatus.length > 0">
+                <div *ngFor="let item of item.ArrayStatus;" [class]="'dayStatus '+'dayStatus' + item"></div>
+            </div>
+        </div>
+        <div style="display: flex;flex-direction: column;">
+            <span class="dayNum" style="font-size: 0.95rem;
+                                    color: #02a0f2;
+                                    float: right;
+                                    ">
+                {{item?.strTimeView}}
+            </span>
+            <span class="dayNum" style="font-size: 0.9rem;
+                                    color: #999;
+                                    float: right;">
+                {{("COMMON.NumberOfPeople" | translate) +' : ' + item.EmpNum}}
+            </span>
+            <span *ngIf="item.LPeriodName" class="dayNum" style="font-size: 0.9rem;
+                                    padding-right: 10px;
+                                    color: #999999;
+                                    float: right;
+                                    ">
+                {{item.LPeriodName}}
+            </span>
+        </div>
+    </div>
+</ng-template>

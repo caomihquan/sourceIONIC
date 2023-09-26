@@ -1,0 +1,79 @@
+.card {
+    min-height: 7rem;
+    --background: #fafafa;
+    padding-top: 0.4rem;
+}
+
+ion-card-header {
+    width: 100%;
+    padding: 0;
+}
+
+ion-card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #666666;
+    padding: 0.625rem
+}
+
+// ion-card-title.md {
+//     font-size: 1rem;
+//     font-weight: 600;
+// }
+ion-card-subtitle.jobwname {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-transform: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #999;
+    padding-left: 0.625rem;
+    padding-right: 0;
+    margin: 0;
+    margin-bottom: 0.7rem;
+}
+
+ion-card-subtitle {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-transform: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #999;
+    padding-left: 0.625rem;
+    padding-right: 4rem;
+    margin: 0;
+    margin-bottom: 0.7rem;
+}
+
+.icon-mail-phone {
+    font-size: 0.6rem;
+    position: absolute;
+    bottom: -0.6rem;
+    right: 0;
+    color: var(--ion-color-primary);
+    --padding-start: 0;
+    --inner-padding-end: 0.6rem;
+    a {
+        padding: 0.2rem 0.3rem;
+        border: 1px solid var(--ion-color-primary);
+        border-radius: 50%;
+        margin: 0 0.3rem;
+    }
+}
+
+.label-list-end {
+    white-space: unset;
+    font-weight: 700;
+    flex: 2;
+    font-size: 0.8rem;
+    display: flex;
+    justify-content: flex-end;
+    overflow: inherit;
+}
+
+span {
+    color: var(--text-primary);
+}

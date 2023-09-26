@@ -1,0 +1,215 @@
+.indicator-container {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    justify-content: center;
+    align-items: center;
+    margin-left: 2px;
+}
+
+.event-indicator {
+    background: var(--ion-color-success);
+    margin-bottom: 2px;
+    width: 100%;
+    height: 5px;
+    border-radius: 5px;
+    display: table-cell;
+}
+
+.with-event {
+    background-color: transparent !important;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.eventcolor {
+    margin-bottom: 10px;
+    width: 7px;
+    height: 25px;
+    border-radius: 5px;
+}
+
+:host ::ng-deep {
+    .event-detail-container {
+        display: none;
+    }
+    .monthview-container {
+        height: auto !important;
+    }
+    .dayview-container {
+        height: auto !important;
+    }
+    .weekview-container {
+        height: auto !important;
+    }
+    .weekview-allday-table {
+        display: none;
+    }
+    .weekview-normal-event-container {
+        display: none;
+    }
+    .dayview-allday-table {
+        display: none;
+    }
+    .monthview-primary-with-event {
+        background: #fff!important;
+        color: #000!important;
+        div.indicator-container {
+            margin-top: -15px;
+            width: 90%;
+            margin-left: 1px;
+        }
+    }
+    .monthview-secondary-with-event {
+        background-color: #fff!important;
+        >div.with-event>div.indicator-container>div.indicator-dotted>span.dotted {
+            padding: 0 3px;
+        }
+    }
+    .monthview-secondary-with-event.text-muted {
+        div.with-event>div.indicator-container {
+            margin-top: -15px;
+        }
+    }
+    .monthview-selected {
+        background-color: transparent !important;
+        >div:first-child {
+            color: black !important;
+            //outline: rgb(204, 201, 204) solid 2px !important;
+            //border-radius: 50%;
+            //display: grid;
+            //border-bottom: 2px solid var(--ion-color-primary);
+        }
+        >div>div.indicator-container {
+            margin-left: 2px;
+            width: 92%;
+            margin-top: -23px;
+        }
+    }
+    .indicator-number {
+        display: flex;
+        background-color: #4fc1db;
+        color: #ffffff;
+        border-radius: 50%;
+        text-align: center;
+        padding: 0 7px;
+        margin: 5px 0;
+    }
+    .indicator-dotted {
+        margin-top: -12px;
+        .dotted {
+            border-radius: 100%;
+            padding: 3px 5px;
+            margin: 0px;
+            background-color: #4fc1db;
+            font-size: 3px;
+        }
+    }
+    .monthview-selected {
+        .with-event {
+            .indicator-container {
+                .indicator-dotted {
+                    span.dotted {
+                        margin-top: 12px;
+                        display: block;
+                        padding: 5px;
+                    }
+                }
+            }
+        }
+    }
+    .weekview-header {
+        tr {
+            padding: 10px;
+        }
+        vertical-align: top;
+    }
+    .weekview-header td,
+    .weekview-header th {
+        border: none !important;
+        font-weight: bold;
+        padding: 0;
+    }
+    .monthview-datetable th {
+        background-color: #FFEFE4;
+        color: #666;
+    }
+    .monthview-datetable {
+        border: none !important;
+        min-height: 26rem !important;
+    }
+    th {
+        border: none !important;
+    }
+    .text-muted {
+        p {
+            opacity: 0.4;
+            font-size: 15px;
+            padding-top: 5px;
+        }
+    }
+    .weekModeHeader {
+        border: none !important;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .weekview-with-event {
+        >div.with-event>div.indicator-container>div.indicator-dotted {
+            margin-top: -10px;
+            span.dotted {
+                padding: 1px 3px;
+            }
+        }
+    }
+    .weekview-selected {
+        background-color: transparent !important;
+        div.indicator-container {
+            color: black !important;
+            outline: rgb(204, 201, 204) solid 2px !important;
+            border-radius: 5px;
+            margin-top: -20px;
+            padding: 20px 5px 0 5px;
+            width: 79%;
+        }
+    }
+    .open-input-date {
+        --background-hover: transparent --ripple-color: transparent --background-activated: transparent;
+        h2 {
+            font-size: 130%;
+        }
+    }
+    div.custom-day-header {
+        margin-top: 10px;
+    }
+    .monthview-datetable td {
+        border: none !important;
+        background: none;
+    }
+    .monthview-datetable td:has(.triangle) {
+        position: relative;
+        overflow: hidden;
+        height: 100%;
+    }
+    td:has(.triangle)::after {
+        position: absolute;
+        content: "◢";
+        color: #0088CF;
+        bottom: -0.35rem;
+        right: 0;
+        font-size: 0.5rem;
+        transform: rotate(-4deg);
+    }
+    .monthview-current {
+        border-bottom: solid 5px #4fc1db!important;
+    }
+}
+
+ion-popover {
+    --background: none;
+    --backdrop-opacity: 0.6;
+    --box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.6);
+    --width: 300px;
+}

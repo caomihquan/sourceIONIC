@@ -1,0 +1,217 @@
+<app-standard-header [title]="itemFunction?.title" [icon]="'arrow-back-outline'" [href]="'ExtraDayOffRequest'">
+    <span id="HistoryAppoveLevel" slot="end" style="margin-right: 1rem;font-size: 1.6rem;color: #fff;" class="sap-icon sap-customer-history"></span>
+
+</app-standard-header>
+<ion-content>
+    <timeline idOpen="HistoryAppoveLevel" [title]="'COMMON.HistoryApproveLevel' | translate" [templateLeft]="templateLeft" [templateRight]="templateRight" [RecordID]="RequestData.RecordID" [ProcessID]="1"></timeline>
+    <ion-item class="profile-title">
+        <ion-label>{{'EXTRADAYOFF_REQUEST.Infomation' | translate}}</ion-label>
+    </ion-item>
+    <div class="ion-padding">
+        <ion-list>
+            <ion-item class="twoColumn">
+                <ng-container>
+                    <ion-label class="list-left">{{'EXTRADAYOFF_REQUEST.Status' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end" *ngIf="RequestData.Status == 1">
+                        <div style="width: 1rem;
+                            height: 1rem;
+                            border-radius: 50%;
+                            display: inline-block;
+                            background: #000;
+                            background-color: #0088CF;
+                            transform: translate(-8px, 2px)"></div>
+                        <div style="display: inline-block; color: #0088CF;">{{RequestData.StatusName}}</div>
+                    </ion-label>
+
+                    <ion-label slot="end" class="label-list-end" *ngIf="RequestData.Status==2">
+                        <div style="width: 1rem;
+                            height: 1rem;
+                            border-radius: 50%;
+                            display: inline-block;
+                            background: #000;
+                            background-color: #7DBC42;
+                            transform: translate(-8px, 2px)"></div>
+                        <div style="display: inline-block; color: #7DBC42;">{{RequestData.StatusName}}</div>
+                    </ion-label>
+
+                    <ion-label slot="end" class="label-list-end" *ngIf="RequestData.Status == 3">
+                        <div style="width: 1rem;
+                            height: 1rem;
+                            border-radius: 50%;
+                            display: inline-block;
+                            background: #000;
+                            background-color: #FF3939;
+                            transform: translate(-8px, 2px)"></div>
+                        <div style="display: inline-block; color: #FF3939;">{{RequestData.StatusName}}</div>
+                    </ion-label>
+
+                    <ion-label slot="end" class="label-list-end" *ngIf="RequestData.Status==5">
+                        <div style="width: 1rem;
+                            height: 1rem;
+                            border-radius: 50%;
+                            display: inline-block;
+                            background: #000;
+                            background-color: #FEA747;
+                            transform: translate(-8px, 2px)"></div>
+                        <div style="display: inline-block; color: #FEA747;">{{RequestData.StatusName}}</div>
+                    </ion-label>
+
+
+                    <ion-label slot="end" class="label-list-end" *ngIf="RequestData.Status==6">
+                        <div style="width: 1rem;
+                            height: 1rem;
+                            border-radius: 50%;
+                            display: inline-block;
+                            background: #000;
+                            background-color: #F3721C;
+                            transform: translate(-8px, 2px)"></div>
+                        <div style="display: inline-block; color: #F3721C;">{{RequestData.StatusName}}</div>
+                    </ion-label>
+
+                    <ion-label slot="end" class="label-list-end" *ngIf="RequestData.Status!=6 && RequestData.Status!=5 && RequestData.Status!=3 && RequestData.Status!=2  && RequestData.Status!=1">
+                        <div style="width: 1rem;
+                            height: 1rem;
+                            border-radius: 50%;
+                            display: inline-block;
+                            background: #000;
+                            background-color: #DFDFDF;
+                            transform: translate(-8px, 2px)"></div>
+                        <div style="display: inline-block; color: #DFDFDF;">{{RequestData.StatusName}}</div>
+                    </ion-label>
+                </ng-container>
+            </ion-item>
+            <ion-item class="twoColumn">
+                <ng-container>
+                    <ion-label class="list-left">{{'EXTRADAYOFF_REQUEST.RequestDate' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">
+                        {{RequestData.CreateDateView}}
+                    </ion-label>
+                </ng-container>
+            </ion-item>
+            <ion-item class="twoColumn">
+                <ng-container>
+                    <ion-label class="list-left">{{'EXTRADAYOFF_REQUEST.Reason' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">
+                        {{RequestData.Reason}}
+                    </ion-label>
+                </ng-container>
+            </ion-item>
+            <ion-item class="twoColumn" *ngIf="RequestData?.Status == 5 && true == RequestData?.IsRequireWhenCancel">
+                <ng-container>
+                    <ion-label class="list-left">{{'EXTRADAYOFF_REQUEST.ReasonDestroy' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">
+                        {{RequestData.ReasonDestroy}}
+                    </ion-label>
+                </ng-container>
+            </ion-item>
+        </ion-list>
+    </div>
+    <ion-item class="profile-title">
+        <ion-label>{{'EXTRADAYOFF_REQUEST.LeaveDetail' | translate}}</ion-label>
+    </ion-item>
+    <div class="ion-padding">
+        <ion-list>
+            <ion-item class="twoColumn">
+                <ng-container>
+                    <ion-label class="list-left">{{'EXTRADAYOFF_REQUEST.KowCode' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">
+                        {{RequestData?.KowName}}
+                    </ion-label>
+                </ng-container>
+            </ion-item>
+            <ion-item class="twoColumn">
+                <ng-container>
+                    <ion-label class="list-left">{{'EXTRADAYOFF_REQUEST.Type' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">
+                        {{RequestData?.LeavePeriodName}}
+                    </ion-label>
+                </ng-container>
+            </ion-item>
+            <ion-item class="twoColumn">
+                <ng-container>
+                    <ion-label class="list-left">{{'COMMON.FromDate' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">
+                        {{RequestData?.BegDateView}}
+                    </ion-label>
+                </ng-container>
+            </ion-item>
+            <ion-item class="twoColumn">
+                <ng-container>
+                    <ion-label class="list-left">{{'COMMON.ToDate' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">
+                        {{RequestData?.EndDateView}}
+                    </ion-label>
+                </ng-container>
+            </ion-item>
+            <ion-item class="twoColumn" *ngIf="RequestData.LeavePeriod == 6 || RequestData.LeavePeriod == 7">
+                <ng-container>
+                    <ion-label class="list-left">{{'COMMON.FromTime' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">
+                        {{RequestData?.FromTime}}
+                    </ion-label>
+                </ng-container>
+            </ion-item>
+            <ion-item class="twoColumn" *ngIf="RequestData.LeavePeriod == 6 || RequestData.LeavePeriod == 7">
+                <ng-container>
+                    <ion-label class="list-left">{{'COMMON.ToTime' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">
+                        {{RequestData?.ToTime}}
+                    </ion-label>
+                </ng-container>
+            </ion-item>
+            <ion-item class="twoColumn">
+                <ng-container>
+                    <ion-label class="list-left">{{'EXTRADAYOFF_REQUEST.Time' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end" style="color: #FF3939">
+                        {{commonHandler.convertDays(RequestData?.DayNum)}}
+                    </ion-label>
+                </ng-container>
+            </ion-item>
+
+            <ion-item class="twoColumn" *ngIf="RequestData">
+                <ng-container>
+                    <ion-label class="list-left">{{'LEAVE_APPROVE.ApproveNote' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">
+                        {{RequestData?.ApproveNote}}
+                    </ion-label>
+                </ng-container>
+            </ion-item>
+
+            <ion-item class="twoColumn" *ngIf="RequestData && IsShow">
+                <ng-container>
+                    <ion-label class="list-left">{{'COMMON.NguoiThayThe' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">
+                        {{RequestData?.ContactEmployeeName}}
+                    </ion-label>
+                </ng-container>
+            </ion-item>
+        </ion-list>
+    </div>
+    <ion-item class="footer-checkinout">
+        <ion-button *ngIf="IsActivePleaseCancel" id="btnReject" class="btnReject btnRejectText" type="submit" expand="block" (click)="handleOnPleaseReject()">
+            {{"LEAVE_REQUEST.PleaseCancel" | translate}}
+        </ion-button>
+    </ion-item>
+
+
+
+</ion-content>
+<ng-template #templateLeft let-item>
+    <div class="container-item-left">
+        <div class="ApproveDate">{{item.ApprovalDate}}</div>
+        <div><span [class]="'dayContent '+ 'dayContent'+item.ApprovalStatus">{{item.ApprovalStatusName}}</span></div>
+    </div>
+</ng-template>
+<ng-template #templateRight let-item>
+    <div style="display:flex;;width: 70%;">
+        <ion-thumbnail slot="start" style="--border-radius: 50%;">
+            <img [src]="commonHandler.ConvertPhotoUrl(item.PhotoID)" />
+        </ion-thumbnail>
+        <div class="container-item-right">
+            <div class="FullName">{{item.EmployeeName}}</div>
+            <div class="JobWname">{{item.JobWName}}</div>
+            <div class="ApproveNote">
+                {{item.ApprovalNote}}</div>
+        </div>
+    </div>
+</ng-template>

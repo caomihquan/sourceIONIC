@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "47698538889",
+    "project_id": "signindigipro",
+    "storage_bucket": "signindigipro.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:47698538889:android:0d65da4ecd4826eee83158",
+        "android_client_info": {
+          "package_name": "com.surehcs.idigipromobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "47698538889-80ofn6dka61njmrqm6k71443es9ank98.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.surehcs.idigipromobile",
+            "certificate_hash": "a4b7ba97337c41c47d39bee28496e9ecd974149c"
+          }
+        },
+        {
+          "client_id": "47698538889-0ss51ro52pfir4u3g18s02dr5gks61c5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_5AKWv8qR5x1f61gEMOL0fFMPJ43oFIw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "47698538889-0ss51ro52pfir4u3g18s02dr5gks61c5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "47698538889-tkh6thmcfv3k1r16hva3qe9h8orh1b36.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.surehcs.idigipromobile"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

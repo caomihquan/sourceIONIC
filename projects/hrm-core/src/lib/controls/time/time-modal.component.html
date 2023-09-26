@@ -1,0 +1,18 @@
+<ion-item class="modal">
+    <ion-item class="modal-input" [id]="idTimeShow">
+        <ion-label style="font-size: inherit;color:#999;" *ngIf="textLeft">{{textLeft}}:
+            <span style="margin-right:0.4rem;font-weight: 700;font-size:0.9rem;color: var(--ion-color-primary);">
+              {{FormatTime(myTime)}}
+            </span>
+        </ion-label>
+        <ion-datetime-button [datetime]="idtime" style="display:none;"></ion-datetime-button>
+        <ion-icon name="time"></ion-icon>
+    </ion-item>
+    <ion-modal [keepContentsMounted]="true" [trigger]="idTimeShow">
+        <ng-template>
+            <ion-datetime locale="es-ES" [id]="idtime" presentation="time" #popoverDatetime (ionChange)="startDateChanged(popoverDatetime.value)">
+                <span slot="time-label">Tiempo</span>
+            </ion-datetime>
+        </ng-template>
+    </ion-modal>
+</ion-item>

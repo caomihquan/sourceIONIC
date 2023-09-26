@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "323328206459",
+    "project_id": "signinsatra",
+    "storage_bucket": "signinsatra.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:323328206459:android:7bae534c330d2059fde4de",
+        "android_client_info": {
+          "package_name": "com.surehcs.isatramobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "323328206459-dlv06jiaqp3dqei3a6sll8ifkb8jhs9g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.surehcs.isatramobile",
+            "certificate_hash": "5e355280c71bcdad8815a42a77af8c142ebd73f2"
+          }
+        },
+        {
+          "client_id": "323328206459-omm2dtuairbclikig43titaf084k7cum.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9Yjp17-KAkvD9_r7Ua0hf7jBcmjtZD2s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "323328206459-omm2dtuairbclikig43titaf084k7cum.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "323328206459-1g2n1epbhklf9dv1p5veeivlmacl1oef.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.surehcs.isatramobile"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

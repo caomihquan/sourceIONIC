@@ -1,0 +1,12 @@
+<div class="datetime-buttons">
+  <label class="lbl-header">{{ field }}</label>
+
+  <ng-container *ngFor="let item of datas">
+    <button
+      class="btn-vll-item {{ item.checked ? 'active' : '' }}"
+      (click)="selectItem(item)"
+    >
+      {{ item.text }}
+    </button>
+  </ng-container>
+</div>

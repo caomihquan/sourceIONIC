@@ -1,0 +1,110 @@
+{
+  "project_info": {
+    "project_number": "647774519987",
+    "project_id": "signinaquahcm",
+    "storage_bucket": "signinaquahcm.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:647774519987:android:40ab40b5d9304488f8a6c6",
+        "android_client_info": {
+          "package_name": "com.surehcs.iaquahcmmobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "647774519987-2nijoq3od50rvsapdar1k6c9jk3q1546.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.surehcs.iaquahcmmobile",
+            "certificate_hash": "6cf64443030fc4aa9103a1b98569d9a56ef3dfb1"
+          }
+        },
+        {
+          "client_id": "647774519987-5em1aduiiehafrkki9af2vq720fh2bc1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.surehcs.iaquahcmmobile",
+            "certificate_hash": "c633894e10006d2f816c9c027d7c96e755a57160"
+          }
+        },
+        {
+          "client_id": "647774519987-7s7r11k7bs7pc91cv65t1gjoip3sdh6k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.surehcs.iaquahcmmobile",
+            "certificate_hash": "582c99a8ab3f8afb868409f6a1c550d64f3898de"
+          }
+        },
+        {
+          "client_id": "647774519987-979f7g1hbril8lnhaaunjbbf0nl115j3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.surehcs.iaquahcmmobile",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "647774519987-c05qrnn3vd0v2cs1rdd5d13j25nn01h9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.surehcs.iaquahcmmobile",
+            "certificate_hash": "e8f1b4b2d0e7c5c783cf0fc27261b5c2c4c3eb87"
+          }
+        },
+        {
+          "client_id": "647774519987-fnqa9hpdu5h1r5vtlansgnl27hdbb53p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.surehcs.iaquahcmmobile",
+            "certificate_hash": "82ea00219a61c26740109fb3926242e9ab6c2cab"
+          }
+        },
+        {
+          "client_id": "647774519987-je9usn7aro53ch1t4r0iph5d2hie7rgv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.surehcs.iaquahcmmobile",
+            "certificate_hash": "87b8706a8397bb51ca2cff9b10b6efd03b68f8fe"
+          }
+        },
+        {
+          "client_id": "647774519987-jlrj1a3813hnl7h9etsul7ptgatpiriu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.surehcs.iaquahcmmobile",
+            "certificate_hash": "b31c69097560e19b3e4c56b6da3ff55a3900a7ff"
+          }
+        },
+        {
+          "client_id": "647774519987-sc97a5aurfe2ehvq7uvaqdjoll7037ft.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyClfr-eWu6tCgh-hr9rXHmwCBb1PQl144o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "647774519987-sc97a5aurfe2ehvq7uvaqdjoll7037ft.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "647774519987-3f24jm4c6ipg5lea5od0kb085qcbt7uk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.surehcs.iaquahcmmobile"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

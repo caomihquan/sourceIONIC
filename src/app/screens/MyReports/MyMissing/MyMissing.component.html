@@ -1,0 +1,79 @@
+<app-standard-header [title]="FunctionInfo?.title" [icon]="'arrow-back-outline'" [href]="'home'">
+</app-standard-header>
+
+
+<ion-content style="overflow-y: scroll;">
+    <div style="margin:0.5rem">
+        <app-valuelist-modal [template]="itemTemplate" [datas]="ListDepartment" FieldKeyInput="Caption" [inputText]="DepartmentLevelName" (selectedItem)="eventOnSelectedDepartment($event)">
+        </app-valuelist-modal>
+    </div>
+    <div style="display: flex;justify-content: space-between; margin:0.8rem 0rem 0.5rem 0.5rem;">
+        <app-datetime-modal style="width: 100%;margin-right:0.4rem;" [textLeft]="'COMMON.ToDate' | translate" iddatetime="datetimea" iddatetimetrigger="datetimea1" (selectedItem)="eventOnSelectedFromDate($event)">
+        </app-datetime-modal>
+        <button (click)="eventRead()" style="border-radius:6px;margin:0 0.5rem;width:35%;background-color:var(--ion-color-primary);color: #fff;">{{'COMMON.Read'|translate}}</button>
+    </div>
+    <div class="wrapper">
+        <div [hidden]="!(ListWithTrongNgay.length > 0)" style="
+        border: 1px solid #ddd;margin: 1rem 0.6rem;border-radius: 6px;padding-bottom: 4rem;" [style]="'height:'+heightCharTrongNgay+' !important'">
+            <div class="header-wrapper">
+                <div>{{'MYREPORT.TotalMissingInDayWithGender' | translate}}</div>
+                <div style="font-size: 1.2rem;" (click)="eventOpenDetail(0)">
+                    <ion-icon name="ellipsis-horizontal"></ion-icon>
+                </div>
+            </div>
+            <canvas width="600" height="250" #chartTrongNgay></canvas>
+        </div>
+        <div [hidden]="!(ListWithTrongNgayLoaiCong.length > 0)" style="border: 1px solid #ddd;padding-bottom:4rem;height:420px !important;margin: 1rem 0.6rem;border-radius: 6px;">
+            <div class="header-wrapper">
+                <div> {{'MYREPORT.TotalMissingInDayWithKow' | translate}}</div>
+                <div style="font-size: 1.2rem;" (click)="eventOpenDetail(0)">
+                    <ion-icon name="ellipsis-horizontal"></ion-icon>
+                </div>
+            </div>
+            <canvas #chartTrongNgayLoaiCong></canvas>
+        </div>
+        <div [hidden]="!(ListWithTrongNgayCongTac.length > 0)" style="border: 1px solid #ddd;padding-bottom:4rem;height:420px !important;margin: 1rem 0.6rem;border-radius: 6px;">
+            <div class="header-wrapper">
+                <div> {{'MYREPORT.MissingInDayBusinessTrip' | translate}}</div>
+                <div style="font-size: 1.2rem;" (click)="eventOpenDetail(1)">
+                    <ion-icon name="ellipsis-horizontal"></ion-icon>
+                </div>
+            </div>
+            <canvas width="600" height="300" #chartTrongNgayCongTac></canvas>
+        </div>
+        <div [hidden]="!(ListWithTrongThang.length > 0)" style="
+          border: 1px solid #ddd;margin: 1rem 0.6rem;border-radius: 6px;padding-bottom: 4rem;" [style]="'height:'+heightCharTrongThang+' !important'">
+            <div class="header-wrapper">
+                <div>{{'MYREPORT.TotalMissingInMonthWithGender' | translate}}</div>
+                <div style="font-size: 1.2rem;" (click)="eventOpenDetail(2)">
+                    <ion-icon name="ellipsis-horizontal"></ion-icon>
+                </div>
+            </div>
+            <canvas width="600" height="250" #chartTrongThang></canvas>
+        </div>
+        <div [hidden]="!(ListWithTrongThangLoaiCong.length > 0)" style="border: 1px solid #ddd;padding-bottom:4rem;height:420px !important;margin: 1rem 0.6rem;border-radius: 6px;">
+            <div class="header-wrapper">
+                <div> {{'MYREPORT.TotalMissingInMonthWithKow' | translate}}</div>
+                <div style="font-size: 1.2rem;" (click)="eventOpenDetail(2)">
+                    <ion-icon name="ellipsis-horizontal"></ion-icon>
+                </div>
+            </div>
+            <canvas #chartTrongThangLoaiCong></canvas>
+        </div>
+        <div [hidden]="!(ListWithTrongThangCongTac.length > 0)" style="border: 1px solid #ddd;padding-bottom:4rem;height:420px !important;margin: 1rem 0.6rem;border-radius: 6px;">
+            <div class="header-wrapper">
+                <div> {{'MYREPORT.MissingInMonthBusinessTrip' | translate}}</div>
+                <div style="font-size: 1.2rem;" (click)="eventOpenDetail(3)">
+                    <ion-icon name="ellipsis-horizontal"></ion-icon>
+                </div>
+            </div>
+            <canvas width="600" height="300" #chartTrongThangCongTac></canvas>
+        </div>
+    </div>
+</ion-content>
+<ng-template #itemTemplate let-item>
+    {{item.Caption}}
+</ng-template>
+<ng-template #itemTemplate2 let-item>
+    {{item.DowCode}}
+</ng-template>

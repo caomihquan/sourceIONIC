@@ -1,0 +1,32 @@
+<app-standard-header [title]="'COMPONENT.NotificationDetails' | translate" [icon]="'arrow-back-outline'" [href]="'home'">
+</app-standard-header>
+<ion-content scrollX="true" scrollY="true">
+    <ion-item-divider sticky style="border: 0;padding:0; --inner-padding-end:0">
+        <div style="padding: 1rem;
+        font-size: 1rem;
+        background: var(--ion-color-background-primary-title);
+        color: var(--ion-color-primary);
+        font-weight: bold;
+        flex: 1;
+       "> {{NotificationDetail.Subject}}</div>
+    </ion-item-divider>
+    <div id="content" [innerHTML]="byPassHtml(NotificationDetail.BodyWithHTML)">
+    </div>
+    <!--
+    <ion-fab [ngClass]="{'display-none' : listFiles?.length === 0}" slot="fixed" vertical="bottom" horizontal="end">
+        <ion-fab-button id="open-modal" expand="block">
+            <ion-icon name="attach">
+            </ion-icon>
+        </ion-fab-button>
+        <ion-badge style="position: absolute;
+        top: 0;
+        right: 0;
+        background: red;">{{listFiles?.length}}</ion-badge>
+    </ion-fab> -->
+
+</ion-content>
+<ion-item class="footer-button" *ngIf="IsApproveRegistration">
+    <ion-button *ngIf="IsGetRegistration" (click)="eventOnPushRegistrationForm()">
+        {{"COMMON.Detail" | translate}}
+    </ion-button>
+</ion-item>

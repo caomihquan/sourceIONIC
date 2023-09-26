@@ -1,0 +1,51 @@
+ion-back-button {
+    --color: var(--text-primary-contrast);
+}
+
+.icon-search {
+    z-index: 99;
+    position: absolute;
+    right: 0;
+    padding: 1.2rem 1.1rem;
+    font-size: 1.2rem;
+    color: var(--text-primary);
+}
+
+ion-item {
+    --border-style: none;
+    --inner-padding-end: 0;
+    --padding-start: 0;
+}
+
+ion-input {
+    border: 1px solid var(--ion-color-primary);
+    border-radius: 8px;
+}
+
+.sticky-header {
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    background: #fff;
+    margin: 1rem 0.5rem;
+}
+
+ion-card-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    font-size: 1rem;
+    -webkit-line-clamp: 2;
+    white-space: pre-line;
+    -webkit-box-orient: vertical;
+    font-weight: 500;
+}
+
+ion-thumbnail {
+    margin: 0;
+}
+
+ion-card-header {
+    --inner-padding-end: 0;
+    margin-left: 1rem;
+}

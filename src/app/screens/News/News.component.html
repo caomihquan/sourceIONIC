@@ -1,0 +1,40 @@
+<app-standard-header [title]="itemFunction.title" [icon]="'arrow-back-outline'" [href]="'home'">
+</app-standard-header>
+<ion-content>
+    <div class="sticky-header">
+        <ion-item>
+            <ion-input style="--padding-start: 1rem;caret-color:var(--ion-color-primary);" [(ngModel)]="searchText" [placeholder]="'COMMON.Search' | translate" (keyup)="searchChange()">
+                <ion-icon name="search-outline" class="icon-search"></ion-icon>
+            </ion-input>
+        </ion-item>
+        <ion-segment [value]="defaultName" *ngIf="listTabs.length > 1">
+            <ion-segment-button color="primary" [value]="item.DefaultName" *ngFor="let item of listTabs" (click)="eventSelectTab(item.FunctionID,item.DefaultName)">
+                <ion-label>{{item.DefaultName}}</ion-label>
+            </ion-segment-button>
+        </ion-segment>
+    </div>
+    <ng-container>
+        <listview [template]="itemTemplate" [datas]="listData" style="width: 100%" [autoLoad]="false" [isGroup]="false" [classListItem]="'item-news'"></listview>
+        <ion-infinite-scroll threshold="100px" (ionInfinite)="loadMore($event)">
+            <ion-infinite-scroll-content loadingSpinner="bubbles" [loadingText]="'COMMON.Loading' | translate"></ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+    </ng-container>
+</ion-content>
+<ng-template #itemTemplate let-item>
+    <ion-item (click)="selectedNews(item)">
+        <ion-thumbnail slot="start">
+            <img [src]="item.ImageUrl" style="width:120%;max-width:none;" />
+        </ion-thumbnail>
+        <ion-card-header>
+            <ion-card-title>
+                {{item.Title}}
+            </ion-card-title>
+            <ion-card-subtitle>
+                <span><ion-icon name="time" style="transform: translateY(0.1rem);"></ion-icon>{{item.CreatedOn | date: 'dd/MM/yyyy' }} </span>
+                <span *ngIf="item && item.AttachNum > 0"><ion-icon name="attach-outline" style="font-size: 1.2rem;
+                  transform: translate(5px,4px);"></ion-icon> {{item.AttachNum}}</span>
+            </ion-card-subtitle>
+        </ion-card-header>
+    </ion-item>
+
+</ng-template>

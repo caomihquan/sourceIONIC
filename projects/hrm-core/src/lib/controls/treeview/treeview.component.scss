@@ -1,0 +1,68 @@
+ul,
+li {
+    list-style: none;
+    margin: 0;
+}
+
+ul.root-level {
+    padding: 0;
+    margin: 2em 0;
+}
+
+.expando {
+    width: 1.5em;
+    display: inline-block;
+    transition: all 0.2s linear;
+    cursor: pointer;
+    user-select: none;
+    transform: scale(1.4);
+    margin-top: 0.4rem;
+}
+
+.expando.expanded {
+    transform: scale(1.4) translateX(-2px) rotate(0.25turn) translateY(2px);
+    color: var(--ion-color-primary);
+}
+
+.found>.badge {
+    background-color: orange;
+}
+
+.debug {
+    color: #af8029;
+    padding: 0 0.5em
+}
+
+header {
+    margin: 1em 0;
+}
+
+.custom {
+    border: 1px solid var(--ion-color-primary);
+    border-radius: 8px;
+}
+
+.icon-custom {
+    position: fixed;
+    right: 1rem;
+    padding: 1rem 1rem;
+    z-index: 999;
+}
+
+.text-color {
+    color: var(--ion-color-primary);
+}
+
+ion-item {
+    border-bottom: 1px solid #ddd;
+}
+
+ion-item-divider {
+    background: none;
+    --padding-start: 0;
+    --inner-padding-end: 0
+}
+
+.checked {
+    --background: #eee;
+}

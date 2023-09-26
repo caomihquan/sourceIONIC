@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "738031515555",
+    "project_id": "signinvsa",
+    "storage_bucket": "signinvsa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:738031515555:android:258660a03ee2bbce618c16",
+        "android_client_info": {
+          "package_name": "com.surehcs.ivsamobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "738031515555-2s7vrrki44hsndc02hrg5ckvn9ibjvtm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAd-yVI8XsJua1jXJzEcXr6l1icuEdiKCA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "738031515555-2s7vrrki44hsndc02hrg5ckvn9ibjvtm.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "738031515555-629tfreffna2voogio1i8h9ekjc2ra6n.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.surehcs.ivsamobile"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

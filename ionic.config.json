@@ -1,0 +1,10 @@
+{
+    "name": "iHR-HCS",
+    "integrations": {
+        "capacitor": {}
+    },
+    "type": "angular",
+    "hooks": {
+        "build:before": "./src/build-before.js"
+    }
+}

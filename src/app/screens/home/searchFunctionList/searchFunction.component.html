@@ -1,0 +1,10 @@
+<app-standard-header [title]="'HomePage.SearchFunction'| translate" [icon]="'arrow-back-outline'" [href]="'home'">
+</app-standard-header>
+<ion-content>
+    <listview [template]="itemTemplate" [datas]="listFunction" style="width: 100%" [arraySearch]="['DefaultName']" (selectedItem)="onClickItem($event)" [autoLoad]="false" [classListItem]="'item-border-bottom'"></listview>
+</ion-content>
+
+
+<ng-template #itemTemplate let-item style="border-radius: 50px;">
+    <div> {{ item.DefaultName }}</div>
+</ng-template>

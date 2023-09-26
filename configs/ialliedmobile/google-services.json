@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "489532357737",
+    "project_id": "signinallied",
+    "storage_bucket": "signinallied.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:489532357737:android:21e64b9a0b8d13e8e476f8",
+        "android_client_info": {
+          "package_name": "com.surehcs.ialliedmobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "489532357737-cj7ue6a6ceoqreiu82ku2ukvsjdnec9h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlERe7NtPVZvfV_76wRsWy-uuiBflMCVM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "489532357737-cj7ue6a6ceoqreiu82ku2ukvsjdnec9h.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "489532357737-2t3v7jenq98psd8nksbpo1j5tph9rgte.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.surehcs.ialliedmobile"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,124 @@
+    ion-back-button {
+        --color: var(--text-primary-contrast);
+    }
+    
+    .icon-search {
+        z-index: 99;
+        position: absolute;
+        right: 0;
+        padding: 1.2rem 1.1rem;
+        font-size: 1.2rem;
+        color: var(--text-primary);
+    }
+    
+    ion-item {
+        --border-style: none;
+    }
+    
+    ion-input {
+        border: 1px solid var(--ion-color-primary);
+        border-radius: 8px;
+    }
+    
+    .sticky-header {
+        position: sticky;
+        top: 0;
+        z-index: 999;
+        background: #fff;
+        margin: 1rem
+    }
+    
+    ion-card-title {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        font-size: 1rem;
+        -webkit-line-clamp: 2;
+        white-space: pre-line;
+        -webkit-box-orient: vertical;
+        font-weight: 500;
+    }
+    
+    ion-thumbnail {
+        margin: 0;
+    }
+    
+    .footer-checkinout {
+        width: 100%;
+        position: fixed;
+        bottom: 0;
+        --padding-start: 0;
+        --inner-padding-end: 0;
+    }
+    
+    .footer-checkinout ion-button {
+        flex: 1;
+        --border-radius: 0;
+        --box-shadow: 0;
+        min-height: 2.6rem;
+        margin: 0.4rem 0.6rem 0.4rem 0.6rem;
+        font-size: 1rem;
+    }
+    
+    ion-content {
+        --background: #fafafa
+    }
+    
+    .card-checkinout-label {
+        text-align: center;
+        padding: 3rem 0;
+        border: 1px solid #ddd;
+        margin: 0.2rem 0 0 0;
+    }
+    
+    .card-checkinout {
+        --background: #fafafa;
+        --padding-start: 0;
+        --inner-padding-end: 0;
+    }
+    
+    .box-center {
+        text-align: center;
+        position: relative;
+        border: 7px solid #eee;
+        flex: 1;
+        margin: auto 2rem;
+        padding: 4rem;
+        border-radius: 10rem;
+        margin-bottom: 8rem;
+        line-height: 1.8rem;
+    }
+    
+    div {
+        color: var(--text-primary);
+    }
+    
+    .card-checkinout-label-first {
+        color: var(--text-primary);
+        font-size: 0.8rem;
+    }
+    
+    .card-checkinout-label-second {
+        color: var(--ion-color-primary);
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+    
+    .location-pin {
+        font-size: 1rem;
+        padding: 0.8rem 0;
+        position: relative;
+        border: 1px solid #ddd;
+        top: 0.6rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+    
+    capacitor-google-map {
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+    }

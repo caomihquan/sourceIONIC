@@ -1,0 +1,17 @@
+.item {
+    width: 100%;
+    border: 2px solid var(--ion-color-primary);
+    border-radius: 6px;
+}
+
+ion-icon {
+    color: var(--ion-color-primary);
+}
+
+ion-select::part(icon) {
+    display: none !important;
+}
+
+ion-select {
+    width: 100%;
+}

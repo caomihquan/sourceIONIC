@@ -1,0 +1,38 @@
+<ion-modal #modal [trigger]="idOpen" style="--height:100%;--width:100%;--border-radius: 0;" mode="ios">
+    <ng-template>
+        <ion-header>
+            <ion-toolbar>
+                <div style="align-items: center;display: flex;" (click)="modal.dismiss()">
+                    <ion-icon style="margin-left: 0.6rem;
+                font-size: 1.4rem;color:#fff" name="arrow-back-outline"></ion-icon>
+                    <ion-label style="margin-left: 0.6rem;
+                    color: #fff;
+                    font-size: 1rem;
+                    transform: translateY(1px);">{{title}}</ion-label>
+                </div>
+
+            </ion-toolbar>
+        </ion-header>
+        <ion-content>
+            <ion-list *ngIf="datas?.length; else emptyData">
+                <div class="containerTimeLine">
+                    <ion-item *ngFor="let item of datas" (click)="onClickItem(item)" class="item-listTimeLine">
+                        <ng-container *ngTemplateOutlet="templateLeft;
+        context: { $implicit: item }">
+                        </ng-container>
+                        <ng-container *ngTemplateOutlet="templateRight;
+          context: { $implicit: item }">
+                        </ng-container>
+                    </ion-item>
+                </div>
+
+            </ion-list>
+        </ion-content>
+
+    </ng-template>
+    <ng-template #emptyData>
+        <div style="width: 100%;
+  text-align: center;
+  margin-top: 1rem;">{{"COMMON.NoDataFound"|translate}}</div>
+    </ng-template>
+</ion-modal>

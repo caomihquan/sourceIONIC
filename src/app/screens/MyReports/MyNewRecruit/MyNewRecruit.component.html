@@ -1,0 +1,53 @@
+<app-standard-header [title]="FunctionInfo?.title" [icon]="'arrow-back-outline'" [href]="'home'">
+</app-standard-header>
+
+
+<ion-content style="overflow-y: scroll;">
+    <div style="margin:0.5rem">
+        <app-valuelist-modal [template]="itemTemplate" [datas]="ListDepartment" FieldKeyInput="Caption" [inputText]="DepartmentLevelName" (selectedItem)="eventOnSelectedDepartment($event)">
+        </app-valuelist-modal>
+    </div>
+    <div style="display: flex;justify-content: space-between; margin:0.8rem 0rem 0.5rem 0;">
+        <app-valuelist-modal style="margin:0 0.5rem;width:65%;" [template]="itemTemplate2" [datas]="ListDow" FieldKeyInput="DowCode" [inputText]="DowCode" (selectedItem)="eventOnSelectedDowCode($event)">
+        </app-valuelist-modal>
+        <button (click)="eventRead()" style="border-radius:4px;margin:0 0.5rem;width:35%;background-color:var(--ion-color-primary);color: #fff;">{{'COMMON.Read'|translate}}</button>
+    </div>
+    <div class="wrapper">
+        <div [hidden]="!(ListWithMonth.length > 0)" [style]="'height:'+heightListWithMonth+' !important'" style="border: 1px solid #ddd;margin: 1rem 0.6rem;border-radius: 6px;padding-bottom: 4rem;">
+            <div class="header-wrapper">
+                <div>{{'MYREPORT.NewRecruitInMonth' | translate}}</div>
+                <div style="font-size: 1.2rem;" (click)="eventOpenDetail(1)">
+                    <ion-icon name="ellipsis-horizontal"></ion-icon>
+                </div>
+            </div>
+            <canvas width="600" height="250" #chartListWithMonth></canvas>
+        </div>
+
+        <div [hidden]="!(ListWithYear.length > 0)" style="border: 1px solid #ddd;padding-bottom:4rem;height:420px !important;margin: 1rem 0.6rem;border-radius: 6px;">
+            <div class="header-wrapper">
+                <div> {{'MYREPORT.TotalNewRecruitInYear' | translate}}</div>
+                <div style="font-size: 1.2rem;" (click)="eventOpenDetail(2)">
+                    <ion-icon name="ellipsis-horizontal"></ion-icon>
+                </div>
+            </div>
+            <canvas width="600" height="300" #chartListWithYear></canvas>
+        </div>
+
+        <div [hidden]="!(ListWithYearDetail?.length > 0)" style="
+          border: 1px solid #ddd;margin: 1rem 0.6rem;border-radius: 6px;padding-bottom: 4rem;" [style]="'height:'+heightCharListWithYearDetail+' !important'">
+            <div class="header-wrapper">
+                <div>{{'MYREPORT.DetailTotalNewRecruitInYearFollowMonth' | translate}}</div>
+                <div style="font-size: 1.2rem;" (click)="eventOpenDetail(2)">
+                    <ion-icon name="ellipsis-horizontal"></ion-icon>
+                </div>
+            </div>
+            <canvas width="600" height="250" #chartListWithYearDetail></canvas>
+        </div>
+    </div>
+</ion-content>
+<ng-template #itemTemplate let-item>
+    {{item.Caption}}
+</ng-template>
+<ng-template #itemTemplate2 let-item>
+    {{item.DowCode}}
+</ng-template>

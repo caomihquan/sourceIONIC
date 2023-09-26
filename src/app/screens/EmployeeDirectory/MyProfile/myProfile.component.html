@@ -1,0 +1,512 @@
+<app-standard-header [title]="'HomePage.MyProfile'| translate" [icon]="'arrow-back-outline'" [href]="'EmployeeDirectory'">
+</app-standard-header>
+<ion-content >
+    <app-card-emp style="position: sticky;
+    top: -8px;
+    z-index: 1;"></app-card-emp>
+    <ion-accordion-group [multiple]="true" [value]="['first','two','three','four','five','six','seven','eight','nine','ten','eleven']">
+        <ng-container *ngIf="itemEmp.IsVisibleByEmpDirectory; then templateEmpVisible else templateEmpInformation"></ng-container>
+        <ng-container *ngIf="isShowDataEmpTrainBGRD && (state.flag === 1 || state.flag === 2); then EmpTrainBGRD"></ng-container>
+        <ng-container *ngIf="isShowDataEmpTrainCourse && (state.flag === 1 || state.flag === 2); then EmpTrainCourse"></ng-container>
+        <ng-container *ngIf="isShowDataEmpWorking && (state.flag === 1 || state.flag === 2); then EmpWorking"></ng-container>
+        <ng-container *ngIf="isShowDataEmpBenefits && (state.flag === 1 || state.flag === 2); then EmpBenefits"></ng-container>
+        <ng-container *ngIf="isShowDataEmpAllowance && (state.flag === 1 || state.flag === 2); then EmpAllowance"></ng-container>
+        <ng-container *ngIf="isShowDataEmpAward && (state.flag === 1 || state.flag === 2); then EmpAward"></ng-container>
+        <ng-container *ngIf="isShowDataEmpDiscipline && (state.flag === 1 || state.flag === 2); then EmpDiscipline"></ng-container>
+        <ng-container *ngIf="isShowDataEmpFortune && (state.flag === 1 || state.flag === 2); then EmpFortune"></ng-container>
+        <ng-container *ngIf="isShowDataEmpInsurance && (state.flag === 1 || state.flag === 2); then EmpInsurance"></ng-container>
+    </ion-accordion-group>
+</ion-content>
+
+<ng-template #templateEmpVisible>
+    <ion-accordion value="first" toggleIcon="arrow-down">
+        <ion-item slot="header" class="profile-title">
+            <ion-label>{{'HomePage.MyProfile'| translate}}</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">
+            <ion-list>
+                <ion-item class="twoColumn">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.FullName' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{state.DataEmpBasicInfoProfile?.FullName}}</ion-label>
+                </ion-item>
+                <ion-item class="twoColumn">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.DepartmentNameCommon' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{state.DataEmpBasicInfoProfile?.DepartmentName}}</ion-label>
+                </ion-item>
+                <ion-item class="twoColumn" *ngIf="itemEmp?.IsFieldVisibleMobile">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.Mobile' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{state.DataEmpBasicInfoProfile?.Mobile}}</ion-label>
+                </ion-item>
+                <ion-item class="twoColumn">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.Email' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{state.DataEmpBasicInfoProfile?.Email}}</ion-label>
+                </ion-item>
+                <ion-item class="twoColumn" *ngIf="state.IsFieldVisibleBirthday">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.Birthday' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{state.DataEmpBasicInfoProfile?.Birthday | date: 'dd/MM/yyyy'}}</ion-label>
+                </ion-item>
+                <ion-item class="twoColumn" *ngIf="state.IsFieldVisibleJoinDate">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.JoinDate' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{state.DataEmpBasicInfoProfile?.JoinDate | date: 'dd/MM/yyyy'}}</ion-label>
+                </ion-item>
+                <ion-item class="twoColumn">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.JobWNameCommon' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{state.DataEmpBasicInfoProfile?.JobWName}}</ion-label>
+                </ion-item>
+                <ion-item class="twoColumn">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.DirectManager' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{state.DataEmpBasicInfoProfile?.DirectManager}}</ion-label>
+                </ion-item>
+                <ion-item class="twoColumn" style="--border-style:none !important">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.InDirectManager' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{state.DataEmpBasicInfoProfile?.InDirectManager}}</ion-label>
+                </ion-item>
+            </ion-list>
+        </div>
+    </ion-accordion>
+
+</ng-template>
+<ng-template #templateEmpInformation>
+    <ion-accordion value="two" toggleIcon="arrow-down">
+        <ion-item slot="header" class="profile-title">
+            <ion-label>{{'HomePage.MyProfile'| translate}}</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">
+            <ion-list>
+                <ion-item class="twoColumn">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.FullName' | translate}}</ion-label>
+                    <ion-label class="label-list-end">{{state.DataEmpBasicInfoProfile?.FullName}}</ion-label>
+                </ion-item>
+                <ion-item class="twoColumn">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.Gender' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">
+                        {{state.DataEmpBasicInfoProfile?.Gender === 'F' ? ('EMPLOYEEINFO.Female' | translate) : (state.DataEmpBasicInfoProfile?.Gender === 'M'? ('EMPLOYEEINFO.Male' | translate) : '')}}
+                    </ion-label>
+                </ion-item>
+                <ion-item class="twoColumn">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.Birthday' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{state.DataEmpBasicInfoProfile?.Birthday | date: 'dd/MM/yyyy'}}</ion-label>
+                </ion-item>
+                <ion-item class="twoColumn">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.MaritalName' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{state.DataEmpBasicInfoProfile?.MaritalName}}</ion-label>
+                </ion-item>
+                <ion-item class="twoColumn">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.JobWNameCommon' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{state.DataEmpBasicInfoProfile?.JobWName}}</ion-label>
+
+                </ion-item>
+                <ion-item class="twoColumn">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.DepartmentNameCommon' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end normal">{{state.DataEmpBasicInfoProfile?.DepartmentName}}</ion-label>
+
+                </ion-item>
+                <ion-item class="twoColumn">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.ThamNien' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{state.DataEmpBasicInfoProfile?.ThamNien}}</ion-label>
+
+                </ion-item>
+                <!-- nguyên quán -->
+                <ion-item class="twoColumn">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.NAddress' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end normal">{{state.DataEmpBasicInfoProfile?.NAddress}}</ion-label>
+                </ion-item>
+                <ion-item class="twoColumn" *ngIf="state.IsShowNWardName">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.PhuongXa' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end normal">{{state.DataEmpBasicInfoProfile?.NWardName}}</ion-label>
+
+                </ion-item>
+                <ion-item class="twoColumn" *ngIf="state.IsShowNDistrictName">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.QuanHuyem' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end normal">{{state.DataEmpBasicInfoProfile?.NDistrictName}}</ion-label>
+
+                </ion-item>
+                <ion-item class="twoColumn" *ngIf="state.IsShowNProvinceName">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.TinhThanh' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end normal">{{state.DataEmpBasicInfoProfile?.NProvinceName}}</ion-label>
+
+                </ion-item>
+                <ion-item class="twoColumn">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.PAddress' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end normal">{{state.DataEmpBasicInfoProfile?.PAddress}}</ion-label>
+
+                </ion-item>
+                <ion-item class="twoColumn" *ngIf="state.IsShowPWardName">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.PhuongXa' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end normal">{{state.DataEmpBasicInfoProfile?.PWardName}}</ion-label>
+
+                </ion-item>
+                <ion-item class="twoColumn" *ngIf="state.IsShowPDistrictName">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.QuanHuyem' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end normal">{{state.DataEmpBasicInfoProfile?.PDistrictName}}</ion-label>
+
+                </ion-item>
+                <ion-item class="twoColumn" *ngIf="state.IsShowPProvinceName">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.TinhThanh' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end normal">{{state.DataEmpBasicInfoProfile?.PProvinceName}}</ion-label>
+
+                </ion-item>
+                <!-- tạm trú -->
+                <ion-item class="twoColumn">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.TAddress' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end normal">{{state.DataEmpBasicInfoProfile?.TAddress}}</ion-label>
+
+                </ion-item>
+                <ion-item class="twoColumn" *ngIf="state.IsShowTWardName">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.PhuongXa' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end normal">{{state.DataEmpBasicInfoProfile?.TWardName}}</ion-label>
+                </ion-item>
+                <ion-item class="twoColumn" *ngIf="state.IsShowTDistrictName">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.QuanHuyem' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end normal">{{state.DataEmpBasicInfoProfile?.TDistrictName}}</ion-label>
+
+                </ion-item>
+                <ion-item class="twoColumn" *ngIf="state.IsShowTProvinceName">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.TinhThanh' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end normal">{{state.DataEmpBasicInfoProfile?.TProvinceName}}</ion-label>
+                </ion-item>
+                <!-- end trú -->
+                <ion-item class="twoColumn">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.Mobile' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{state.DataEmpBasicInfoProfile?.Mobile}}</ion-label>
+                </ion-item>
+                <ion-item class="twoColumn">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.SoDTNguoiLienHe' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{state.DataEmpBasicInfoProfile?.SoDTNguoiLienHe}}</ion-label>
+
+                </ion-item>
+                <ion-item class="twoColumn">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.Email' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{state.DataEmpBasicInfoProfile?.Email}}</ion-label>
+
+                </ion-item>
+                <ion-item class="twoColumn">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.IDCardNo' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{state.DataEmpBasicInfoProfile?.IDCardNo}}</ion-label>
+
+                </ion-item>
+                <ion-item class="twoColumn">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.IssuedDate' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{state.DataEmpBasicInfoProfile?.IssuedDate | date: 'dd/MM/yyyy'}}</ion-label>
+
+                </ion-item>
+                <ion-item class="twoColumn">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.IssuedPlaceName' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{state.DataEmpBasicInfoProfile?.IssuedPlaceName}}</ion-label>
+
+                </ion-item>
+                <!-- <ion-item class="twoColumn">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.IDCardNo2' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{state.DataEmpBasicInfoProfile?.IDCardNo2}}</ion-label>
+
+                </ion-item> -->
+                <!-- <ion-item class="twoColumn">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.IssuedDate' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{state.DataEmpBasicInfoProfile?.IssuedDate2 | date: 'dd/MM/yyyy'}}</ion-label>
+                </ion-item>
+                <ion-item class="twoColumn">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.IssuedPlaceName' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{state.DataEmpBasicInfoProfile?.IssuedPlaceName2}}</ion-label>
+                </ion-item> -->
+                <ion-item class="twoColumn">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.JoinDate' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{state.DataEmpBasicInfoProfile?.JoinDate | date: 'dd/MM/yyyy'}}</ion-label>
+
+                </ion-item>
+                <ion-item class="twoColumn">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.OfficialDate' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{state.DataEmpBasicInfoProfile?.OfficialDate | date: 'dd/MM/yyyy'}}</ion-label>
+                </ion-item>
+                <ion-item class="twoColumn" style="--border-style:none !important">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.SignedDate' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{state.DataEmpBasicInfoProfile?.SignedDate | date: 'dd/MM/yyyy'}}</ion-label>
+                </ion-item>
+            </ion-list>
+        </div>
+    </ion-accordion>
+
+</ng-template>
+
+<ng-template #EmpTrainBGRD>
+    <ion-accordion value="three" toggleIcon="arrow-down" [readonly]="state.DataEmpTrainBGRD.length === 0">
+        <ion-item slot="header" class="profile-title">
+            <ion-label>{{'EMPLOYEEINFO.EmpTrainBGRD'| translate}}</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">
+            <ion-list *ngFor="let item of state.DataEmpTrainBGRD;let i = index" [ngClass]="{'lastitem':i !== (state.DataEmpTrainBGRD.length - 1)}">
+                <ion-item class="twoColumn">
+                    <ion-label class="list-left" class="list-left">{{'EMPLOYEEINFO.TrainLevelName' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{item?.TrainLevelName}}</ion-label>
+                </ion-item>
+                <ion-item class="twoColumn">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.TrainCvrgName' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{item?.TrainCvrgName}}</ion-label>
+                </ion-item>
+                <ion-item class="twoColumn">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.TrSupplierName' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{item?.TrSupplierName}}</ion-label>
+                </ion-item>
+                <ion-item class="twoColumn">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.IssuedDate' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{item?.CerIssuedDate | date: 'dd/MM/yyyy'}}</ion-label>
+                </ion-item>
+                <ion-item class="twoColumn">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.Rank' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{item?.RankName}}</ion-label>
+                </ion-item>
+            </ion-list>
+        </div>
+    </ion-accordion>
+</ng-template>
+
+<ng-template #EmpTrainCourse>
+    <ion-accordion value="four" toggleIcon="arrow-down" [readonly]="state.DataEmpTrainCourse.length === 0">
+        <ion-item slot="header" class="profile-title">
+            <ion-label>{{'EMPLOYEEINFO.EmpTrainCourse'| translate}}</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">
+            <ion-list *ngFor="let item of state.DataEmpTrainCourse;let i = index" [ngClass]="{'lastitem':i !== (state.DataEmpTrainCourse.length - 1)}">
+                <ion-item class="twoColumn">
+                    <ion-label class="list-left" class="list-left">{{'EMPLOYEEINFO.TrainCourseName' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{item?.TrainCourseName}}</ion-label>
+                </ion-item>
+                <ion-item class="twoColumn">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.FromDate' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{item?.FromDate | date: 'dd/MM/yyyy'}}</ion-label>
+                </ion-item>
+                <ion-item class="twoColumn">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.ToDate' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{item?.ToDate | date: 'dd/MM/yyyy'}}</ion-label>
+                </ion-item>
+                <ion-item class="twoColumn">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.Rank' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{item?.RankName}}</ion-label>
+                </ion-item>
+                <ion-item class="twoColumn">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.Note' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{item?.Note}}</ion-label>
+                </ion-item>
+            </ion-list>
+        </div>
+    </ion-accordion>
+</ng-template>
+
+<ng-template #EmpWorking>
+    <ion-accordion value="five" toggleIcon="arrow-down" [readonly] ="state.DataEmpWorking.length === 0">
+        <ion-item slot="header" class="profile-title">
+            <ion-label>{{'EMPLOYEEINFO.EmpWorking'| translate}}</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">
+            <ion-list *ngFor="let item of state.DataEmpWorking;let i = index" [ngClass]="{'lastitem':i !== (state.DataEmpWorking.length - 1)}">
+                <ion-item class="twoColumn">
+                    <ion-label class="list-left" class="list-left">{{'EMPLOYEEINFO.SoQuyetDinh' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{item?.SoQuyetDinh}}</ion-label>
+                </ion-item>
+                <ion-item class="twoColumn">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.AppointName' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{item?.AppointName}}</ion-label>
+                </ion-item>
+                <ion-item class="twoColumn">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.JobWName' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{item?.JobWName}}</ion-label>
+                </ion-item>
+                <ion-item class="twoColumn" *ngIf="item?.IsShowJobWOld === true || item?.IsShowJobWOld === 1">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.JobWNameOld' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{item?.JobWNameOld}}</ion-label>
+                </ion-item>
+                <ion-item class="twoColumn">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.ChucVu' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{item?.JobPosName}}</ion-label>
+                </ion-item>
+
+                <ion-item class="twoColumn" *ngIf="item?.IsShowJobPosOld === true || item?.IsShowJobPosOld === 1">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.ChucVuCu' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{item?.JobPosName}}</ion-label>
+                </ion-item>
+                <ion-item class="twoColumn">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.DepartmentName' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{item?.DeparmentFullName}}</ion-label>
+                </ion-item>
+                <ion-item class="twoColumn" *ngIf="item?.IsShowDepOld === true || item?.IsShowDepOld === 1">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.DepartmentNameOld' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{item?.DeparmentFullNameOld}}</ion-label>
+                </ion-item>
+                <ion-item class="twoColumn">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.BeginDate' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{item?.BeginDate | date: 'dd/MM/yyyy'}}</ion-label>
+                </ion-item>
+                <ion-item class="twoColumn">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.EndDate' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{item?.EndDate | date: 'dd/MM/yyyy'}}</ion-label>
+                </ion-item>
+            </ion-list>
+        </div>
+    </ion-accordion>
+</ng-template>
+
+<ng-template #EmpBenefits>
+    <ion-accordion value="six" toggleIcon="arrow-down" [readonly] ="state.DataEmpBenefits.length === 0">
+        <ion-item slot="header" class="profile-title">
+            <ion-label>{{'EMPLOYEEINFO.EmpBenefits'| translate}}</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">
+            <ion-list *ngFor="let item of state.DataEmpBenefits;let i = index" [ngClass]="{'lastitem':i !== (state.DataEmpBenefits.length - 1)}">
+                <ion-item class="twoColumn">
+                    <ion-label class="list-left" class="list-left">{{'EMPLOYEEINFO.RealSalary' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{FormatCurrency(item?.RealSalary)}}</ion-label>
+                </ion-item>
+                <ion-item class="twoColumn">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.BeginDate' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{item?.EffectDate | date: 'dd/MM/yyyy'}}</ion-label>
+                </ion-item>
+                <ion-item class="twoColumn">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.EndDate' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{item?.EndDate | date: 'dd/MM/yyyy'}}</ion-label>
+                </ion-item>
+            </ion-list>
+        </div>
+    </ion-accordion>
+</ng-template>
+
+<!-- thu nhập khác -->
+<ng-template #EmpAllowance>
+  <ion-accordion value="eleven" toggleIcon="arrow-down" [readonly] ="DataEmpAllowance.length === 0">
+      <ion-item slot="header" class="profile-title">
+          <ion-label>{{'EMPLOYEEINFO.Allowance'| translate}}</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content">
+          <ion-list *ngFor="let item of DataEmpAllowance;let i = index" [ngClass]="{'lastitem':i !== (DataEmpAllowance.length - 1)}">
+            <ion-item class="twoColumn">
+              <ion-label class="list-left" class="list-left">{{'EMPLOYEEINFO.AllowanceName' | translate}}</ion-label>
+              <ion-label slot="end" class="label-list-end">{{item?.ExceptName}}</ion-label>
+            </ion-item>
+              <ion-item class="twoColumn">
+                  <ion-label class="list-left" class="list-left">{{'EMPLOYEEINFO.Amount' | translate}}</ion-label>
+                  <ion-label slot="end" class="label-list-end">{{FormatCurrency(item?.Amount)}}</ion-label>
+              </ion-item>
+              <ion-item class="twoColumn">
+                  <ion-label class="list-left">{{'EMPLOYEEINFO.BeginDate' | translate}}</ion-label>
+                  <ion-label slot="end" class="label-list-end">{{item?.GenDate | date: 'dd/MM/yyyy'}}</ion-label>
+              </ion-item>
+              <ion-item class="twoColumn">
+                  <ion-label class="list-left">{{'EMPLOYEEINFO.DowCode' | translate}}</ion-label>
+                  <ion-label slot="end" class="label-list-end">{{item?.DowCode}}</ion-label>
+              </ion-item>
+          </ion-list>
+          <div style="text-align: center;
+          padding: 0.8rem 0;
+          border-top: 1px solid #ddd;
+          color: var(--ion-color-primary);" *ngIf="currentItems < TotalItems">
+
+          <span *ngIf="!isLoadMoreAllowance" (click)="loadMore()">{{'EMPLOYEEINFO.LoadMore' | translate}}</span>
+          <div class="load" *ngIf="isLoadMoreAllowance"></div>
+        </div>
+
+      </div>
+  </ion-accordion>
+</ng-template>
+<ng-template #EmpAward>
+    <ion-accordion value="seven" toggleIcon="arrow-down" [readonly]="state.DataEmpAward.length === 0">
+        <ion-item slot="header" class="profile-title">
+            <ion-label>{{'EMPLOYEEINFO.EmpAward'| translate}}</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">
+            <ion-list *ngFor="let item of state.DataEmpAward;let i = index" [ngClass]="{'lastitem':i !== (state.DataEmpAward.length - 1)}">
+                <ion-item class="twoColumn">
+                    <ion-label class="list-left" class="list-left">{{'EMPLOYEEINFO.Reason' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{item?.Reason}}</ion-label>
+                </ion-item>
+                <ion-item class="twoColumn">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.AwardName' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{item?.AwardName}}</ion-label>
+                </ion-item>
+                <ion-item class="twoColumn">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.EndDate' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{item?.AwardDate | date: 'dd/MM/yyyy'}}</ion-label>
+                </ion-item>
+            </ion-list>
+        </div>
+    </ion-accordion>
+</ng-template>
+<ng-template #EmpDiscipline>
+    <ion-accordion value="eight" toggleIcon="arrow-down"  [readonly]="state.DataEmpDiscipline.length === 0">
+        <ion-item slot="header" class="profile-title">
+            <ion-label>{{'EMPLOYEEINFO.EmpDiscipline'| translate}}</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">
+            <ion-list *ngFor="let item of state.DataEmpDiscipline;let i = index" [ngClass]="{'lastitem':i !== (state.DataEmpDiscipline.length - 1)}">
+                <ion-item class="twoColumn">
+                    <ion-label class="list-left" class="list-left">{{'EMPLOYEEINFO.DisciplineContent' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{item?.DisciplineContent}}</ion-label>
+                </ion-item>
+                <ion-item class="twoColumn">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.DiscName' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{item?.DiscName}}</ion-label>
+                </ion-item>
+                <ion-item class="twoColumn">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.FromTime' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{item?.FromTime | date: 'dd/MM/yyyy'}}</ion-label>
+                </ion-item>
+                <ion-item class="twoColumn">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.ToTime' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{item?.ToTime | date: 'dd/MM/yyyy'}}</ion-label>
+                </ion-item>
+            </ion-list>
+        </div>
+    </ion-accordion>
+</ng-template>
+
+<ng-template #EmpFortune>
+    <ion-accordion value="nine" toggleIcon="arrow-down"  [readonly]="state.DataEmpFortune.length === 0">
+        <ion-item slot="header" class="profile-title">
+            <ion-label>{{'EMPLOYEEINFO.EmpFortune'| translate}}</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">
+            <ion-list *ngFor="let item of state.DataEmpFortune;let i = index" [ngClass]="{'lastitem':i !== (state.DataEmpFortune.length - 1)}">
+                <ion-item class="twoColumn">
+                    <ion-label class="list-left" class="list-left">{{'EMPLOYEEINFO.FortuneName' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{item?.FortuneName}}</ion-label>
+                </ion-item>
+                <ion-item class="twoColumn">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.ValueFortune' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{FormatCurrency(item?.ValueFortune)}}</ion-label>
+                </ion-item>
+                <ion-item class="twoColumn">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.ManagedBy' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{item?.ManagerName}}</ion-label>
+                </ion-item>
+                <ion-item class="twoColumn">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.ReceivedDate' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{item?.ReceivedDate | date: 'dd/MM/yyyy'}}</ion-label>
+                </ion-item>
+                <ion-item class="twoColumn">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.UsedTime' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{item?.UsedTime}}</ion-label>
+                </ion-item>
+                <ion-item class="twoColumn">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.Note' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{item?.Note | date: 'dd/MM/yyyy'}}</ion-label>
+                </ion-item>
+            </ion-list>
+        </div>
+    </ion-accordion>
+</ng-template>
+<ng-template #EmpInsurance>
+    <ion-accordion value="ten" toggleIcon="arrow-down"  [readonly]="state.DataEmpInsurance.length === 0">
+        <ion-item slot="header" class="profile-title">
+            <ion-label>{{'EMPLOYEEINFO.EmpInsurance'| translate}}</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">
+            <ion-list *ngFor="let item of state.DataEmpInsurance;let i = index" [ngClass]="{'lastitem':i !== (state.DataEmpInsurance.length - 1)}">
+                <ion-item class="twoColumn">
+                    <ion-label class="list-left" class="list-left">{{'EMPLOYEEINFO.SIBook' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{item?.SIBook}}</ion-label>
+                </ion-item>
+                <ion-item class="twoColumn">
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.WorkCenterName' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{item?.WorkCenterName}}</ion-label>
+                </ion-item>
+            </ion-list>
+        </div>
+    </ion-accordion>
+</ng-template>

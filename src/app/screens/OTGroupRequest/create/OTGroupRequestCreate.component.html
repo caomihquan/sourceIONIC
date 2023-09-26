@@ -1,0 +1,239 @@
+<app-standard-header [title]="FunctionInfo?.title" [icon]="'arrow-back-outline'" [href]="'OTGroupRequest'">
+</app-standard-header>
+<ion-content>
+    <ion-segment [value]="LeaveAndOTConst.TAB.Infomation" mode="md" style="height: 2.6rem;" (ionChange)="eventSelectTab($event)">
+        <ion-segment-button [value]="LeaveAndOTConst.TAB.Infomation" mode="md" style="min-height: initial;
+" [ngStyle]="{'border-bottom': (this.tabName !== LeaveAndOTConst.TAB.Infomation ? '2px solid #ddd':'none')}">
+            <ion-label style="font-size:0.7rem;">{{'BUSINESS_TRIP.Infomation' | translate}}</ion-label>
+        </ion-segment-button>
+        <ion-segment-button [value]="LeaveAndOTConst.TAB.Employee" mode="md" style="min-height: initial;
+" [ngStyle]="{'border-bottom': (this.tabName !== LeaveAndOTConst.TAB.Employee ? '2px solid #ddd':'none')}">
+            <ion-label style="font-size:0.7rem;">{{'BUSINESS_TRIP.Employee' | translate}}{{'('+ LenEmployee +')'}}</ion-label>
+        </ion-segment-button>
+    </ion-segment>
+
+    <ng-container *ngIf="this.tabName === LeaveAndOTConst.TAB.Infomation">
+
+        <ion-item class="profile-title">
+            <ion-label>{{'OT_REQUEST.Infomation' | translate}}</ion-label>
+        </ion-item>
+        <ion-item class="twoColumn">
+            <ng-container>
+                <ion-label class="list-left">{{'OT_REQUEST.RequestDate' | translate}}</ion-label>
+                <ion-label slot="end" class="label-list-end">{{RequestDate()}}</ion-label>
+            </ng-container>
+        </ion-item>
+
+        <ion-item class="profile-title" style="font-weight: 500;">
+            <ion-label>{{'OT_REQUEST.OTDetail' | translate}}</ion-label>
+        </ion-item>
+        <ion-item>
+            <app-valuelist-modal style="width: 100%;margin-right:0.4rem;" [template]="itemTemplate" [datas]="ListKow" [FieldKeyInput]="'Caption'" [inputText]="KowSelected?.Caption"
+            (selectedItem)="eventOnSelectedKowCode($event)" [textLeft]="'OT_REQUEST.KowCode' | translate">
+            </app-valuelist-modal>
+        </ion-item>
+        <ion-item>
+            <app-datetime-modal style="width: 100%;margin-right:0.4rem;" [textLeft]="'COMMON.FromDate' | translate" (selectedItem)="eventOnSelectedFromDate($event)" [inputText]="SelectedFromDate" iddatetime="datetime" iddatetimetrigger="datetime2">
+            </app-datetime-modal>
+        </ion-item>
+
+        <ng-container *ngIf="this.Configs?.IsOT !== 0">
+            <ion-item>
+                <app-time-modal style="width: 100%;margin-right:0.4rem;"
+                    [textLeft]="'COMMON.FromTime' | translate" idtime="SelectedFromTime" idTimeShow="SelectedFromTime1"
+                    KeepTime="Keep"
+                    [myTime]="SelectedFromTime" (selectedItem)="eventSelectefromtime($event)">
+                </app-time-modal>
+            </ion-item>
+            <ion-item>
+                <app-time-modal style="width: 100%;margin-right:0.4rem;" [textLeft]="'COMMON.ToTime' | translate"
+                idtime="SelectedToTime" idTimeShow="SelectedToTime1" [myTime]="SelectedToTime"
+                KeepTime="Keep" (selectedItem)="eventSelectetotime($event)">
+                </app-time-modal>
+            </ion-item>
+
+        </ng-container>
+        <ng-container *ngIf="this.Configs?.IsOT !== 1">
+            <ion-label class="list-left" style="margin-left: 0.8rem;
+            ">{{'OT_REQUEST.HourNum' | translate}}:</ion-label>
+            <ion-item class="list-left">
+                <ion-input style="width: 100%;
+    margin-right: 0.4rem;
+    --padding-start: 1rem;
+    --highlight-background: initial;
+    color: var(--text-primary);margin-top: 1rem;" type="number" [(ngModel)]='txtHourNum' placeholder="{{'OT_REQUEST.HourNum' | translate}}"></ion-input>
+            </ion-item>
+        </ng-container>
+        <ion-item *ngIf="IsFieldVisibleLPeriod">
+            <app-valuelist-modal style="width: 100%;margin-right:0.4rem;" [template]="itemTemplate2" [datas]="ListOTPeriod" [FieldKeyInput]="'Caption'" [inputText]="OTPeriodSelected?.Caption" [textLeft]="'OT_REQUEST.Period' | translate" (selectedItem)="eventOnSelectedOTPeriod($event)">
+            </app-valuelist-modal>
+        </ion-item>
+        <ion-item class="twoColumn" style="display: flex;">
+            <span class="list-left" style="opacity: 1;">{{'OT_REQUEST.IsPay' | translate}} </span>
+            <span style="margin-right: 0.6rem;"> <ion-checkbox (ionChange)="eventOnCheckedIsPay()" mode="md" style="opacity:1;" [checked]="CheckedIsPay"></ion-checkbox></span>
+        </ion-item>
+
+        <ion-item>
+            <app-valuelist-modal *ngIf="OutOfPlan_enable" style="width: 100%;margin-right:0.4rem;" [template]="itemTemplate5" [datas]="ListLoaiKeHoach"
+                [FieldKeyInput]="'Caption'" [inputText]="LoaiKeHoach?.Caption" [textLeft]="LabelLoaiKeHoach" (selectedItem)="eventOnSelectedLoaiKeHoach($event)">
+            </app-valuelist-modal>
+        </ion-item>
+
+        <ion-item class="twoColumn" *ngIf="!OutOfPlan_enable" style="border-bottom: 1px solid #A9A9A9; border-bottom-width: thin;">
+            <ion-label class="list-left">{{LabelLoaiKeHoach}}</ion-label>
+            <ion-label slot="end" class="label-list-end IonLabel">
+                {{LoaiKeHoach?.Caption}}
+            </ion-label>
+        </ion-item>
+
+
+        <ion-item class="twoColumn" id="open-modal4">
+            <ion-label class="list-left" style="font-weight: bold;">{{'BUSINESS_TRIP.Attachment' | translate}}</ion-label>
+            <ion-icon name="attach-outline" style="font-size: 35px;"></ion-icon>
+            <app-modal-attach-multi [lines]="true" [title]="'BUSINESS_TRIP.Attachment'|translate" [IsCreate]="true"
+             idOpen="open-modal4" [arraySearch]="['FileSize','FileName']" [template]="itemTemplateFile" [datas]="listfile" (onSubmitDialog)="submitDialogTypeTrip($event)"
+            [paramfile]="paramfile" [WaitingData] = "WaitingData" [textLeft]="'BUSINESS_TRIP.Attachment' | translate">
+            </app-modal-attach-multi>
+        </ion-item>
+
+
+        <ion-item>
+            <ion-label style="margin-left: 0.2rem;" class="list-left">{{'OT_GROUP_REQUEST.ReasonOfExtraWorking' | translate}}:</ion-label>
+        </ion-item>
+
+        <ion-item class="list-left" style="padding-right: 10px;">
+          <ion-textarea class="list-left" style="padding: 0 10px;margin-right: 0px;
+          margin-bottom: 1rem;
+                      border: 1px solid var(--ion-color-primary);
+                      border-radius: 4px;" [(ngModel)]="txtReason" rows="4" placeholder="{{'OT_REQUEST.WriteDownReasonLeaveGroup' | translate}}"></ion-textarea>
+        </ion-item>
+    </ng-container>
+
+
+    <ng-container *ngIf="this.tabName === LeaveAndOTConst.TAB.Employee">
+        <ion-item class="twoColumn">
+            <div class="list-left">
+                <ion-button id="open-modal2">{{"OT_REQUEST.Filter" | translate}}</ion-button>
+                <ion-button *ngIf="IsHiddenButton()" (click)="OnUpdateFilterEmp()">{{"OT_REQUEST.Edit" | translate}}</ion-button>
+                <ion-button *ngIf="IsHiddenButton()" id="update" style="--background: red;" (click)="eventDeleteFilterEmployee()">{{"OT_REQUEST.Delete" | translate}}</ion-button>
+                <app-modal-filter-emp [datasOut]="ListEmployee" [FunctionID]="FunctionInfo?.id" [title]="'COMMON.Employee'|translate" [dataKow]="FilterEmployeeForManager" idOpen="open-modal2" [arraySearch]="['EmployeeCode','EmployeeName']" [template]="itemTemplate3" (onSubmitDataDialog)="eventOnSelectedEmpForManagerSelected($event)">
+                </app-modal-filter-emp>
+            </div>
+            <ion-checkbox slot="end" [checked]="IsCheckedAll" (ionChange)="CheckAllFilter()" style="margin-right: 1.8rem;">
+            </ion-checkbox>
+        </ion-item>
+        <listview [template]="itemTemplateemp" [datas]="ListEmployee" style="width: 100%" [isGroup]="false" [classDivContainer]="'border-radius-emp'" [classListItem]="'item-emp'"></listview>
+        <ion-infinite-scroll threshold="100px" (ionInfinite)="loadMore($event)">
+            <ion-infinite-scroll-content loadingSpinner="bubbles" [loadingText]="'COMMON.Loading' | translate"></ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+    </ng-container>
+</ion-content>
+<ion-item class="footer-checkinout" *ngIf="this.tabName !== LeaveAndOTConst.TAB.Employee">
+    <ion-button style="--background:#e0e0e0;--color:#666" (click)="doPop()">
+        {{"COMMON.Cancel" | translate}}
+    </ion-button>
+    <ion-button id='btnsubmit' (click)="eventOnSubmitOTRequest(false)">
+        {{"COMMON.Submit" | translate}}
+    </ion-button>
+</ion-item>
+<ng-template #itemTemplate let-item>
+    {{item.Caption}}
+</ng-template>
+<ng-template #itemTemplate2 let-item>
+    {{item.Caption}}
+</ng-template>
+<ng-template #itemTemplate3 let-item>
+    <div style="flex: 1;border-bottom: 1px solid #ddd;padding: 1rem;">
+        <div style="margin-bottom: 0.6rem;">{{item.FullName}}</div>
+        <div> {{item.EmployeeCode}}</div>
+    </div>
+</ng-template>
+
+
+<ng-template #itemTemplateemp let-item>
+    <div class="div-container-list">
+        <ion-thumbnail slot="start" style="--border-radius: 50%;">
+            <img [src]="CommonHandler.ConvertPhotoUrl(item.PhotoID)" />
+        </ion-thumbnail>
+        <div style="width:100%;flex: 1;margin:0.6rem 0;line-height: 1.4rem; margin-left: 10px;">
+            <div style="font-size: 1.125rem;  color: var(--text-primary) !important; font-weight: bold; margin-left: 10px;">
+                {{ item.EmployeeName }}
+            </div>
+            <ion-item>
+                <ion-label class="list-left" style="font-size:13px !important;">{{item.JobWName}}</ion-label>
+                <ion-checkbox style="margin-right:1rem;" slot="end" [(ngModel)]="item.IsCheck"></ion-checkbox>
+            </ion-item>
+            <div class="label-mail" style="opacity: 1;
+        display: flex;
+        align-items: center;
+        border: 1px solid #ddd;
+        padding: 0 1rem;
+        border-radius: 6px;
+        margin-right: 2rem;" (click)="eventAfterCheckBox(item.EmployeeCode)">
+                <ion-checkbox mode="md" style="opacity: 1;
+            margin: 0.6rem 1rem 0.6rem 0;" [checked]="true" [disabled]="true"></ion-checkbox>
+                <span>{{item.PayValueName}}</span>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+
+<ion-modal [isOpen]="IsVisibleModal" (ionModalWillPresent)="onInitEdit()">
+    <ng-template>
+        <ion-header>
+            <ion-toolbar>
+                <ion-buttons slot="end">
+                    <ion-button (click)="setOpenModal(false)" style="--color: var(--text-primary-contrast);">{{"COMMON.Close" | translate}}</ion-button>
+                </ion-buttons>
+            </ion-toolbar>
+        </ion-header>
+        <ion-content>
+            <ion-item class="profile-title" style="font-weight: 500;">
+                <ion-label>{{'OT_REQUEST.OTDetail' | translate}}</ion-label>
+            </ion-item>
+            <ion-item class="twoColumn">
+                <ng-container>
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.FullName' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{Employee.EmployeeName}}</ion-label>
+                </ng-container>
+            </ion-item>
+            <ion-item class="twoColumn">
+                <ng-container>
+                    <ion-label class="list-left">{{'EMPLOYEEINFO.DepartmentNameCommon' | translate}}</ion-label>
+                    <ion-label slot="end" class="label-list-end">{{Employee.DepartmentName}}</ion-label>
+                </ng-container>
+            </ion-item>
+            <ion-item class="twoColumn" style="display: flex;">
+                <span class="list-left" style="opacity: 1;">{{'OT_REQUEST.IsPay' | translate}} </span>
+                <span style="margin-right: 0.6rem;" (click)="eventOnCheckedIsPayEdit()">
+                  <ion-checkbox mode="md" style="opacity:1;" [checked]="CheckedIsPayEdit" [disabled]="Employee.IsPayDisible"></ion-checkbox></span>
+            </ion-item>
+            <ion-item style="opacity: 1;" *ngIf="HinhThuc.length >= 2">
+                <app-valuelist-modal *ngIf="Employee.IsPayDisible" style="width: 100%;margin-right:0.4rem;" [template]="itemTemplate4" [datas]="HinhThuc" [FieldKeyInput]="'PayValueName'" [inputText]="HinhThucSelectedCurr?.PayValueName" [textLeft]="'OT_REQUEST.HinhThuc' | translate">
+                </app-valuelist-modal>
+                <app-valuelist-modal *ngIf="!Employee.IsPayDisible" style="width: 100%;margin-right:0.4rem;" [template]="itemTemplate4" [datas]="HinhThuc" [FieldKeyInput]="'PayValueName'" [inputText]="HinhThucSelectedCurr?.PayValueName" [textLeft]="'OT_REQUEST.HinhThuc' | translate"
+                (selectedItem)="eventOnSelectedHinhThucCode($event)">
+            </app-valuelist-modal>
+            </ion-item>
+        </ion-content>
+
+        <ion-item class="footer-checkinout">
+            <ion-button style="--background:#e0e0e0;--color:#666" (click)="setOpenModal(false)">
+                {{"COMMON.Cancel" | translate}}
+            </ion-button>
+            <ion-button id='btnsubmit' (click)="onSave()">
+                {{"COMMON.Submit" | translate}}
+            </ion-button>
+        </ion-item>
+    </ng-template>
+</ion-modal>
+<ng-template #itemTemplate4 let-item>
+    {{item.PayValueName}}
+</ng-template>
+<ng-template #itemTemplate5 let-item>
+    {{item.Caption}}
+</ng-template>
+<ng-template #itemTemplateFile let-item>
+    {{item.FileName}}
+</ng-template>

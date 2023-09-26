@@ -1,0 +1,69 @@
+<app-standard-header [title]="FunctionInfo?.title" [icon]="'arrow-back-outline'" [href]="'home'">
+</app-standard-header>
+
+
+<ion-content style="overflow-y: scroll;">
+    <div style="margin:0.5rem">
+        <app-valuelist-modal [template]="itemTemplate" [datas]="ListDepartment" FieldKeyInput="Caption" [inputText]="DepartmentLevelName" (selectedItem)="eventOnSelectedDepartment($event)">
+        </app-valuelist-modal>
+    </div>
+    <div style="display: flex;justify-content: space-between; margin:0.8rem 0rem 0.5rem 0.5rem;">
+        <app-datetime-modal style="width: 100%;margin-right:0.4rem;" [textLeft]="'COMMON.ToDate' | translate" iddatetime="datetimea" iddatetimetrigger="datetimea1" (selectedItem)="eventOnSelectedFromDate($event)">
+        </app-datetime-modal>
+        <button (click)="eventRead()" style="border-radius:6px;margin:0 0.5rem;width:35%;background-color:var(--ion-color-primary);color: #fff;">{{'COMMON.Read'|translate}}</button>
+    </div>
+    <div class="wrapper">
+        <div [hidden]="!(ListWithTongHop.length > 0)" style="
+          border: 1px solid #ddd;margin: 1rem 0.6rem;border-radius: 6px;padding-bottom: 4rem;" [style]="'height:'+heightCharTongHop+' !important'">
+            <div class="header-wrapper">
+                <div>{{'MYREPORT.TotalRecruit' | translate}}</div>
+                <div style="font-size: 1.2rem;" (click)="eventOpenDetail(0)">
+                    <ion-icon name="ellipsis-horizontal"></ion-icon>
+                </div>
+            </div>
+            <canvas width="600" height="250" #chartTongHop></canvas>
+        </div>
+        <div [hidden]="!(ListWithGender.length > 0)" [style]="'height:'+heightCharGender+' !important'" style="border: 1px solid #ddd;margin: 1rem 0.6rem;border-radius: 6px;padding-bottom: 4rem;">
+            <div class="header-wrapper">
+                <div>{{'MYREPORT.TotalEmployeeWithGender' | translate}}</div>
+                <div style="font-size: 1.2rem;" (click)="eventOpenDetail(1)">
+                    <ion-icon name="ellipsis-horizontal"></ion-icon>
+                </div>
+            </div>
+            <canvas width="600" height="250" #chartGender></canvas>
+        </div>
+        <div [hidden]="!(ListWithHopDongLaoDong.length > 0)" style="border: 1px solid #ddd;height:420px !important;margin: 1rem 0.6rem;border-radius: 6px;padding-bottom: 4rem;">
+            <div class="header-wrapper">
+                <div>{{'MYREPORT.LaborContract' | translate}}</div>
+                <div style="font-size: 1.2rem;" (click)="eventOpenDetail(2)">
+                    <ion-icon name="ellipsis-horizontal"></ion-icon>
+                </div>
+            </div>
+            <canvas style="padding-top:1rem;" width="600" height="250" #chartHopDongLaoDong></canvas>
+        </div>
+        <div [hidden]="!(ListWithTrinhDoHocVan.length > 0)" [style]="'height:'+heightCharTrinhDoHocVan+'!important'" style="border: 1px solid #ddd;margin: 1rem 0.6rem;border-radius: 6px;padding-bottom: 4rem;">
+            <div class="header-wrapper">
+                <div> {{'MYREPORT.Literacy' | translate}}</div>
+                <div style="font-size: 1.2rem;" (click)="eventOpenDetail(3)">
+                    <ion-icon name="ellipsis-horizontal"></ion-icon>
+                </div>
+            </div>
+            <canvas #chartTrinhDoHocVan></canvas>
+        </div>
+        <div [hidden]="!(ListWithThamNien.length > 0)" style="border: 1px solid #ddd;height:420px !important;margin: 1rem 0.6rem;border-radius: 6px;padding-bottom: 4rem;">
+            <div class="header-wrapper">
+                <div> {{'MYREPORT.Seniority' | translate}}</div>
+                <div style="font-size: 1.2rem;" (click)="eventOpenDetail(4)">
+                    <ion-icon name="ellipsis-horizontal"></ion-icon>
+                </div>
+            </div>
+            <canvas style="padding-top:1rem;" width="600" height="300" #chartThamNien></canvas>
+        </div>
+    </div>
+</ion-content>
+<ng-template #itemTemplate let-item>
+    {{item.Caption}}
+</ng-template>
+<ng-template #itemTemplate2 let-item>
+    {{item.DowCode}}
+</ng-template>

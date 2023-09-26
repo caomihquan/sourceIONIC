@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "305339677577",
+    "project_id": "signinaqua",
+    "storage_bucket": "signinaqua.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:305339677577:android:03fe66a3d0a751709c7f58",
+        "android_client_info": {
+          "package_name": "com.surehcs.iaquamobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "305339677577-l5naluu6bu6i8dsbc2p238i28v6u32j0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.surehcs.iaquamobile",
+            "certificate_hash": "ddd02dc11e041ee009173b3df0bd09d595861b8f"
+          }
+        },
+        {
+          "client_id": "305339677577-07pp79ji61kh80e442gqaethtih94tls.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjLMrlHyxUBVlEi9T5IIxpGDGL2bvx3hw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "305339677577-07pp79ji61kh80e442gqaethtih94tls.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "305339677577-lr39n6hai7kira5dn065sfr44ch5cocj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.surehcs.iaquamobile"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

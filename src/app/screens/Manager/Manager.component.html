@@ -1,0 +1,175 @@
+<app-standard-header [title]="itemFunction?.title" [icon]="'arrow-back-outline'" [href]="'home'">
+</app-standard-header>
+
+<ion-content mode="md" padding>
+    <div class="sticky-header">
+        <ion-item style="--inner-padding-end: 0.4rem;">
+            <div style="flex: 1; position: relative;">
+                <ion-input class="custom" [(ngModel)]="searchText" [placeholder]="'COMMON.Search' | translate"></ion-input>
+                <ion-icon name="search-outline" style="
+                top: 0;
+                z-index: 99;
+                position: absolute;
+                right: 0;
+                padding: 1rem 1rem;
+                font-size: 1.2rem;
+                color: var(--text-primary);" (click)="handlerSearch()">
+                </ion-icon>
+            </div>
+            <!-- *ngIf="state.IsFieldVisibleScanQRCode"  -->
+            <ion-icon name="scan-outline" style="
+              border: 1px solid var(--ion-color-primary);
+    padding: 0.4rem 0.6rem;
+    border-radius: 6px;
+    margin-left: 1rem;
+    margin-top: 0.2rem;
+    color: var(--ion-color-primary);" (click)="scanQRcode()">
+            </ion-icon>
+        </ion-item>
+        <ion-item style="--inner-padding-end: 0.4rem;">
+            <ion-label style="position: fixed;
+            left: 0;
+            z-index: 99;
+            margin: 0.5rem 0 0 1.2rem;
+            color: var(--text-primary);">{{'EmployeeDirectory.Office' | translate}}: <span style="color:var(--ion-color-primary);font-weight: 600;">{{DepartmentCode}}</span></ion-label>
+            <ion-input class="custom" (click)="setOpenModalOffice(true)" style="background: #eee">
+                <ion-icon name="arrow-down-outline" style="margin-right: 1rem;"></ion-icon>
+            </ion-input>
+        </ion-item>
+        <ion-segment [value]="'EmployeeDirectory.Employee' | translate">
+            <ion-segment-button color="primary" [value]="'EmployeeDirectory.Employee' | translate" (click)="eventSelectedTab(1)">
+                <ion-label>{{'EmployeeDirectory.Employee' | translate}}</ion-label>
+            </ion-segment-button>
+            <ion-segment-button color="primary" [value]="'EmployeeDirectory.Office' | translate" (click)="eventSelectedTab(2)">
+                <ion-label>{{'EmployeeDirectory.Office' | translate}}</ion-label>
+            </ion-segment-button>
+            <ion-segment-button color="primary" [value]="'EmployeeDirectory.PostNew' | translate" (click)="eventSelectedTab(3)">
+                <ion-label>{{'EmployeeDirectory.PostNew' | translate}}</ion-label>
+            </ion-segment-button>
+        </ion-segment>
+    </div>
+    <ion-modal [isOpen]="IsVisibleDepartment">
+        <ng-template>
+            <ion-header>
+                <ion-toolbar>
+                    <ion-buttons slot="end">
+                        <ion-button (click)="setOpenModalOffice(false)" style="--color: var(--text-primary-contrast);">{{"COMMON.Close" | translate}}</ion-button>
+                    </ion-buttons>
+                </ion-toolbar>
+            </ion-header>
+            <ion-content class="ion-padding">
+                <app-treeview [list]="ListDepartment" [id]="'ID'" [parentId]="'ParentID'" [title]="'DepartmentName'" [isSearch]="true" (selectedTree)="eventOnSelectedDepartmentCode($event)"></app-treeview>
+            </ion-content>
+        </ng-template>
+    </ion-modal>
+
+    <ng-container *ngIf="tabName !== 'PostNew'">
+        <listview [template]="itemTemplate" [datas]="ListEmpDirectories" [templateGroup]="groupTemplate" style="width: 100%" [autoLoad]="false" [isGroup]="true" (selectedItem)="onClickEmp($event)" [classDivContainer]="'border-radius-emp'" [classListItem]="'item-emp'"></listview>
+        <ion-infinite-scroll threshold="100px" (ionInfinite)="loadMore($event)">
+            <ion-infinite-scroll-content loadingSpinner="bubbles" [loadingText]="'COMMON.Loading' | translate"></ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+    </ng-container>
+
+
+    <!-- tab Đăng bài -->
+    <ng-container *ngIf="tabName === 'PostNew'">
+        <ion-item class="profile-title">
+            <ion-label class="group-header">{{'MANAGER.Detail' | translate}}</ion-label>
+        </ion-item>
+        <div style="margin:1rem 0.5rem 0.5rem 0.5rem">
+            <app-valuelist-modal [template]="itemTemplate2" [datas]="ListType" FieldKeyInput="Caption" [textLeft]="'MANAGER.Type' | translate" [inputText]="TypeSelected?.Caption" (selectedItem)="eventSelectedType($event)">
+            </app-valuelist-modal>
+        </div>
+
+        <ion-item style="--inner-padding-end: 0.4rem;" (click)="setOpenModalPostNew(true)">
+            <ion-input class="custom" style="margin:0.2rem 0.05rem 0.2rem 0.5rem;position: relative;">
+                <ion-label style="position: absolute;
+                left: 0.4rem;
+                z-index: 99;
+                font-size: 0.9rem;
+                color: #999;">{{'EmployeeDirectory.Office' | translate}}:</ion-label>
+                <span style="color: var(--ion-color-primary);
+                font-weight: 600;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+                margin: 0 3rem;
+                width: 100%;
+                font-size: 0.9rem;">{{DepartmentCodePostNew}}</span>
+                <ion-icon name="arrow-down-outline" style="position: fixed;
+                z-index: 99;margin-right: 1rem;color:var(--ion-color-primary);font-size: 1.21rem;"></ion-icon>
+            </ion-input>
+        </ion-item>
+        <ion-item style="margin: 0 0.45rem;
+        --inner-padding-end: 0;">
+            <ion-input style="padding: 0 10px !important;margin-right: 0px;
+                          border: 1px solid var(--ion-color-primary);
+                          --placeholder-opacity: .2;
+                          font-size: 0.9rem;
+                          border-radius: 4px;" [placeholder]="'MANAGER.Subject' | translate" [(ngModel)]='txtSubject'></ion-input>
+        </ion-item>
+        <ion-item style="margin: 0 0.45rem;
+        --inner-padding-end: 0;">
+            <ion-textarea style="padding: 0 10px;margin-right: 0px;
+             --placeholder-opacity: .2;
+                          font-size: 0.9rem;
+                          margin-bottom: 4rem;
+                          border: 1px solid var(--ion-color-primary);
+                          border-radius: 4px;" [(ngModel)]="txtContent" rows="4" [placeholder]="'MANAGER.Content'|translate"></ion-textarea>
+        </ion-item>
+
+        <ion-modal [isOpen]="IsVisibleDepartmentPostNew">
+            <ng-template>
+                <ion-header>
+                    <ion-toolbar>
+                        <ion-buttons slot="start">
+                            <ion-button (click)="ClearTree()" style="--color: var(--text-primary-contrast);">{{"COMMON.Delete" | translate}}</ion-button>
+                        </ion-buttons>
+                        <ion-buttons slot="end">
+                            <ion-button (click)="setOpenModalPostNew(false)" style="--color: var(--text-primary-contrast);">{{"COMMON.Close" | translate}}</ion-button>
+                        </ion-buttons>
+                    </ion-toolbar>
+                </ion-header>
+                <ion-content class="ion-padding">
+                    <app-treeview #treePostNew [list]="ListDepartment" [isMulti]="true" [id]="'ID'" [parentId]="'ParentID'" [title]="'DepartmentName'" [isSearch]="true" (selectedTree)="eventOnSelectedDepartmentCodePostNew($event)"></app-treeview>
+                </ion-content>
+            </ng-template>
+        </ion-modal>
+    </ng-container>
+    <!-- end tab đăng bài -->
+</ion-content>
+<ion-item class="footer-checkinout" *ngIf="tabName === 'PostNew'">
+    <ion-button style="--background:#e0e0e0;--color:#666" (click)="eventCancelPostNew()">
+        {{"COMMON.Cancel" | translate}}
+    </ion-button>
+    <ion-button id='btnsubmit' (click)="eventSubmitPostNew()">
+        {{"COMMON.Submit" | translate}}
+    </ion-button>
+</ion-item>
+
+<ng-template #groupTemplate let-item>
+    <ion-label [ngClass]="{'group-label-emp':tabName === 'employee' ? true : false ,'group-label-dv':tabName !== 'employee' ? true : false }">
+        <span [ngClass]="{'group-text':tabName === 'employee' ? true : false ,'group-text-office':tabName !== 'employee' ? true : false }">{{ item }}</span></ion-label>
+</ng-template>
+<ng-template #itemTemplate let-item>
+    <div class="div-container-list">
+        <ion-thumbnail slot="start">
+            <img [src]="CommonHandler.ConvertPhotoUrl(item.PhotoID)" />
+        </ion-thumbnail>
+        <div style="width:100%;flex: 1;margin:0.6rem 0;line-height: 1.4rem;">
+            <div style="font-size: 1.125rem;  color: var(--text-primary) !important;">
+                {{ item.FullName }}
+            </div>
+            <div class="label-mail" (click)="onPressShowMail(item.Email,$event)">
+                <ion-icon style="transform: translateY(0.2rem);font-size: 1rem;" name="mail"></ion-icon> <span> {{item.Email}}</span>
+            </div>
+            <div class="label-phone" (click)="onPressShowCall(item.Mobile,$event)">
+                <ion-icon name="call" style="color: var(--text-primary) !important;transform: translateY(0.2rem);font-size: 1rem;"></ion-icon><span> {{item.Mobile}}</span>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #itemTemplate2 let-item>
+    {{item.Caption}}
+</ng-template>
