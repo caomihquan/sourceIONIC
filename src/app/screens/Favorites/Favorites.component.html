@@ -1,0 +1,30 @@
+<app-standard-header [title]="'HomePage.Favorites' | translate" [icon]="'arrow-back-outline'" [href]="'home'">
+</app-standard-header>
+
+<ion-content >
+  <div class="title">Thêm và sắp xếp các chức năng yêu thích của bạn</div>
+  <ion-list>
+    <ion-reorder-group [disabled]="false" (ionItemReorder)="handleReorder($any($event))">
+      <ion-item *ngFor="let item of listFavorites">
+      <ion-reorder style="width: 100%;">
+        <div>
+          <ion-icon name="swap-vertical-outline"></ion-icon>
+          {{item.Name}}
+        </div>
+      </ion-reorder>
+      <ion-icon slot="end" (click)="deleteItem(item)" style="color: red;z-index: 9999;" name="close-circle"></ion-icon>
+      </ion-item>
+    </ion-reorder-group>
+  </ion-list>
+
+  <div class="title">Danh sách chức năng</div>
+  <listview [template]="itemTemplate" [datas]="listFunctionFilter" style="width: 100%" (selectedItem)="onClickItem($event)" [autoLoad]="false" [classListItem]="'item-border-bottom'"></listview>
+</ion-content>
+
+<ng-template #itemTemplate let-item style="border-radius: 50px;">
+  <div style="display: flex;justify-content:space-between;width:100%;padding-right: 1rem;">
+    <div> {{ item.DefaultName }}</div>
+    <ion-icon style="font-size: 1.4rem;" name="add-circle"></ion-icon>
+  </div>
+
+</ng-template>

@@ -9,7 +9,7 @@ import  HrmAPIConst from 'src/libs/constants/HrmAPIConst.js';
 import  CommonConst from 'src/libs/constants/CommonConst.js';
 import { map } from 'rxjs/operators';
 import { Platform } from '@ionic/angular';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationsService } from 'projects/hrm-core/src/lib/services/notifications/notifications.service';
 import HrmStorage from '../../../libs/core/HrmStorage';
 import HrmStorageConst from '../../../libs/constants/HrmStorageConst';
@@ -38,11 +38,17 @@ export class MainAppComponent implements OnInit {
   Language: any;
   user = new BehaviorSubject<any>(null);
   appName = '';
+  listDefault = [
+    {Sorting: 0, FunctionID: 'Mobi.002', Name: ''},
+    {Sorting: 1, FunctionID: 'Mobi.003', Name: ''},
+    {Sorting: 2, FunctionID: 'Mobi.007', Name: ''},
+    {Sorting: 3, FunctionID: 'Mobi.012', Name: ''},];
   constructor(
     private api: ApiHttpService,
     private platform: Platform,
     private router: Router,
     protected auth: AuthStore,
+    private activeRoute: ActivatedRoute,
     private notifications: NotificationsService,
     private languageService: LanguageService,
     public translate: TranslateService){
@@ -62,10 +68,12 @@ export class MainAppComponent implements OnInit {
       this.user.next(this.auth.get());
       this.getListData().subscribe();
       this.eventShowName();
-      if(this.auth.get()){
-        this.loadFunction();
-        this.loadBasicProfile();
-      }
+      this.activeRoute.params.subscribe(val => {
+        if(this.auth.get()){
+          this.loadFunction();
+          this.loadBasicProfile();
+        }
+      });
     });
   }
 
@@ -138,8 +146,24 @@ export class MainAppComponent implements OnInit {
             if (res && !res?.Error) {
                 const data = res.Data || {};
                 const listFunction = data.ListFunction || [];
+                const dataDefault = HrmStorage.getData('ListFavorites');
+                if(dataDefault && dataDefault.length > 0){
+                  this.listDefault = dataDefault;
+                }
                 const resultListFunction = this.initListFunction(listFunction, 6);
-                this.listFunction = resultListFunction;;
+                const newListB = resultListFunction.map(item => {
+                  const foundItem = this.listDefault.find(defaultItem => defaultItem.FunctionID === item.id);
+                  return { ...item, Sorting: foundItem ? foundItem.Sorting : null };
+                }).sort((a,b) => a.Sorting - b.Sorting);
+                this.listFunction = newListB;
+                if(!dataDefault || dataDefault.length === 0){
+                  const ListFavorite = resultListFunction.map((x,i)=> ({
+                    Sorting:i,
+                    FunctionID:x.id,
+                    Name:x.title,
+                  }));
+                  HrmStorage.setData('ListFavorites',ListFavorite);
+                }
             }
         });
   }
@@ -178,8 +202,9 @@ export class MainAppComponent implements OnInit {
             }
         }
     }
-    return functionList.slice(0,sliceCount);
-  }
+
+      return functionList.filter(x => this.listDefault.some(y => x.id === y.FunctionID));
+    }
 
 
   eventLogout(){

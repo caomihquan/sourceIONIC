@@ -168,7 +168,8 @@
         "Notification": "Notification",
         "SearchFunction": "Search",
         "changePass": "Change Password",
-        "Version": "App version"
+        "Version": "App version",
+        "Favorites":"Favorites"
     },
     "LEAVE_REQUEST": {
         "RegisInstead":"Regist instead",

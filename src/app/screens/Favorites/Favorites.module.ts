@@ -7,21 +7,21 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { HttpLoaderFactory } from 'src/app/app.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FaceConfigComponent } from './FaceConfig.component';
+import { FavoritesComponent } from './Favorites.component';
 
 const routes: Routes = [{
   path:'',
   children: [
     {
       path: '',
-      component:FaceConfigComponent
+      component:FavoritesComponent
     }
   ]
 }
 ];
 
 @NgModule({
-  declarations: [FaceConfigComponent],
+  declarations: [FavoritesComponent],
   imports: [
     CommonModule,
     IonicModule,

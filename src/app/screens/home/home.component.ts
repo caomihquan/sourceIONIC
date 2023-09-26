@@ -378,7 +378,7 @@ export class HomeComponent implements OnInit {
   };
 
   eventFaceConfig(){
-    this.router.navigate(['/FaceConfig']);
+    this.router.navigate(['/Favorites']);
   }
 }
 

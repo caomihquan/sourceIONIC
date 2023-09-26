@@ -50,9 +50,9 @@ const routes: Routes = [
     loadChildren: () => import('./screens/MyTimeSheet/MyTimeSheet.module').then(m => m.MyTimeSheetModule)
   },
   {
-    path: 'FaceConfig',
+    path: 'Favorites',
     canActivate: [AuthGuard],
-    loadChildren: () => import('./screens/FaceConfig/FaceConfig.module').then(m => m.FaceConfigModule)
+    loadChildren: () => import('./screens/Favorites/Favorites.module').then(m => m.FaceConfigModule)
   },
   {
     path: 'LeaveRequest',
