@@ -30,18 +30,22 @@
           <div style="font-size: 0.8rem;">{{item.title}}</div>
         </div>
       </ion-slide>
-    </ion-slides>
-    <div class="new-event-title">
+    </ion-slides>   
+    <div class="function-container new-event-title">
       {{"MainApp.NewandEvent" | translate}}
+      <div (click)="NavigateToHomePage()" class="function-more">{{"MainApp.More" | translate}}</div>
     </div>
     <div class="grid-content">
       <div class="card" *ngFor="let item of this.listData" (click)="selectedNews(item)">
         <div class="header-card">
-            <ion-img style="height: 10rem;padding-bottom: 0.8rem;" [src]="item.ImageUrl"></ion-img>
+            <ion-img [src]="item.ImageUrl"></ion-img>
         </div>
-        <span class="chip-type">{{item.Type === "news44" ? ("MainApp.News" | translate) : ("MainApp.Events" | translate)}}</span>
-        <div class="content-card">
-          {{item.Title}}
+        <span class="chip-type" [ngClass]="{'chip-type-news':item.Type === 'news44', 'chip-type-events' : item.Type === 'events44' }">{{item.Type === "news44" ? ("MainApp.News" | translate) : ("MainApp.Events" | translate)}}</span>
+        <div class="content-card">         
+          <div class="content-card-title">
+            {{item.Title}}            
+          </div>
+          <P>30/10/2023</P>
         </div>
       </div>
     </div>
