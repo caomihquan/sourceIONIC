@@ -19,7 +19,7 @@
   padding: 0.6rem;
   border-radius: 8px;
   ion-img{
-    height: 4rem; 
+    height: 4.5rem; 
     width: 35%;
     float: left;
     object-fit: unset;
@@ -31,7 +31,7 @@
     padding: 2px 6px 2px 10px;
     position: absolute;
     left: 0.6rem;
-    top: 3.4rem;
+    top: 3.9rem;
     z-index: 2;
     opacity: 0.8;
   }
@@ -58,16 +58,24 @@
     border-left: 10px solid var(--ion-color-tertiary-shade);
   }
   .content-card{
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;   
     line-height: 1.2rem;
     font-size: 0.8rem;
     font-family: sans-serif; 
     width: calc(65% - 16px);
     float: right;
+    .content-card-title{
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;  
+    }       
+    p{      
+      color: #b2afaf;
+      font-size: 0.75rem;      
+      margin-top:  0;
+      margin-bottom: 0;
+    }
   }  
 }
 @media only screen and (min-device-width:539px) {
