@@ -167,7 +167,8 @@
       "Notification": "Thông báo",
       "SearchFunction": "Tìm kiếm",
       "changePass": "Đổi mật khẩu",
-      "Version": "Phiên bản ứng dụng"
+      "Version": "Phiên bản ứng dụng",
+      "Favorites":"Chức năng yêu thích"
   },
   "LEAVE_REQUEST": {
       "RegisInstead":"Đăng ký thay",
