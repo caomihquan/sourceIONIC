@@ -39,10 +39,11 @@ export class MainAppComponent implements OnInit {
   user = new BehaviorSubject<any>(null);
   appName = '';
   listDefault = [
-    {Sorting: 0, FunctionID: 'Mobi.002', Name: ''},
-    {Sorting: 1, FunctionID: 'Mobi.003', Name: ''},
-    {Sorting: 2, FunctionID: 'Mobi.007', Name: ''},
-    {Sorting: 3, FunctionID: 'Mobi.012', Name: ''},];
+    {Sorting: 0, FunctionID: 'Mobi.007', Name: ''},
+    {Sorting: 1, FunctionID: 'Mobi.012', Name: ''},
+    {Sorting: 2, FunctionID: 'Mobi.002', Name: ''},
+    {Sorting: 3, FunctionID: 'Mobi.003', Name: ''},
+  ];
   constructor(
     private api: ApiHttpService,
     private platform: Platform,
